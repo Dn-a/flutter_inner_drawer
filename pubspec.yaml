@@ -1,0 +1,16 @@
+name: flutter_inner_drawer
+description: Inner Drawer like facebook.
+version: 0.0.1
+author: Antonino Di Natale <gyorgio88@gmail.com>
+homepage: https://github.com/Dn-a/flutter_inner_drawer
+
+environment:
+  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
