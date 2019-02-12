@@ -1,4 +1,5 @@
 import 'package:example_inner_drawer/end.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inner_drawer/flutter_inner_drawer.dart';
 
@@ -36,172 +37,290 @@ class _MyHomePageState extends State<MyHomePage>
 {
     final GlobalKey<InnerDrawerState> _innerDrawerKey = GlobalKey<InnerDrawerState>();
 
+    GlobalKey _keyRed = GlobalKey();
+    RenderBox _rd;
+    double _width=10;
+    
     bool _position = true;
     bool _onTapToClose = false;
+    double _offset = 0.4;
     
+    @override
+    void initState()
+    {
+        
+        super.initState();
+        _getwidthContainer();
+    }
 
+
+    void _getwidthContainer()
+    {
+        WidgetsBinding.instance.addPostFrameCallback((_){
+            final keyContext = _keyRed.currentContext;
+            if (keyContext != null) {
+                final RenderBox box = keyContext.findRenderObject ( );
+                final size = box.size;
+                setState(() {
+                    _width = size.width;
+                });
+            }
+        });
+    }
+    
     @override
     Widget build(BuildContext context)
     {
-    
+        _getwidthContainer();
+        
         return InnerDrawer(
             key: _innerDrawerKey,
             position: _position ? InnerDrawerPosition.start : InnerDrawerPosition.end,
             onTapClose: _onTapToClose,
-            //offset: 0.4,
+            offset: _offset,
             //innerDrawerCallback: (a) => print(a),
             child: Material(
+                //key: _keyRed,
                 //color: Colors.blueGrey,
                 child:  SafeArea(
                     //top: false,
-                    child: ListView(
+                    child: Stack(
+                        key: _keyRed,
                         children: <Widget>[
-                            Padding(
-                                padding: EdgeInsets.only(top:10, left: 15),
-                                child: Row(
-                                    //crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: <Widget>[
-                                        SizedBox(
-                                            width: 15,
-                                            height: 15,
-                                            child: CircleAvatar(
-                                                child: Icon(Icons.person,color: Colors.white,size: 12),
-                                                backgroundColor: Colors.grey,
+                            ListView(
+                                children: <Widget>[
+                                    Padding(
+                                        padding: EdgeInsets.only(top:12,bottom: 4, left: 15),
+                                        child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                                Row(
+                                                    children: <Widget>[
+                                                        SizedBox(
+                                                            width: 15,
+                                                            height: 15,
+                                                            child: CircleAvatar(
+                                                                child: Icon(Icons.person,color: Colors.white,size: 12),
+                                                                backgroundColor: Colors.grey,
+                                                            ),
+                                                        ),
+                                                        Text("   Guest",
+                                                            style: TextStyle(fontWeight: FontWeight.w600, height: 1.2),
+                                                        ),
+                                                    ],
+                                                ),
+                                                Padding(
+                                                    padding: EdgeInsets.only(top:2, right: 25),
+                                                    child: GestureDetector(
+                                                        child: Icon(
+                                                            _position ? Icons.arrow_back:Icons.arrow_forward,
+                                                            size: 18,),
+                                                        onTap: ()
+                                                        {
+                                                            _innerDrawerKey.currentState.close();
+                                                        },
+                                                    ),
+                                                ),
+                                            ],
+                                        )
+                                    ),
+                                    Divider(),
+                                    ListTile(
+                                        title:  Text("Statistics"),
+                                        leading:Icon(Icons.show_chart),
+                                    ),
+                                    ListTile(
+                                        title:   Text("Activity"),
+                                        leading: Icon(Icons.access_time),
+                                    ),
+                                    ListTile(
+                                        title:   Text("Nametag"),
+                                        leading: Icon(Icons.rounded_corner),
+                                    ),
+                                    ListTile(
+                                        title:   Text("Favorite"),
+                                        leading: Icon(Icons.bookmark_border),
+                                    ),
+                                    ListTile(
+                                        title:   Text("Close Friends"),
+                                        leading: Icon(Icons.list),
+                                    ),
+                                    ListTile(
+                                        title:   Text("Suggested People"),
+                                        leading: Icon(Icons.person_add),
+                                    ),
+                                    ListTile(
+                                        title:   Text("Open Facebook"),
+                                        leading: Icon(Env.facebook_icon,size: 18,),
+                                    ),
+                                ],
+                            ),
+                            Positioned(
+                                bottom: 0,
+                                child: Container(
+                                    alignment: Alignment.bottomCenter,
+                                    padding: EdgeInsets.symmetric(vertical: 15,horizontal: 25),
+                                    width: _width,
+                                    decoration: BoxDecoration(
+                                        //color: Colors.grey,
+                                        border: Border(top: BorderSide(color: Colors.grey[200],))
+                                    ),
+                                    child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: <Widget>[
+                                            Icon(Icons.settings,size: 18,),
+                                            Text("  Settings",
+                                                style: TextStyle( fontSize: 16),
                                             ),
-                                        ),
-                                        Text("   Guest",
-                                            style: TextStyle(fontWeight: FontWeight.w600, height: 1.2),
-                                        ),
-                                    ],
+                                        ],
+                                    ),
                                 )
-                            ),
-                            Divider(),
-                            ListTile(
-                                title:  Text("Statistics"),
-                                leading:Icon(Icons.show_chart),
-                            ),
-                            ListTile(
-                                title:   Text("Activity"),
-                                leading: Icon(Icons.access_time),
-                            ),
-                            ListTile(
-                                title:   Text("Nametag"),
-                                leading: Icon(Icons.rounded_corner),
-                            ),
-                            ListTile(
-                                title:   Text("Favorite"),
-                                leading: Icon(Icons.bookmark_border),
-                            ),
-                            ListTile(
-                                title:   Text("Close Friends"),
-                                leading: Icon(Icons.list),
-                            ),
-                            ListTile(
-                                title:   Text("Suggested People"),
-                                leading: Icon(Icons.person_add),
-                            ),
-                            ListTile(
-                                title:   Text("Open Facebook"),
-                                leading: Icon(Env.facebook_icon,size: 18,),
                             )
                         ],
                     )
                 )
             ),
-            scaffold: Scaffold(
-                drawer: Drawer(),
-                appBar: AppBar(
-                    title: Text(widget.title),
-                    //automaticallyImplyLeading: false, // recommended, disable the closing icon
+            scaffold: CupertinoPageScaffold(
+                navigationBar: CupertinoNavigationBar(
+                    middle: Text(widget.title),
+                    automaticallyImplyLeading: false,
                     backgroundColor: Colors.grey[50],
                 ),
-                body: Container(
-                    padding: EdgeInsets.all(15),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                                GestureDetector(
-                                    child: Row(
+                child: SafeArea(
+                    child: Material(
+                        child: Container(
+                            padding: EdgeInsets.all(15),
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                    Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
                                         children: <Widget>[
-                                            Icon(Icons.arrow_back,size: 15,),
-                                            Text('Start'),
-                                            Checkbox(
-                                                value: _position,
-                                                onChanged: (a){
+                                            GestureDetector(
+                                                child: Row(
+                                                    children: <Widget>[
+                                                        Icon(Icons.arrow_back,size: 15,),
+                                                        Text('Start'),
+                                                        Checkbox(
+                                                            activeColor: Colors.black,
+                                                            value: _position,
+                                                            onChanged: (a){
+                                                                setState(() {
+                                                                    _position = true;
+                                                                });
+                                                            }
+                                                        ),
+                                                    ],
+                                                ),
+                                                onTap: (){
                                                     setState(() {
                                                         _position = true;
                                                     });
-                                                }
+                                                },
                                             ),
-                                        ],
-                                    ),
-                                    onTap: (){
-                                        setState(() {
-                                            _position = true;
-                                        });
-                                    },
-                                ),
-                                GestureDetector(
-                                    child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: <Widget>[
-                                            Checkbox(
-                                                value: !_position,
-                                                onChanged: (a){
+                                            GestureDetector(
+                                                child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: <Widget>[
+                                                        Checkbox(
+                                                            activeColor: Colors.black,
+                                                            value: !_position,
+                                                            onChanged: (a){
+                                                                setState(() {
+                                                                    _position = false;
+                                                                });
+                                                            }
+                                                        ),
+                                                        Text('End'),
+                                                        Icon(Icons.arrow_forward,size: 15,),
+                                                    ],
+                                                ),
+                                                onTap: (){
                                                     setState(() {
                                                         _position = false;
                                                     });
-                                                }
+                                                },
                                             ),
-                                            Text('End'),
-                                            Icon(Icons.arrow_forward,size: 15,),
                                         ],
                                     ),
-                                    onTap: (){
-                                        setState(() {
-                                            _position = false;
-                                        });
-                                    },
-                                ),
-                            ],
-                        ),
-                        GestureDetector(
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                    Checkbox(
-                                        value: _onTapToClose,
-                                        onChanged: (a){
+                                    Padding(
+                                        padding: EdgeInsets.all(10),
+                                    ),
+                                    GestureDetector(
+                                        child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: <Widget>[
+                                                Checkbox(
+                                                    activeColor: Colors.black,
+                                                    value: _onTapToClose,
+                                                    onChanged: (a){
+                                                        setState(() {
+                                                            _onTapToClose = !_onTapToClose;
+                                                        });
+                                                    }
+                                                ),
+                                                Text('OnTap To Close'),
+                                            ],
+                                        ),
+                                        onTap: (){
                                             setState(() {
                                                 _onTapToClose = !_onTapToClose;
                                             });
-                                        }
+                                        },
                                     ),
-                                    Text('On Tap To Close'),
+                                    Padding(
+                                        padding: EdgeInsets.all(10),
+                                    ),
+                                    Column(
+                                        children: <Widget>[
+                                            Text('Offset'),
+                                            Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: <Widget>[
+                                                    SliderTheme(
+                                                        data: Theme.of(context).sliderTheme.copyWith(
+                                                            valueIndicatorTextStyle: Theme.of(context).accentTextTheme.body2.copyWith(color: Colors.white),
+                                                        ),
+                                                        child: Slider(
+                                                            activeColor: Colors.black,
+                                                            //inactiveColor: Colors.white,
+                                                            value: _offset,
+                                                            min: 0.0,
+                                                            max: 1,
+                                                            divisions: 5,
+                                                            semanticFormatterCallback: (double value) => value.round().toString(),
+                                                            label: '$_offset',
+                                                            onChanged: (a){
+                                                                setState(() {
+                                                                    _offset = a;
+                                                                });
+                                                            },
+                                                            onChangeEnd: (a){
+                                                               _getwidthContainer();
+                                                            },
+                                                        ),
+                                                    ),
+                                                    Text(_offset.toString()),
+                                                    //Text(_fontSize.toString()),
+                                                ],
+                                            ),
+                                        ],
+                                    ),
+                                    Padding(
+                                        padding: EdgeInsets.all(25)
+                                    ),
+                                    RaisedButton(
+                                        child:Text("open"),
+                                        onPressed: (){
+                                            _innerDrawerKey.currentState.open();
+                                        },
+                                    )
                                 ],
                             ),
-                            onTap: (){
-                                setState(() {
-                                    _onTapToClose = !_onTapToClose;
-                                });
-                            },
                         ),
-                        Padding(
-                            padding: EdgeInsets.all(25)
-                        ),
-                        RaisedButton(
-                            child:Text("open"),
-                            onPressed: (){
-                                _innerDrawerKey.currentState.open();
-                            },
-                        )
-                        ],
-                    ),
-                ),
+                    )
+                )
             
             ),
             );

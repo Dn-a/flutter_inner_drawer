@@ -7,13 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="83271013-5db3-4ab0-8822-49e2d2a20eb3" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/example_inner_drawer/lib/end.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example_inner_drawer/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example_inner_drawer/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example_inner_drawer/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/example_inner_drawer/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/flutter_inner_drawer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/flutter_inner_drawer.dart" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -84,13 +78,13 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="dart" value="407" />
+          <entry key="dart" value="1486" />
           <entry key="yaml" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Dart" value="407" />
+          <entry key="Dart" value="1486" />
           <entry key="YAML" value="2" />
         </counts>
       </usages-collector>
@@ -122,14 +116,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/example_inner_drawer/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
-              <caret line="116" column="18" lean-forward="true" selection-start-line="116" selection-start-column="18" selection-end-line="116" selection-end-column="18" />
+            <state relative-caret-position="423">
+              <caret line="107" column="64" lean-forward="true" selection-start-line="107" selection-start-column="64" selection-end-line="107" selection-end-column="64" />
               <folding>
                 <element signature="e#0#47#0" expanded="true" />
                 <element signature="e#176#420#0" />
                 <element signature="e#463#613#0" />
-                <element signature="e#1066#3848#0" />
-                <element signature="e#4553#4630#0" />
+                <element signature="e#6021#9099#0" />
               </folding>
             </state>
           </provider>
@@ -188,12 +181,12 @@
       <find>_buildDrawer</find>
       <find>open</find>
       <find>open(</find>
-      <find>open</find>
       <find>_handleDragCancel</find>
       <find>box</find>
       <find>shad</find>
       <find>elevation</find>
       <find>(_width/2)</find>
+      <find>init</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -387,7 +380,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/example_inner_drawer/lib/main.dart</url>
-          <line>110</line>
+          <line>182</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
@@ -397,7 +390,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/example_inner_drawer/lib/main.dart</url>
-          <line>8</line>
+          <line>9</line>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
@@ -538,14 +531,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/example_inner_drawer/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="116" column="18" lean-forward="true" selection-start-line="116" selection-start-column="18" selection-end-line="116" selection-end-column="18" />
+        <state relative-caret-position="423">
+          <caret line="107" column="64" lean-forward="true" selection-start-line="107" selection-start-column="64" selection-end-line="107" selection-end-column="64" />
           <folding>
             <element signature="e#0#47#0" expanded="true" />
             <element signature="e#176#420#0" />
             <element signature="e#463#613#0" />
-            <element signature="e#1066#3848#0" />
-            <element signature="e#4553#4630#0" />
+            <element signature="e#6021#9099#0" />
           </folding>
         </state>
       </provider>
