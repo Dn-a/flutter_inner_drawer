@@ -8,7 +8,7 @@ import 'package:flutter/widgets.dart';
 typedef InnerDrawerCallback = void Function(bool isOpened);
 
 
-enum InnerDrawerAlignment
+enum InnerDrawerPosition
 {
   start,
   end,
@@ -28,13 +28,13 @@ class InnerDrawer extends StatefulWidget
                            GlobalKey key,
                            @required this.child,
                            @required this.scaffold,
-                           @required this.alignment,
+                           @required this.position,
                            this.offset,
-                           this.onTapClose=false,
+                           this.onTapClose = false,
                            this.boxShadow,
                            this.innerDrawerCallback,
                          }) : assert(child != null),
-        assert(alignment != null),
+        assert(position != null),
         super(key: key);
   
  
@@ -43,7 +43,7 @@ class InnerDrawer extends StatefulWidget
   final double offset;
   final bool onTapClose;
   final List<BoxShadow> boxShadow;
-  final InnerDrawerAlignment alignment;
+  final InnerDrawerPosition position;
   final InnerDrawerCallback innerDrawerCallback;
   
   @override
@@ -166,10 +166,10 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
   {
     double delta = details.primaryDelta / _width;
     
-    switch (widget.alignment) {
-      case InnerDrawerAlignment.end:
+    switch (widget.position) {
+      case InnerDrawerPosition.end:
         break;
-      case InnerDrawerAlignment.start:
+      case InnerDrawerPosition.start:
         delta = -delta;
         break;
     }
@@ -196,10 +196,10 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
     if (details.velocity.pixelsPerSecond.dx.abs() >= _kMinFlingVelocity) {
       double visualVelocity = details.velocity.pixelsPerSecond.dx / _width;
      
-      switch (widget.alignment) {
-        case InnerDrawerAlignment.end:
+      switch (widget.position) {
+        case InnerDrawerPosition.end:
           break;
-        case InnerDrawerAlignment.start:
+        case InnerDrawerPosition.start:
           visualVelocity = -visualVelocity;
           break;
       }
@@ -241,11 +241,11 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
   
     AlignmentDirectional get _drawerOuterAlignment
     {
-        assert(widget.alignment != null);
-        switch (widget.alignment) {
-          case InnerDrawerAlignment.start:
+        assert(widget.position != null);
+        switch (widget.position) {
+          case InnerDrawerPosition.start:
             return AlignmentDirectional.centerEnd;
-          case InnerDrawerAlignment.end:
+          case InnerDrawerPosition.end:
             return AlignmentDirectional.centerStart;
         }
         return null;
@@ -254,11 +254,11 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
     
     AlignmentDirectional get _drawerInnerAlignment
     {
-        assert(widget.alignment != null);
-        switch (widget.alignment) {
-          case InnerDrawerAlignment.start:
+        assert(widget.position != null);
+        switch (widget.position) {
+          case InnerDrawerPosition.start:
             return AlignmentDirectional.centerStart;
-          case InnerDrawerAlignment.end:
+          case InnerDrawerPosition.end:
             return AlignmentDirectional.center;
         }
         return null;
@@ -266,11 +266,11 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
 
     AlignmentDirectional get _stackAlignment
     {
-          assert(widget.alignment != null);
-          switch (widget.alignment) {
-              case InnerDrawerAlignment.start:
+          assert(widget.position != null);
+          switch (widget.position) {
+              case InnerDrawerPosition.start:
                   return AlignmentDirectional.centerStart;
-              case InnerDrawerAlignment.end:
+              case InnerDrawerPosition.end:
                   return AlignmentDirectional.centerEnd;
           }
           return null;
@@ -287,11 +287,11 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
         double wFactor = _controller.value;
         double width = (_width/2) -(_width/2)*offset;
         
-        switch (widget.alignment) {
-            case InnerDrawerAlignment.start:
+        switch (widget.position) {
+            case InnerDrawerPosition.start:
                 wFactor += offset;
                 break;
-            case InnerDrawerAlignment.end:
+            case InnerDrawerPosition.end:
                 wFactor += (1 - offset);
                 break;
         }

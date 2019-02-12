@@ -1,3 +1,4 @@
+import 'package:example_inner_drawer/end.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inner_drawer/flutter_inner_drawer.dart';
 
@@ -35,14 +36,18 @@ class _MyHomePageState extends State<MyHomePage>
 {
     final GlobalKey<InnerDrawerState> _innerDrawerKey = GlobalKey<InnerDrawerState>();
 
+    bool _position = true;
+    bool _onTapToClose = false;
+    
+
     @override
     Widget build(BuildContext context)
     {
     
         return InnerDrawer(
             key: _innerDrawerKey,
-            alignment: InnerDrawerAlignment.end,
-            //onTapClose: true,
+            position: _position ? InnerDrawerPosition.start : InnerDrawerPosition.end,
+            onTapClose: _onTapToClose,
             //offset: 0.4,
             //innerDrawerCallback: (a) => print(a),
             child: Material(
@@ -96,8 +101,8 @@ class _MyHomePageState extends State<MyHomePage>
                                 leading: Icon(Icons.person_add),
                             ),
                             ListTile(
-                                title:   Text("Suggested People"),
-                                //leading: Icon(Icons.fac),
+                                title:   Text("Open Facebook"),
+                                leading: Icon(Env.facebook_icon,size: 18,),
                             )
                         ],
                     )
@@ -110,15 +115,83 @@ class _MyHomePageState extends State<MyHomePage>
                     //automaticallyImplyLeading: false, // recommended, disable the closing icon
                     backgroundColor: Colors.grey[50],
                 ),
-                body: Center(
+                body: Container(
+                    padding: EdgeInsets.all(15),
                     child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
-                        Text(
-                            'You have pushed the button this many times:',
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                                GestureDetector(
+                                    child: Row(
+                                        children: <Widget>[
+                                            Icon(Icons.arrow_back,size: 15,),
+                                            Text('Start'),
+                                            Checkbox(
+                                                value: _position,
+                                                onChanged: (a){
+                                                    setState(() {
+                                                        _position = true;
+                                                    });
+                                                }
+                                            ),
+                                        ],
+                                    ),
+                                    onTap: (){
+                                        setState(() {
+                                            _position = true;
+                                        });
+                                    },
+                                ),
+                                GestureDetector(
+                                    child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: <Widget>[
+                                            Checkbox(
+                                                value: !_position,
+                                                onChanged: (a){
+                                                    setState(() {
+                                                        _position = false;
+                                                    });
+                                                }
+                                            ),
+                                            Text('End'),
+                                            Icon(Icons.arrow_forward,size: 15,),
+                                        ],
+                                    ),
+                                    onTap: (){
+                                        setState(() {
+                                            _position = false;
+                                        });
+                                    },
+                                ),
+                            ],
                         ),
-                        Text('',
-                            style: Theme.of(context).textTheme.display1,
+                        GestureDetector(
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                    Checkbox(
+                                        value: _onTapToClose,
+                                        onChanged: (a){
+                                            setState(() {
+                                                _onTapToClose = !_onTapToClose;
+                                            });
+                                        }
+                                    ),
+                                    Text('On Tap To Close'),
+                                ],
+                            ),
+                            onTap: (){
+                                setState(() {
+                                    _onTapToClose = !_onTapToClose;
+                                });
+                            },
+                        ),
+                        Padding(
+                            padding: EdgeInsets.all(25)
                         ),
                         RaisedButton(
                             child:Text("open"),
