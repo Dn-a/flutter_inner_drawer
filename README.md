@@ -1,6 +1,6 @@
 # flutter_inner_drawer
 
-[![pub package](https://img.shields.io/badge/pub-0.1.0-orange.svg)](https://pub.dartlang.org/packages/flutter_inner_drawer)
+[![pub package](https://img.shields.io/badge/pub-0.1.1-orange.svg)](https://pub.dartlang.org/packages/flutter_inner_drawer)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/dnag88)
 
 
@@ -10,7 +10,7 @@ Inner Drawer is an easy way to create a side menu similar to Facebook or Instagr
 Add this to your package's pubspec.yaml file:
 ```
 dependencies:
-  flutter_inner_drawer: "^0.1.0"
+  flutter_inner_drawer: "^0.1.1"
 ```
 
 
