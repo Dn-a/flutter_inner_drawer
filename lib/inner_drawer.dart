@@ -1,21 +1,44 @@
-import 'dart:math';
-import 'package:flutter/material.dart';
+// InnerDrawer is based on Drawer.
+// The source code of the Drawer has been re-adapted for Inner Drawer.
 
+// more details:
+// https://github.com/flutter/flutter/blob/master/packages/flutter/lib/src/material/drawer.dart
+
+import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
-
+/// Signature for the callback that's called when a [InnerDrawer] is
+/// opened or closed.
 typedef InnerDrawerCallback = void Function(bool isOpened);
 
-
+/// The possible position of a [InnerDrawer].
 enum InnerDrawerPosition
 {
   start,
   end,
 }
 
+
+/// Animation type of a [InnerDrawer].
+enum InnerDrawerAnimation
+{
+    static,
+    linear,
+}
+
+
+// Mobile:
+// Width = Screen width − 56 dp
+// Maximum width: 320dp
+// Maximum width applies only when using a left nav. When using a right nav,
+// the panel can cover the full width of the screen.
+
+// Desktop/Tablet:
+// Maximum width for a left nav is 400dp.
+// The right nav can vary depending on content.
+
 const double _kWidth = 304.0;
-const double _kEdgeDragWidth = 20.0;
 const double _kMinFlingVelocity = 365.0;
 const Duration _kBaseSettleDuration = Duration(milliseconds: 246);
 
@@ -32,18 +55,37 @@ class InnerDrawer extends StatefulWidget
                            this.offset,
                            this.onTapClose = false,
                            this.boxShadow,
+                           this.colorTransition,
+                           this.animationType,
                            this.innerDrawerCallback,
                          }) : assert(child != null),
-        assert(position != null),
+        assert(position != null),assert(scaffold != null),
         super(key: key);
   
  
   final Widget child;
+  
+  /// A Scaffold is generally used but you are free to use other widgets
   final Widget scaffold;
+  
+  /// Offset drawer width; default 0.4
   final double offset;
+  
   final bool onTapClose;
+  
+  /// BoxShadow of scaffold opened
   final List<BoxShadow> boxShadow;
+  
+  final Color colorTransition;
+
+  /// This controls the direction in which the user should swipe to open and
+  /// close the InnerDrawer.
   final InnerDrawerPosition position;
+  
+  /// Static or Linear
+  final InnerDrawerAnimation animationType;
+
+  /// Optional callback that is called when a [InnerDrawer] is opened or closed.
   final InnerDrawerCallback innerDrawerCallback;
   
   @override
@@ -53,12 +95,14 @@ class InnerDrawer extends StatefulWidget
 
 class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderStateMixin
 {
-  
-  
+    
+    ColorTween _color = ColorTween(begin: Colors.transparent, end: Colors.black54);
+    
   @override
   void initState()
   {
     super.initState();
+    
     _controller = AnimationController(duration: _kBaseSettleDuration, vsync: this)
       ..addListener(_animationChanged)
       ..addStatusListener(_animationStatusChanged);
@@ -81,6 +125,10 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
     setState(() {
       // The animation controller's state is our build state, and it changed already.
     });
+    if(widget.colorTransition!=null)
+        _color = ColorTween (begin: Colors.transparent, end: widget.colorTransition);
+    else
+        _color = ColorTween(begin: Colors.transparent, end: Colors.black54);
   }
   
   
@@ -235,7 +283,6 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
   }
   
   
-  final ColorTween _color = ColorTween(begin: Colors.transparent, end: Colors.black54);
   final GlobalKey _gestureDetectorKey = GlobalKey();
   
   
@@ -275,12 +322,34 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
           }
           return null;
     }
+    
+    Widget _animationType(double width)
+    {
+        switch (widget.animationType) {
+            case InnerDrawerAnimation.linear:
+                return Align(
+                    alignment: _drawerOuterAlignment,
+                    widthFactor: 1-(_controller.value/2),
+                    child: Container(
+                        width: _width - width,
+                        height: double.infinity,
+                        child: widget.child,
+                    ),
+                );
+            default:
+                return Container(
+                    width: _width - width,
+                    height: double.infinity,
+                    child: widget.child,
+                );
+        }
+        
+    }
   
   
     @override
     Widget build(BuildContext context)
     {
-        // print(_controller.value);
         assert(debugCheckHasMaterialLocalizations(context));
         
         double offset = widget.offset ?? 0.4;
@@ -295,15 +364,11 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
                 wFactor += (1 - offset);
                 break;
         }
-        
+        //print(_controller.value);
         return Stack(
             alignment: _stackAlignment,
             children: <Widget>[
-                Container(
-                    width: _width - width,
-                    height: double.infinity,
-                    child: widget.child,
-                ),
+                _animationType(width),
                 GestureDetector(
                     key: _gestureDetectorKey,
                     onHorizontalDragDown: _handleDragDown,
@@ -325,7 +390,7 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
                                                 alignment: _drawerOuterAlignment,
                                                 child: Container(
                                                     width: width,
-                                                    color:Colors.red,
+                                                    color:Colors.transparent,
                                                 ),
                                             ),
                                         ),
@@ -367,60 +432,6 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
                         ),
                     ),
                 ),
-                /*Align(
-                    //right:  right,
-                    //height: MediaQuery.of(context).size.height,
-                    //width:  MediaQuery.of(context).size.width,
-                    alignment: AlignmentDirectional.center,
-                    child: Align(
-                        alignment: AlignmentDirectional.centerEnd,
-                        widthFactor: _controller.value+0.1,
-                        child: GestureDetector(
-                            key: _gestureDetectorKey,
-                            onHorizontalDragDown: _handleDragDown,
-                            onHorizontalDragUpdate: _move,
-                            onHorizontalDragEnd: _settle,
-                            onHorizontalDragCancel: _handleDragCancel,
-                            excludeFromSemantics: true,
-                            /*onHorizontalDragStart: (tap) {
-                                print(tap.globalPosition.dx);
-                                setState(() {
-                                    _start =tap.globalPosition.dx ;
-                                });
-                            },
-                            onHorizontalDragEnd: (a){
-                                setState(() {
-                                    _end = _left;
-                                });
-                            },
-                            onHorizontalDragUpdate: (up) {
-                                //print(up.globalPosition.dx);
-                                setState(() {
-                                    _left = up.globalPosition.dx;
-                                });
-                            },*/
-              
-                            child:  RepaintBoundary(
-                                child: FocusScope(
-                                    key: _drawerKey,
-                                    node: _focusScopeNode,
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                            boxShadow: [
-                                                BoxShadow(
-                                                    color: Colors.black.withOpacity(0.75),
-                                                    blurRadius: 4,
-                                                    spreadRadius: 1
-                                                )
-                                            ]
-                                        ),
-                                        child: widget.scaffold
-                                    ),
-                                ),
-                            )
-                        )
-                    )
-                ),*/
             ],
         );
     }

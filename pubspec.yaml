@@ -1,6 +1,6 @@
 name: flutter_inner_drawer
-description: Inner Drawer like facebook.
-version: 0.0.1
+description: Inner Drawer is an easy way to create a side menu similar to Facebook or Instagram.
+version: 0.1.0
 author: Antonino Di Natale <gyorgio88@gmail.com>
 homepage: https://github.com/Dn-a/flutter_inner_drawer
 

@@ -1,7 +1,9 @@
-import 'package:example_inner_drawer/end.dart';
+import 'package:example_inner_drawer/env.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_inner_drawer/flutter_inner_drawer.dart';
+import 'package:flutter_inner_drawer/inner_drawer.dart';
+
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 void main() => runApp(MyApp());
 
@@ -43,14 +45,26 @@ class _MyHomePageState extends State<MyHomePage>
     
     bool _position = true;
     bool _onTapToClose = false;
+    bool _animationType = false;
     double _offset = 0.4;
     
+
     @override
     void initState()
     {
         
         super.initState();
         _getwidthContainer();
+    }
+
+
+
+    Color pickerColor = Color(0xff443a49);
+    Color currentColor = Colors.black54;
+    ValueChanged<Color> onColorChanged;
+
+    changeColor(Color color) {
+        setState(() => pickerColor = color);
     }
 
 
@@ -78,10 +92,10 @@ class _MyHomePageState extends State<MyHomePage>
             position: _position ? InnerDrawerPosition.start : InnerDrawerPosition.end,
             onTapClose: _onTapToClose,
             offset: _offset,
+            colorTransition: currentColor,
+            animationType: _animationType ? InnerDrawerAnimation.linear : InnerDrawerAnimation.static,
             //innerDrawerCallback: (a) => print(a),
             child: Material(
-                //key: _keyRed,
-                //color: Colors.blueGrey,
                 child:  SafeArea(
                     //top: false,
                     child: Stack(
@@ -247,6 +261,55 @@ class _MyHomePageState extends State<MyHomePage>
                                     Padding(
                                         padding: EdgeInsets.all(10),
                                     ),
+                                    Text("Animation Type",style: TextStyle(fontWeight: FontWeight.w500),),
+                                    Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: <Widget>[
+                                            GestureDetector(
+                                                child: Row(
+                                                    children: <Widget>[
+                                                        Text('Static'),
+                                                        Checkbox(
+                                                            activeColor: Colors.black,
+                                                            value: !_animationType,
+                                                            onChanged: (a){
+                                                                setState(() {
+                                                                    _animationType = false;
+                                                                });
+                                                            }
+                                                        ),
+                                                    ],
+                                                ),
+                                                onTap: (){
+                                                    setState(() {
+                                                        _animationType = false;
+                                                    });
+                                                },
+                                            ),
+                                            GestureDetector(
+                                                child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: <Widget>[
+                                                        Checkbox(
+                                                            activeColor: Colors.black,
+                                                            value: _animationType,
+                                                            onChanged: (a){
+                                                                setState(() {
+                                                                    _animationType = true;
+                                                                });
+                                                            }
+                                                        ),
+                                                        Text('Linear'),
+                                                    ],
+                                                ),
+                                                onTap: (){
+                                                    setState(() {
+                                                        _animationType = true;
+                                                    });
+                                                },
+                                            ),
+                                        ],
+                                    ),
                                     GestureDetector(
                                         child: Row(
                                             mainAxisAlignment: MainAxisAlignment.center,
@@ -308,6 +371,37 @@ class _MyHomePageState extends State<MyHomePage>
                                         ],
                                     ),
                                     Padding(
+                                        padding: EdgeInsets.all(10)
+                                    ),
+                                    FlatButton(
+                                        child: Text("Set Color Transition",style: TextStyle(color: currentColor,fontWeight: FontWeight.w500 ),),
+                                        onPressed: (){
+                                            showDialog(
+                                                context: context,
+                                                child: AlertDialog(
+                                                    title: const Text('Pick a color!'),
+                                                    content: SingleChildScrollView(
+                                                        child: ColorPicker(
+                                                            pickerColor: pickerColor,
+                                                            onColorChanged: changeColor,
+                                                            enableLabel: true,
+                                                            pickerAreaHeightPercent: 0.8,
+                                                        ),
+                                                    ),
+                                                    actions: <Widget>[
+                                                        FlatButton(
+                                                            child: Text('Set'),
+                                                            onPressed: () {
+                                                            setState(() => currentColor = pickerColor);
+                                                            Navigator.of(context).pop();
+                                                            },
+                                                        ),
+                                                    ],
+                                                )
+                                            );
+                                        },
+                                    ),
+                                    Padding(
                                         padding: EdgeInsets.all(25)
                                     ),
                                     RaisedButton(
@@ -315,7 +409,7 @@ class _MyHomePageState extends State<MyHomePage>
                                         onPressed: (){
                                             _innerDrawerKey.currentState.open();
                                         },
-                                    )
+                                    ),
                                 ],
                             ),
                         ),

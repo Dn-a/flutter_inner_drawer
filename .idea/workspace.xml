@@ -7,7 +7,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="83271013-5db3-4ab0-8822-49e2d2a20eb3" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example_inner_drawer/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/example_inner_drawer/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example_inner_drawer/lib/end.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example_inner_drawer/lib/env.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example_inner_drawer/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example_inner_drawer/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example_inner_drawer/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/example_inner_drawer/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/flutter_inner_drawer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/inner_drawer.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -78,26 +87,30 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="dart" value="1486" />
-          <entry key="yaml" value="2" />
+          <entry key="dart" value="2537" />
+          <entry key="md" value="542" />
+          <entry key="yaml" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Dart" value="1486" />
-          <entry key="YAML" value="2" />
+          <entry key="Dart" value="2537" />
+          <entry key="Markdown" value="542" />
+          <entry key="YAML" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="dart" value="1" />
-          <entry key="yaml" value="2" />
+          <entry key="dart" value="2" />
+          <entry key="md" value="3" />
+          <entry key="yaml" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Dart" value="1" />
-          <entry key="YAML" value="2" />
+          <entry key="Dart" value="2" />
+          <entry key="Markdown" value="3" />
+          <entry key="YAML" value="4" />
         </counts>
       </usages-collector>
     </session>
@@ -105,43 +118,67 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/flutter_inner_drawer.dart">
+        <entry file="file://$PROJECT_DIR$/lib/inner_drawer.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1224">
-              <caret line="76" column="2" selection-start-line="76" selection-start-column="2" selection-end-line="76" selection-end-column="2" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/example_inner_drawer/lib/main.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="423">
-              <caret line="107" column="64" lean-forward="true" selection-start-line="107" selection-start-column="64" selection-end-line="107" selection-end-column="64" />
+            <state relative-caret-position="248">
+              <caret line="61" column="8" selection-start-line="61" selection-start-column="8" selection-end-line="61" selection-end-column="8" />
               <folding>
-                <element signature="e#0#47#0" expanded="true" />
-                <element signature="e#176#420#0" />
-                <element signature="e#463#613#0" />
-                <element signature="e#6021#9099#0" />
+                <element signature="e#0#14176#0" expanded="true" />
+                <element signature="e#343#416#0" />
+                <element signature="e#290#334#0" />
+                <element signature="e#588#632#0" />
+                <element signature="e#498#508#0" />
+                <element signature="e#3676#4329#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/example_inner_drawer/lib/end.dart">
+        <entry file="file://$PROJECT_DIR$/example_inner_drawer/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="19" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
+            <state relative-caret-position="245">
+              <caret line="103" column="36" selection-start-line="103" selection-start-column="36" selection-end-line="103" selection-end-column="36" />
+              <folding>
+                <element signature="e#0#47#0" expanded="true" />
+                <element signature="e#176#420#0" />
+                <element signature="e#463#613#0" />
+                <element signature="e#1291#1343#0" />
+                <element signature="e#1318#1709#0" />
+                <element signature="e#2580#6806#0" />
+                <element signature="e#8151#22293#0" />
+                <element signature="e#8841#12115#0" />
+                <element signature="e#12336#15610#0" />
+                <element signature="e#11727#13019#0" />
+                <element signature="e#13216#15721#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="354">
+              <caret line="49" column="8" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="8" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/example_inner_drawer/pubspec.yaml">
+        <entry file="file://$PROJECT_DIR$/example_inner_drawer/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="629">
-              <caret line="43" column="34" selection-start-line="43" selection-start-column="34" selection-end-line="43" selection-end-column="34" />
+            <state relative-caret-position="422">
+              <caret line="434" column="87" selection-start-line="434" selection-start-column="87" selection-end-line="434" selection-end-column="87" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="24" selection-start-column="24" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -157,7 +194,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>gesturede</find>
       <find>setSta</find>
       <find>gesture</find>
       <find>widget.c</find>
@@ -187,6 +223,7 @@
       <find>elevation</find>
       <find>(_width/2)</find>
       <find>init</find>
+      <find>_kEdgeDragWidth</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -196,13 +233,16 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/test/flutter_inner_drawer_test.dart" />
-        <option value="$PROJECT_DIR$/pubspec.yaml" />
         <option value="$PROJECT_DIR$/LICENSE" />
-        <option value="$PROJECT_DIR$/CHANGELOG.md" />
-        <option value="$PROJECT_DIR$/lib/flutter_inner_drawer.dart" />
         <option value="$PROJECT_DIR$/example_inner_drawer/lib/end.dart" />
         <option value="$PROJECT_DIR$/example_inner_drawer/pubspec.yaml" />
+        <option value="$PROJECT_DIR$/lib/flutter_inner_drawer.dart" />
         <option value="$PROJECT_DIR$/example_inner_drawer/lib/main.dart" />
+        <option value="$PROJECT_DIR$/CHANGELOG.md" />
+        <option value="$PROJECT_DIR$/lib/inner_drawer.dart" />
+        <option value="$PROJECT_DIR$/pubspec.yaml" />
+        <option value="$PROJECT_DIR$/example_inner_drawer/README.md" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -231,12 +271,6 @@
               <item name="flutter_inner_drawer" type="b2602c69:ProjectViewProjectNode" />
               <item name="flutter_inner_drawer" type="462c0819:PsiDirectoryNode" />
               <item name="example_inner_drawer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flutter_inner_drawer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flutter_inner_drawer" type="462c0819:PsiDirectoryNode" />
-              <item name="example_inner_drawer" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="flutter_inner_drawer" type="b2602c69:ProjectViewProjectNode" />
@@ -291,6 +325,7 @@
       <method v="2" />
     </configuration>
     <configuration name="flutter_inner_drawer" type="FlutterRunConfigurationType" factoryName="Flutter">
+      <option name="additionalArgs" value="--release" />
       <option name="filePath" value="$PROJECT_DIR$/example_inner_drawer/lib/main.dart" />
       <method v="2" />
     </configuration>
@@ -316,12 +351,21 @@
     </task>
     <servers />
   </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Build Variants" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.25746268" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.25746268" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Favorites" order="4" side_tool="true" />
@@ -336,11 +380,11 @@
       <window_info anchor="bottom" id="Gradle Console" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="6" />
       <window_info anchor="bottom" id="Find" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="8" visible="true" weight="0.24435721" />
+      <window_info anchor="bottom" id="Run" order="8" visible="true" weight="0.24435721" />
       <window_info anchor="bottom" id="Debug" order="9" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="10" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="11" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="12" />
+      <window_info anchor="bottom" id="TODO" order="12" weight="0.32973504" />
       <window_info anchor="bottom" id="Dart Analysis" order="13" weight="0.20177165" />
       <window_info anchor="bottom" id="Android Profiler" order="14" show_stripe_button="false" />
       <window_info anchor="bottom" id="Logcat" order="15" />
@@ -365,32 +409,32 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/flutter_inner_drawer.dart</url>
-          <line>120</line>
+          <url>file://$PROJECT_DIR$/lib/inner_drawer.dart</url>
+          <line>166</line>
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/flutter_inner_drawer.dart</url>
-          <line>91</line>
+          <url>file://$PROJECT_DIR$/lib/inner_drawer.dart</url>
+          <line>137</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/flutter_inner_drawer.dart</url>
-          <line>242</line>
+          <url>file://$PROJECT_DIR$/lib/inner_drawer.dart</url>
+          <line>287</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/example_inner_drawer/lib/main.dart</url>
-          <line>182</line>
+          <line>196</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/flutter_inner_drawer.dart</url>
-          <line>366</line>
+          <url>file://$PROJECT_DIR$/lib/inner_drawer.dart</url>
+          <line>429</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/example_inner_drawer/lib/main.dart</url>
-          <line>9</line>
+          <line>11</line>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
@@ -494,51 +538,80 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
+    <entry file="file://$PROJECT_DIR$/example_inner_drawer/pubspec.yaml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        <state relative-caret-position="289">
+          <caret line="17" column="10" selection-start-line="17" selection-start-column="10" selection-end-line="17" selection-end-column="10" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/flutter_inner_drawer.dart">
+    <entry file="file://$PROJECT_DIR$/example_inner_drawer/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1224">
-          <caret line="76" column="2" selection-start-line="76" selection-start-column="2" selection-end-line="76" selection-end-column="2" />
+        <state relative-caret-position="245">
+          <caret line="103" column="36" selection-start-line="103" selection-start-column="36" selection-end-line="103" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#47#0" expanded="true" />
+            <element signature="e#176#420#0" />
+            <element signature="e#463#613#0" />
+            <element signature="e#1291#1343#0" />
+            <element signature="e#1318#1709#0" />
+            <element signature="e#2580#6806#0" />
+            <element signature="e#8151#22293#0" />
+            <element signature="e#8841#12115#0" />
+            <element signature="e#12336#15610#0" />
+            <element signature="e#11727#13019#0" />
+            <element signature="e#13216#15721#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/inner_drawer.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="61" column="8" selection-start-line="61" selection-start-column="8" selection-end-line="61" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#14176#0" expanded="true" />
+            <element signature="e#343#416#0" />
+            <element signature="e#290#334#0" />
+            <element signature="e#588#632#0" />
+            <element signature="e#498#508#0" />
+            <element signature="e#3676#4329#0" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pubspec.yaml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        <state relative-caret-position="136">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/example_inner_drawer/pubspec.yaml">
+    <entry file="file://$PROJECT_DIR$/example_inner_drawer/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="43" column="34" selection-start-line="43" selection-start-column="34" selection-end-line="43" selection-end-column="34" />
+        <state relative-caret-position="422">
+          <caret line="434" column="87" selection-start-line="434" selection-start-column="87" selection-end-line="434" selection-end-column="87" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/example_inner_drawer/lib/end.dart">
+    <entry file="file://$PROJECT_DIR$/example_inner_drawer/lib/env.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="19" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/example_inner_drawer/lib/main.dart">
+    <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="107" column="64" lean-forward="true" selection-start-line="107" selection-start-column="64" selection-end-line="107" selection-end-column="64" />
-          <folding>
-            <element signature="e#0#47#0" expanded="true" />
-            <element signature="e#176#420#0" />
-            <element signature="e#463#613#0" />
-            <element signature="e#6021#9099#0" />
-          </folding>
+        <state>
+          <caret column="24" selection-start-column="24" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="354">
+          <caret line="49" column="8" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="8" />
         </state>
       </provider>
     </entry>
