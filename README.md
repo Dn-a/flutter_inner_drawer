@@ -15,9 +15,9 @@ dependencies:
 
 
 ### DEMO
-![Example](https://github.com/Dn-a/flutter_inner_drawer/tree/master/example_inner_drawer)
+![Example](https://github.com/Dn-a/flutter_inner_drawer/tree/master/example)
 
-![Demo 1](https://github.com/Dn-a/flutter_inner_drawer/blob/master/example_inner_drawer/example1.gif)
+![Demo 1](https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/example1.gif)
 
 
 ### Simple usage

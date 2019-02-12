@@ -432,7 +432,7 @@ class _MyHomePageState extends State<MyHomePage>
 ```
 
 ## DEMO
-![Demo 1](https://github.com/Dn-a/flutter_inner_drawer/blob/master/example_inner_drawer/example1.gif)
+![Demo 1](https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/example1.gif)
 
 ## Other
 This project is a starting point for a Flutter application.
