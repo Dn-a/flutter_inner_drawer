@@ -1,3 +1,7 @@
+## [0.1.2] - 2019-02-13.
+
+* Added side trigger - Possibility to activate/deactivate the swipe.
+
 ## [0.1.1] - 2019-02-12.
 
 * Improved documentation.

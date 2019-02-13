@@ -4,9 +4,11 @@
 // more details:
 // https://github.com/flutter/flutter/blob/master/packages/flutter/lib/src/material/drawer.dart
 
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+
 
 /// Signature for the callback that's called when a [InnerDrawer] is
 /// opened or closed.
@@ -40,6 +42,7 @@ enum InnerDrawerAnimation
 
 const double _kWidth = 304.0;
 const double _kMinFlingVelocity = 365.0;
+const double _kEdgeDragWidth = 20.0;
 const Duration _kBaseSettleDuration = Duration(milliseconds: 246);
 
 
@@ -54,6 +57,7 @@ class InnerDrawer extends StatefulWidget
                            @required this.position,
                            this.offset,
                            this.onTapClose = false,
+                           this.swipe = true,
                            this.boxShadow,
                            this.colorTransition,
                            this.animationType,
@@ -73,6 +77,9 @@ class InnerDrawer extends StatefulWidget
   
   final bool onTapClose;
   
+  /// activate or deactivate the swipe. NOTE: when deactivate, onTap Close is implicitly activated
+  final bool swipe;
+  
   /// BoxShadow of scaffold opened
   final List<BoxShadow> boxShadow;
   
@@ -87,7 +94,7 @@ class InnerDrawer extends StatefulWidget
 
   /// Optional callback that is called when a [InnerDrawer] is opened or closed.
   final InnerDrawerCallback innerDrawerCallback;
-  
+ 
   @override
   InnerDrawerState createState() => InnerDrawerState();
 }
@@ -201,7 +208,7 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
   double get _width
   {
     final RenderBox box = _drawerKey.currentContext?.findRenderObject();
-    if (box != null)
+    if (box != null && box.size!= null)
       return box.size.width;
     return _kWidth; // drawer not being shown currently
   }
@@ -364,76 +371,94 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
                 wFactor += (1 - offset);
                 break;
         }
-        //print(_controller.value);
-        return Stack(
-            alignment: _stackAlignment,
-            children: <Widget>[
-                _animationType(width),
-                GestureDetector(
-                    key: _gestureDetectorKey,
-                    onHorizontalDragDown: _handleDragDown,
-                    onHorizontalDragUpdate: _move,
-                    onHorizontalDragEnd: _settle,
-                    //onHorizontalDragCancel: _handleDragCancel,
-                    excludeFromSemantics: true,
-                    child: RepaintBoundary(
-                        child: Stack(
-                            children: <Widget>[
-                                BlockSemantics(
-                                    child: GestureDetector(
-                                        // On Android, the back button is used to dismiss a modal.
-                                        excludeFromSemantics: defaultTargetPlatform == TargetPlatform.android,
-                                        onTap: widget.onTapClose ?close:null,
-                                        child: Semantics(
-                                            label: MaterialLocalizations.of(context)?.modalBarrierDismissLabel,
-                                            child: Align(
-                                                alignment: _drawerOuterAlignment,
-                                                child: Container(
-                                                    width: width,
-                                                    color:Colors.transparent,
+       
+       return Stack(
+                alignment: _stackAlignment,
+                children: <Widget>[
+                    _animationType(width),
+                    GestureDetector(
+                        key: _gestureDetectorKey,
+                        onHorizontalDragDown: widget.swipe? _handleDragDown : null,
+                        onHorizontalDragUpdate: widget.swipe? _move : null,
+                        onHorizontalDragEnd: widget.swipe? _settle : null,
+                        //onHorizontalDragCancel: _handleDragCancel,
+                        excludeFromSemantics: true,
+                        child: RepaintBoundary(
+                            child: Stack(
+                                children: <Widget>[
+                                    BlockSemantics(
+                                        child: GestureDetector(
+                                            // On Android, the back button is used to dismiss a modal.
+                                            excludeFromSemantics: defaultTargetPlatform == TargetPlatform.android,
+                                            onTap: widget.onTapClose || !widget.swipe ? close:null,
+                                            child: Semantics(
+                                                label: MaterialLocalizations.of(context)?.modalBarrierDismissLabel,
+                                                child: Align(
+                                                    alignment: _drawerOuterAlignment,
+                                                    child: Container(
+                                                        width: width,
+                                                        color:Colors.transparent,
+                                                    ),
                                                 ),
                                             ),
                                         ),
                                     ),
-                                ),
-                                Container(
-                                    width: _controller.value==0?0:null,
-                                    color: _color.evaluate(_controller),
-                                ),
-                                Align(
-                                    widthFactor:  wFactor,
-                                    child: Align(
-                                        alignment: _drawerOuterAlignment,
+                                    Container(
+                                        width: _controller.value==0?0:null,
+                                        color: _color.evaluate(_controller),
+                                    ),
+                                    Align(
+                                        widthFactor:  wFactor,
                                         child: Align(
-                                            alignment: _drawerInnerAlignment,
-                                            widthFactor: _controller.value,
-                                            child: RepaintBoundary(
-                                                child: FocusScope(
-                                                    key: _drawerKey,
-                                                    node: _focusScopeNode,
-                                                    child: Container(
-                                                        decoration: BoxDecoration(
-                                                            boxShadow: widget.boxShadow ?? [
-                                                                BoxShadow(
-                                                                    color: Colors.black.withOpacity(0.5),
-                                                                    blurRadius: 5,
-                                                                    //spreadRadius: 0.1
-                                                                )
-                                                            ]
+                                            alignment: _drawerOuterAlignment,
+                                            child: Align(
+                                                alignment: _drawerInnerAlignment,
+                                                widthFactor: _controller.value,
+                                                child: RepaintBoundary(
+                                                    child: FocusScope(
+                                                        key: _drawerKey,
+                                                        node: _focusScopeNode,
+                                                        child: Container(
+                                                            decoration: BoxDecoration(
+                                                                boxShadow: widget.boxShadow ?? [
+                                                                    BoxShadow(
+                                                                        color: Colors.black.withOpacity(0.5),
+                                                                        blurRadius: 5,
+                                                                        //spreadRadius: 0.1
+                                                                    )
+                                                                ]
+                                                            ),
+                                                            child: widget.scaffold
                                                         ),
-                                                        child: widget.scaffold
                                                     ),
-                                                ),
-                                            )
+                                                )
+                                            ),
                                         ),
                                     ),
-                                ),
-                            ],
+                                    _trigger()
+                                ],
+                            ),
                         ),
                     ),
-                ),
-            ],
+                ],
+            );
+    }
+    
+    Widget _trigger()
+    {
+        final bool drawerIsStart = widget.position == DrawerAlignment.start;
+        final EdgeInsets padding = MediaQuery.of(context).padding;
+        double dragAreaWidth = drawerIsStart ? padding.left : padding.right;
+    
+        if (Directionality.of(context) == TextDirection.rtl)
+            dragAreaWidth = drawerIsStart ? padding.right : padding.left;
+        dragAreaWidth = max(dragAreaWidth, _kEdgeDragWidth);
+        
+        return Align(
+            alignment: _stackAlignment,
+            child: Container(width: (_controller.status == AnimationStatus.completed && widget.swipe)? dragAreaWidth : 0),
         );
+        
     }
   
 }

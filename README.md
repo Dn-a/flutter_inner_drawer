@@ -1,23 +1,25 @@
 # flutter_inner_drawer
 
-[![pub package](https://img.shields.io/badge/pub-0.1.1-orange.svg)](https://pub.dartlang.org/packages/flutter_inner_drawer)
+[![pub package](https://img.shields.io/badge/pub-0.1.2-orange.svg)](https://pub.dartlang.org/packages/flutter_inner_drawer)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/dnag88)
 
 
-Inner Drawer is an easy way to create a side menu similar to Facebook or Instagram.
+Inner Drawer is an easy way to create an internal side section (left/right) where you can insert a list menu or other.
 
 ## Installing
 Add this to your package's pubspec.yaml file:
 ```
 dependencies:
-  flutter_inner_drawer: "^0.1.1"
+  flutter_inner_drawer: "^0.1.2"
 ```
 
 
 ### DEMO
 ![Example](https://github.com/Dn-a/flutter_inner_drawer/tree/master/example)
 
-![Demo 1](https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/example1.gif)
+![Demo 1](https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/example2.gif)
+![Pic 1](https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/pic.gif)
+
 
 
 ### Simple usage
@@ -37,6 +39,7 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
             key: _innerDrawerKey,
             position: InnerDrawerPosition.start, // required
             onTapClose: true, // default false
+            swipe: true, // default true
             offset: 0.6, // default 0.4
             colorTransition: Color.red, // default Color.black54
             animationType: InnerDrawerAnimation.linear, // default static
@@ -55,7 +58,7 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
        _innerDrawerKey.currentState.open();
     }
     
-    void _open()
+    void _close()
     {
        _innerDrawerKey.currentState.close();
     }
@@ -68,6 +71,7 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
 * position - *This controls the direction in which the user should swipe to open and close the InnerDrawer (required)*
 * offset - *Offset drawer width (default 0.4)*
 * onTapClose - *bool (default false)*
+* swipe - *bool (default true)*
 * boxShadow - *BoxShadow of scaffold opened*
 * colorTransition - *default Colors.black54*
 * animationType - *Static or Linear (default static)*

@@ -45,6 +45,7 @@ class _MyHomePageState extends State<MyHomePage>
     
     bool _position = true;
     bool _onTapToClose = false;
+    bool _swipe = true;
     bool _animationType = false;
     double _offset = 0.4;
     
@@ -92,6 +93,7 @@ class _MyHomePageState extends State<MyHomePage>
             position: _position ? InnerDrawerPosition.start : InnerDrawerPosition.end,
             onTapClose: _onTapToClose,
             offset: _offset,
+            swipe: _swipe,
             colorTransition: currentColor,
             animationType: _animationType ? InnerDrawerAnimation.linear : InnerDrawerAnimation.static,
             //innerDrawerCallback: (a) => print(a),
@@ -202,7 +204,7 @@ class _MyHomePageState extends State<MyHomePage>
                 ),
                 child: SafeArea(
                     child: Material(
-                        child: Container(
+                        child:Container(
                             padding: EdgeInsets.all(15),
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -309,6 +311,34 @@ class _MyHomePageState extends State<MyHomePage>
                                                 },
                                             ),
                                         ],
+                                    ),
+                                    Padding(
+                                        padding: EdgeInsets.all(10),
+                                    ),
+                                    GestureDetector(
+                                        child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: <Widget>[
+                                                Checkbox(
+                                                    activeColor: Colors.black,
+                                                    value: _swipe,
+                                                    onChanged: (a){
+                                                        setState(() {
+                                                            _swipe = !_swipe;
+                                                        });
+                                                    }
+                                                ),
+                                                Text('Swipe'),
+                                            ],
+                                        ),
+                                        onTap: (){
+                                            setState(() {
+                                                _swipe = !_swipe;
+                                            });
+                                        },
+                                    ),
+                                    Padding(
+                                        padding: EdgeInsets.all(10),
                                     ),
                                     GestureDetector(
                                         child: Row(
