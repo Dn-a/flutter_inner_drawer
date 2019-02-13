@@ -456,7 +456,7 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
         
         return Align(
             alignment: _stackAlignment,
-            child: Container(width: (_controller.status == AnimationStatus.completed && widget.swipe)? dragAreaWidth : 0),
+            child: Container(color:Colors.transparent, width: (_controller.status == AnimationStatus.completed && widget.swipe)? dragAreaWidth : 0),
         );
         
     }
