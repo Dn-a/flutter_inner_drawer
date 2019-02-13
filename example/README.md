@@ -475,7 +475,7 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
 
 ## DEMO
 ![Demo 1](https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/example2.gif)
-![Pic 1](https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/pic.gif)
+![Pic 1](https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/pic.png)
 
 ## Other
 This project is a starting point for a Flutter application.

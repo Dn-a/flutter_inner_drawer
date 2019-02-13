@@ -18,7 +18,7 @@ dependencies:
 ![Example](https://github.com/Dn-a/flutter_inner_drawer/tree/master/example)
 
 ![Demo 1](https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/example2.gif)
-![Pic 1](https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/pic.gif)
+![Pic 1](https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/pic.png)
 
 
 
