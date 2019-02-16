@@ -1,6 +1,6 @@
 # flutter_inner_drawer
 
-[![pub package](https://img.shields.io/badge/pub-0.1.5-orange.svg)](https://pub.dartlang.org/packages/flutter_inner_drawer)
+[![pub package](https://img.shields.io/badge/pub-0.2.0-orange.svg)](https://pub.dartlang.org/packages/flutter_inner_drawer)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/dnag88)
 
 
@@ -10,14 +10,21 @@ Inner Drawer is an easy way to create an internal side section (left/right) wher
 Add this to your package's pubspec.yaml file:
 ```
 dependencies:
-  flutter_inner_drawer: "^0.1.5"
+  flutter_inner_drawer: "^0.2.0"
 ```
+
+### New Version 0.1.5 -> 0.2.0
+
+Animation type
+* static
+* Linear - *Linear animation from version 0.2.0 has a different behavior* 
+* quadratic (Linear of 0.1.5 version)
 
 
 ### DEMO
 ![Example](https://github.com/Dn-a/flutter_inner_drawer/tree/master/example)
 
-![Demo 1](https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/example2.gif)
+![Demo 1](https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/example3.gif)
 ![Pic 1](https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/pic.png)
 
 
@@ -74,7 +81,7 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
 * swipe - *bool (default true)*
 * boxShadow - *BoxShadow of scaffold opened*
 * colorTransition - *default Colors.black54*
-* animationType - *Static or Linear (default static)*
+* animationType - *static / linear / quadratic (default static)*
 * innerDrawerCallback - *Optional callback that is called when a InnerDrawer is opened or closed*
 
 

@@ -5,6 +5,7 @@ An example of how you could implement it.
 ## Getting Started - Inner Drawer
 
 ```
+
 import 'package:example/env.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -47,13 +48,12 @@ class _MyHomePageState extends State<MyHomePage>
     final GlobalKey<InnerDrawerState> _innerDrawerKey = GlobalKey<InnerDrawerState>();
 
     GlobalKey _keyRed = GlobalKey();
-    RenderBox _rd;
     double _width=10;
     
     bool _position = true;
     bool _onTapToClose = false;
     bool _swipe = true;
-    bool _animationType = false;
+    InnerDrawerAnimation _animationType = InnerDrawerAnimation.static;
     double _offset = 0.4;
     
 
@@ -102,104 +102,112 @@ class _MyHomePageState extends State<MyHomePage>
             offset: _offset,
             swipe: _swipe,
             colorTransition: currentColor,
-            animationType: _animationType ? InnerDrawerAnimation.linear : InnerDrawerAnimation.static,
+            animationType: _animationType,
             //innerDrawerCallback: (a) => print(a),
             child: Material(
                 child:  SafeArea(
                     //top: false,
-                    child: Stack(
-                        key: _keyRed,
-                        children: <Widget>[
-                            ListView(
-                                children: <Widget>[
-                                    Padding(
-                                        padding: EdgeInsets.only(top:12,bottom: 4, left: 15),
-                                        child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: <Widget>[
-                                                Row(
-                                                    children: <Widget>[
-                                                        SizedBox(
-                                                            width: 15,
-                                                            height: 15,
-                                                            child: CircleAvatar(
-                                                                child: Icon(Icons.person,color: Colors.white,size: 12),
-                                                                backgroundColor: Colors.grey,
+                    child: Container(
+                        decoration: BoxDecoration(
+                            border: Border(
+                                left: BorderSide(width: 1, color: Colors.grey[200]),
+                                right: BorderSide(width: 1, color: Colors.grey[200])
+                            ),
+                        ),
+                        child: Stack(
+                            key: _keyRed,
+                            children: <Widget>[
+                                ListView(
+                                    children: <Widget>[
+                                        Padding(
+                                            padding: EdgeInsets.only(top:12,bottom: 4, left: 15),
+                                            child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: <Widget>[
+                                                    Row(
+                                                        children: <Widget>[
+                                                            SizedBox(
+                                                                width: 15,
+                                                                height: 15,
+                                                                child: CircleAvatar(
+                                                                    child: Icon(Icons.person,color: Colors.white,size: 12),
+                                                                    backgroundColor: Colors.grey,
+                                                                ),
                                                             ),
-                                                        ),
-                                                        Text("   Guest",
-                                                            style: TextStyle(fontWeight: FontWeight.w600, height: 1.2),
-                                                        ),
-                                                    ],
-                                                ),
-                                                Padding(
-                                                    padding: EdgeInsets.only(top:2, right: 25),
-                                                    child: GestureDetector(
-                                                        child: Icon(
-                                                            _position ? Icons.arrow_back:Icons.arrow_forward,
-                                                            size: 18,),
-                                                        onTap: ()
-                                                        {
-                                                            _innerDrawerKey.currentState.close();
-                                                        },
+                                                            Text("   Guest",
+                                                                style: TextStyle(fontWeight: FontWeight.w600, height: 1.2),
+                                                            ),
+                                                        ],
                                                     ),
+                                                    Padding(
+                                                        padding: EdgeInsets.only(top:2, right: 25),
+                                                        child: GestureDetector(
+                                                            child: Icon(
+                                                                _position ? Icons.arrow_back:Icons.arrow_forward,
+                                                                size: 18,),
+                                                            onTap: ()
+                                                            {
+                                                                _innerDrawerKey.currentState.close();
+                                                            },
+                                                        ),
+                                                    ),
+                                                ],
+                                            )
+                                        ),
+                                        Divider(),
+                                        ListTile(
+                                            title:  Text("Statistics"),
+                                            leading:Icon(Icons.show_chart),
+                                        ),
+                                        ListTile(
+                                            title:   Text("Activity"),
+                                            leading: Icon(Icons.access_time),
+                                        ),
+                                        ListTile(
+                                            title:   Text("Nametag"),
+                                            leading: Icon(Icons.rounded_corner),
+                                        ),
+                                        ListTile(
+                                            title:   Text("Favorite"),
+                                            leading: Icon(Icons.bookmark_border),
+                                        ),
+                                        ListTile(
+                                            title:   Text("Close Friends"),
+                                            leading: Icon(Icons.list),
+                                        ),
+                                        ListTile(
+                                            title:   Text("Suggested People"),
+                                            leading: Icon(Icons.person_add),
+                                        ),
+                                        ListTile(
+                                            title:   Text("Open Facebook"),
+                                            leading: Icon(Env.facebook_icon,size: 18,),
+                                        ),
+                                    ],
+                                ),
+                                Positioned(
+                                    bottom: 0,
+                                    child: Container(
+                                        alignment: Alignment.bottomCenter,
+                                        padding: EdgeInsets.symmetric(vertical: 15,horizontal: 25),
+                                        width: _width,
+                                        decoration: BoxDecoration(
+                                            //color: Colors.grey,
+                                            border: Border(top: BorderSide(color: Colors.grey[200],))
+                                        ),
+                                        child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            children: <Widget>[
+                                                Icon(Icons.settings,size: 18,),
+                                                Text("  Settings",
+                                                    style: TextStyle( fontSize: 16),
                                                 ),
                                             ],
-                                        )
-                                    ),
-                                    Divider(),
-                                    ListTile(
-                                        title:  Text("Statistics"),
-                                        leading:Icon(Icons.show_chart),
-                                    ),
-                                    ListTile(
-                                        title:   Text("Activity"),
-                                        leading: Icon(Icons.access_time),
-                                    ),
-                                    ListTile(
-                                        title:   Text("Nametag"),
-                                        leading: Icon(Icons.rounded_corner),
-                                    ),
-                                    ListTile(
-                                        title:   Text("Favorite"),
-                                        leading: Icon(Icons.bookmark_border),
-                                    ),
-                                    ListTile(
-                                        title:   Text("Close Friends"),
-                                        leading: Icon(Icons.list),
-                                    ),
-                                    ListTile(
-                                        title:   Text("Suggested People"),
-                                        leading: Icon(Icons.person_add),
-                                    ),
-                                    ListTile(
-                                        title:   Text("Open Facebook"),
-                                        leading: Icon(Env.facebook_icon,size: 18,),
-                                    ),
-                                ],
-                            ),
-                            Positioned(
-                                bottom: 0,
-                                child: Container(
-                                    alignment: Alignment.bottomCenter,
-                                    padding: EdgeInsets.symmetric(vertical: 15,horizontal: 25),
-                                    width: _width,
-                                    decoration: BoxDecoration(
-                                        //color: Colors.grey,
-                                        border: Border(top: BorderSide(color: Colors.grey[200],))
-                                    ),
-                                    child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: <Widget>[
-                                            Icon(Icons.settings,size: 18,),
-                                            Text("  Settings",
-                                                style: TextStyle( fontSize: 16),
-                                            ),
-                                        ],
-                                    ),
+                                        ),
+                                    )
                                 )
-                            )
-                        ],
+                            ],
+                        ),
                     )
                 )
             ),
@@ -212,7 +220,7 @@ class _MyHomePageState extends State<MyHomePage>
                 child: SafeArea(
                     child: Material(
                         child:Container(
-                            padding: EdgeInsets.all(15),
+                            padding: EdgeInsets.symmetric(horizontal: 15),
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -280,10 +288,10 @@ class _MyHomePageState extends State<MyHomePage>
                                                         Text('Static'),
                                                         Checkbox(
                                                             activeColor: Colors.black,
-                                                            value: !_animationType,
+                                                            value: _animationType==InnerDrawerAnimation.static,
                                                             onChanged: (a){
                                                                 setState(() {
-                                                                    _animationType = false;
+                                                                    _animationType = InnerDrawerAnimation.static;
                                                                 });
                                                             }
                                                         ),
@@ -291,7 +299,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                 ),
                                                 onTap: (){
                                                     setState(() {
-                                                        _animationType = false;
+                                                        _animationType = InnerDrawerAnimation.static;
                                                     });
                                                 },
                                             ),
@@ -301,10 +309,10 @@ class _MyHomePageState extends State<MyHomePage>
                                                     children: <Widget>[
                                                         Checkbox(
                                                             activeColor: Colors.black,
-                                                            value: _animationType,
+                                                            value: _animationType==InnerDrawerAnimation.linear,
                                                             onChanged: (a){
                                                                 setState(() {
-                                                                    _animationType = true;
+                                                                    _animationType = InnerDrawerAnimation.linear;
                                                                 });
                                                             }
                                                         ),
@@ -313,7 +321,29 @@ class _MyHomePageState extends State<MyHomePage>
                                                 ),
                                                 onTap: (){
                                                     setState(() {
-                                                        _animationType = true;
+                                                        _animationType = InnerDrawerAnimation.linear;
+                                                    });
+                                                },
+                                            ),
+                                            GestureDetector(
+                                                child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: <Widget>[
+                                                        Checkbox(
+                                                            activeColor: Colors.black,
+                                                            value: _animationType == InnerDrawerAnimation.quadratic,
+                                                            onChanged: (a){
+                                                                setState(() {
+                                                                    _animationType = InnerDrawerAnimation.quadratic;
+                                                                });
+                                                            }
+                                                        ),
+                                                        Text('Quadratic'),
+                                                    ],
+                                                ),
+                                                onTap: (){
+                                                    setState(() {
+                                                        _animationType = InnerDrawerAnimation.quadratic;
                                                     });
                                                 },
                                             ),
@@ -459,11 +489,10 @@ class _MyHomePageState extends State<MyHomePage>
     
 }
 
-
 ```
 
 ## DEMO
-![Demo 1](https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/example2.gif)
+![Demo 1](https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/example3.gif)
 ![Pic 1](https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/pic.png)
 
 ## Other

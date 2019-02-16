@@ -7,8 +7,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="83271013-5db3-4ab0-8822-49e2d2a20eb3" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/example/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/example2.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/inner_drawer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/inner_drawer.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
@@ -72,50 +77,72 @@
     <session id="-614305313">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="8" />
+          <entry key="project.closed" value="11" />
           <entry key="project.open.time.0" value="7" />
-          <entry key="project.open.time.4" value="1" />
-          <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="9" />
+          <entry key="project.open.time.12" value="1" />
+          <entry key="project.open.time.4" value="2" />
+          <entry key="project.open.time.8" value="2" />
+          <entry key="project.opened" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="dart" value="3225" />
-          <entry key="md" value="699" />
-          <entry key="yaml" value="12" />
+          <entry key="dart" value="8113" />
+          <entry key="md" value="899" />
+          <entry key="yaml" value="15" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Dart" value="3225" />
-          <entry key="Markdown" value="699" />
-          <entry key="YAML" value="12" />
+          <entry key="Dart" value="8113" />
+          <entry key="Markdown" value="899" />
+          <entry key="YAML" value="15" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="dart" value="5" />
-          <entry key="md" value="18" />
-          <entry key="yaml" value="8" />
+          <entry key="dart" value="6" />
+          <entry key="md" value="23" />
+          <entry key="yaml" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Dart" value="5" />
-          <entry key="Markdown" value="18" />
-          <entry key="YAML" value="8" />
+          <entry key="Dart" value="6" />
+          <entry key="Markdown" value="23" />
+          <entry key="YAML" value="9" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/inner_drawer.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="721">
-              <caret line="457" column="39" selection-start-line="457" selection-start-column="39" selection-end-line="457" selection-end-column="39" />
+            <state relative-caret-position="550">
+              <caret line="388" column="43" selection-start-line="388" selection-start-column="43" selection-end-line="388" selection-end-column="43" />
+              <folding>
+                <element signature="e#3083#3356#0" />
+                <element signature="e#3404#3500#0" />
+                <element signature="e#3544#3902#0" />
+                <element signature="e#4056#4446#0" />
+                <element signature="e#4518#4943#0" />
+                <element signature="e#4996#5050#0" />
+                <element signature="e#5162#5228#0" />
+                <element signature="e#5268#5467#0" />
+                <element signature="e#5560#5783#0" />
+                <element signature="e#5886#6667#0" />
+                <element signature="e#6723#7659#0" />
+                <element signature="e#7690#7832#0" />
+                <element signature="e#7864#8005#0" />
+                <element signature="e#8136#8448#0" />
+                <element signature="e#8514#8823#0" />
+                <element signature="e#8878#9190#0" />
+                <element signature="e#9950#10623#0" />
+                <element signature="e#11898#18072#0" />
+                <element signature="e#12647#13748#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -123,29 +150,14 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5729">
-              <caret line="337" column="42" lean-forward="true" selection-start-line="337" selection-start-column="42" selection-end-line="337" selection-end-column="42" />
+            <state relative-caret-position="952">
+              <caret line="56" column="29" selection-start-line="56" selection-start-column="29" selection-end-line="56" selection-end-column="29" />
               <folding>
                 <element signature="e#0#34#0" expanded="true" />
+                <element signature="e#2673#8311#0" />
+                <element signature="e#8375#8550#0" />
+                <element signature="e#8583#25849#0" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/pubspec.yaml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="12" lean-forward="true" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="32" lean-forward="true" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -153,8 +165,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="24" lean-forward="true" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
+            <state relative-caret-position="34">
+              <caret line="2" column="2" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="493">
+              <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
             </state>
           </provider>
         </entry>
@@ -170,15 +191,12 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>widget.c</find>
-      <find>_controller</find>
       <find>max(</find>
       <find>_animationController</find>
       <find>animation</find>
       <find>Widget build</find>
       <find>alignment</find>
       <find>widget.alignment</find>
-      <find>_controller.value</find>
       <find>TextDirection.rtl</find>
       <find>TextDirection.</find>
       <find>drawer</find>
@@ -200,6 +218,9 @@
       <find>_kEdgeDragWidth</find>
       <find>_gestureDetectorKey</find>
       <find>width</find>
+      <find>_controller.value</find>
+      <find>linear</find>
+      <find>static</find>
     </findStrings>
     <dirStrings>
       <dir>D:\Android-Project\flutter\package\inner_drawer\flutter_inner_drawer\example</dir>
@@ -220,18 +241,18 @@
         <option value="$PROJECT_DIR$/example_inner_drawer/README.md" />
         <option value="$PROJECT_DIR$/example/pubspec.yaml" />
         <option value="$PROJECT_DIR$/example/test/widget_test.dart" />
-        <option value="$PROJECT_DIR$/example/lib/main.dart" />
-        <option value="$PROJECT_DIR$/lib/inner_drawer.dart" />
-        <option value="$PROJECT_DIR$/example/README.md" />
-        <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/CHANGELOG.md" />
         <option value="$PROJECT_DIR$/pubspec.yaml" />
+        <option value="$PROJECT_DIR$/example/lib/main.dart" />
+        <option value="$PROJECT_DIR$/example/README.md" />
+        <option value="$PROJECT_DIR$/lib/inner_drawer.dart" />
+        <option value="$PROJECT_DIR$/CHANGELOG.md" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="18" />
-    <option name="y" value="-23" />
+    <option name="x" value="563" />
+    <option name="y" value="75" />
     <option name="width" value="1936" />
     <option name="height" value="1176" />
   </component>
@@ -241,7 +262,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -281,8 +301,9 @@
         </subPane>
         <option name="show-excluded-files" value="false" />
       </pane>
-      <pane id="AndroidView" />
+      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -320,6 +341,7 @@
       <method v="2" />
     </configuration>
     <configuration name="flutter_inner_drawer" type="FlutterRunConfigurationType" factoryName="Flutter">
+      <option name="additionalArgs" value="--release" />
       <option name="filePath" value="$PROJECT_DIR$/example/lib/main.dart" />
       <method v="2" />
     </configuration>
@@ -370,16 +392,16 @@
       <window_info anchor="bottom" id="Android Monitor" order="1" />
       <window_info anchor="bottom" id="Messages" order="2" weight="0.2512267" />
       <window_info anchor="bottom" id="Version Control" order="3" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="4" visible="true" weight="0.25907752" />
+      <window_info anchor="bottom" id="Terminal" order="4" weight="0.25907752" />
       <window_info anchor="bottom" id="Gradle Console" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="6" />
       <window_info anchor="bottom" id="Find" order="7" />
-      <window_info anchor="bottom" id="Run" order="8" weight="0.24435721" />
+      <window_info active="true" anchor="bottom" id="Run" order="8" visible="true" weight="0.2384691" />
       <window_info anchor="bottom" id="Debug" order="9" weight="0.3994112" />
       <window_info anchor="bottom" id="Cvs" order="10" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="11" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="12" weight="0.32973504" />
-      <window_info anchor="bottom" id="Dart Analysis" order="13" weight="0.20177165" />
+      <window_info anchor="bottom" id="Dart Analysis" order="13" weight="0.20117763" />
       <window_info anchor="bottom" id="Android Profiler" order="14" show_stripe_button="false" />
       <window_info anchor="bottom" id="Logcat" order="15" />
       <window_info anchor="bottom" id="Flutter Performance" order="16" side_tool="true" weight="0.32973504" />
@@ -404,21 +426,16 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/inner_drawer.dart</url>
-          <line>173</line>
+          <line>155</line>
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/inner_drawer.dart</url>
-          <line>144</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/inner_drawer.dart</url>
-          <line>294</line>
+          <line>275</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/example/lib/main.dart</url>
-          <line>198</line>
+          <line>205</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
@@ -428,13 +445,33 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/inner_drawer.dart</url>
-          <line>220</line>
+          <line>180</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/inner_drawer.dart</url>
-          <line>375</line>
+          <line>439</line>
           <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/inner_drawer.dart</url>
+          <line>298</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/inner_drawer.dart</url>
+          <line>403</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/inner_drawer.dart</url>
+          <line>336</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/inner_drawer.dart</url>
+          <line>393</line>
+          <option name="timeStamp" value="17" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -568,48 +605,79 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://C:/src/flutter/packages/flutter/lib/src/rendering/viewport.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="1143" column="14" selection-start-line="1143" selection-start-column="14" selection-end-line="1143" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/example/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-408">
-          <caret line="12" column="51" lean-forward="true" selection-start-line="12" selection-start-column="51" selection-end-line="12" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/inner_drawer.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="721">
-          <caret line="457" column="39" selection-start-line="457" selection-start-column="39" selection-end-line="457" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5729">
-          <caret line="337" column="42" lean-forward="true" selection-start-line="337" selection-start-column="42" selection-end-line="337" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#34#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="32" lean-forward="true" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="24" lean-forward="true" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
+        <state relative-caret-position="564">
+          <caret line="490" lean-forward="true" selection-start-line="490" selection-end-line="490" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pubspec.yaml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="12" lean-forward="true" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
+        <state relative-caret-position="34">
+          <caret line="2" column="14" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="2" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="952">
+          <caret line="56" column="29" selection-start-line="56" selection-start-column="29" selection-end-line="56" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#34#0" expanded="true" />
+            <element signature="e#2673#8311#0" />
+            <element signature="e#8375#8550#0" />
+            <element signature="e#8583#25849#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/inner_drawer.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="550">
+          <caret line="388" column="43" selection-start-line="388" selection-start-column="43" selection-end-line="388" selection-end-column="43" />
+          <folding>
+            <element signature="e#3083#3356#0" />
+            <element signature="e#3404#3500#0" />
+            <element signature="e#3544#3902#0" />
+            <element signature="e#4056#4446#0" />
+            <element signature="e#4518#4943#0" />
+            <element signature="e#4996#5050#0" />
+            <element signature="e#5162#5228#0" />
+            <element signature="e#5268#5467#0" />
+            <element signature="e#5560#5783#0" />
+            <element signature="e#5886#6667#0" />
+            <element signature="e#6723#7659#0" />
+            <element signature="e#7690#7832#0" />
+            <element signature="e#7864#8005#0" />
+            <element signature="e#8136#8448#0" />
+            <element signature="e#8514#8823#0" />
+            <element signature="e#8878#9190#0" />
+            <element signature="e#9950#10623#0" />
+            <element signature="e#11898#18072#0" />
+            <element signature="e#12647#13748#0" />
+          </folding>
         </state>
       </provider>
     </entry>
