@@ -4,7 +4,8 @@
 
 ## [0.2.0] - 2019-02-16.
 
-* 3 types of animation (static - linear - quadratic) - Improved documentation.
+* 3 types of animation (static - linear - quadratic) 
+* Improved documentation.
 
 ## [0.1.5] - 2019-02-13.
 

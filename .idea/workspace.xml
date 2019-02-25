@@ -9,9 +9,7 @@
     <list default="true" id="83271013-5db3-4ab0-8822-49e2d2a20eb3" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/generated/i18n.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/generated/i18n.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/inner_drawer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/inner_drawer.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -86,29 +84,29 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dart" value="8118" />
-          <entry key="md" value="954" />
-          <entry key="yaml" value="15" />
+          <entry key="md" value="956" />
+          <entry key="yaml" value="16" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Dart" value="8118" />
-          <entry key="Markdown" value="954" />
-          <entry key="YAML" value="15" />
+          <entry key="Markdown" value="956" />
+          <entry key="YAML" value="16" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="dart" value="6" />
           <entry key="md" value="26" />
-          <entry key="yaml" value="9" />
+          <entry key="yaml" value="10" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Dart" value="6" />
           <entry key="Markdown" value="26" />
-          <entry key="YAML" value="9" />
+          <entry key="YAML" value="10" />
         </counts>
       </usages-collector>
     </session>
@@ -118,8 +116,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/inner_drawer.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="403">
-              <caret line="385" column="61" selection-start-line="385" selection-start-column="10" selection-end-line="385" selection-end-column="61" />
+            <state relative-caret-position="505">
+              <caret line="391" column="8" lean-forward="true" selection-start-line="391" selection-start-column="8" selection-end-line="391" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -136,11 +134,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="34">
-              <caret line="2" column="60" lean-forward="true" selection-start-line="2" selection-start-column="60" selection-end-line="2" selection-end-column="60" />
+              <caret line="2" column="59" lean-forward="true" selection-start-line="2" selection-start-column="50" selection-end-line="2" selection-end-column="59" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pubspec.yaml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="32" lean-forward="true" selection-start-line="7" selection-start-column="32" selection-end-line="7" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -148,8 +155,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="7" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
+            <state relative-caret-position="238">
+              <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
             </state>
           </provider>
         </entry>
@@ -215,12 +222,12 @@
         <option value="$PROJECT_DIR$/example_inner_drawer/README.md" />
         <option value="$PROJECT_DIR$/example/pubspec.yaml" />
         <option value="$PROJECT_DIR$/example/test/widget_test.dart" />
-        <option value="$PROJECT_DIR$/pubspec.yaml" />
         <option value="$PROJECT_DIR$/example/lib/main.dart" />
         <option value="$PROJECT_DIR$/example/README.md" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/lib/inner_drawer.dart" />
         <option value="$PROJECT_DIR$/CHANGELOG.md" />
+        <option value="$PROJECT_DIR$/pubspec.yaml" />
       </list>
     </option>
   </component>
@@ -366,7 +373,7 @@
       <window_info anchor="bottom" id="Android Monitor" order="1" />
       <window_info anchor="bottom" id="Messages" order="2" weight="0.2512267" />
       <window_info anchor="bottom" id="Version Control" order="3" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="4" weight="0.25907752" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="4" visible="true" weight="0.25907752" />
       <window_info anchor="bottom" id="Gradle Console" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="6" />
       <window_info anchor="bottom" id="Find" order="7" />
@@ -593,17 +600,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="14" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="7" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
+        <state relative-caret-position="238">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
         </state>
       </provider>
     </entry>
@@ -619,15 +619,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/inner_drawer.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="403">
-          <caret line="385" column="61" selection-start-line="385" selection-start-column="10" selection-end-line="385" selection-end-column="61" />
+        <state relative-caret-position="505">
+          <caret line="391" column="8" lean-forward="true" selection-start-line="391" selection-start-column="8" selection-end-line="391" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
-          <caret line="2" column="60" lean-forward="true" selection-start-line="2" selection-start-column="60" selection-end-line="2" selection-end-column="60" />
+          <caret line="2" column="59" lean-forward="true" selection-start-line="2" selection-start-column="50" selection-end-line="2" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="32" lean-forward="true" selection-start-line="7" selection-start-column="32" selection-end-line="7" selection-end-column="32" />
         </state>
       </provider>
     </entry>
