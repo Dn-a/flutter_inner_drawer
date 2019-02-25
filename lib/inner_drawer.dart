@@ -383,7 +383,7 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
     @override
     Widget build(BuildContext context)
     {
-        assert(debugCheckHasMaterialLocalizations(context));
+        //assert(debugCheckHasMaterialLocalizations(context));
         
         double offset = widget.offset ?? 0.4;
         double wFactor = _controller.value;
@@ -411,7 +411,6 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
                     onHorizontalDragDown: widget.swipe? _handleDragDown : null,
                     onHorizontalDragUpdate: widget.swipe? _move : null,
                     onHorizontalDragEnd: widget.swipe? _settle : null,
-                    //onHorizontalDragCancel: _handleDragCancel,
                     excludeFromSemantics: true,
                     child: RepaintBoundary(
                         child: Stack(
@@ -422,7 +421,7 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
                                         excludeFromSemantics: defaultTargetPlatform == TargetPlatform.android,
                                         onTap: widget.onTapClose || !widget.swipe ? close:null,
                                         child: Semantics(
-                                            label: MaterialLocalizations.of(context)?.modalBarrierDismissLabel,
+                                            //label: MaterialLocalizations.of(context)?.modalBarrierDismissLabel,
                                             child: Align(
                                                 alignment: _drawerOuterAlignment,
                                                 child: Container(

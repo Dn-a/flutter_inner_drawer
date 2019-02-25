@@ -1,3 +1,7 @@
+## [0.2.1] - 2019-02-25.
+
+* With CupertinoThemeData an assert was launched, fixed bug.
+
 ## [0.2.0] - 2019-02-16.
 
 * 3 types of animation (static - linear - quadratic) - Improved documentation.
