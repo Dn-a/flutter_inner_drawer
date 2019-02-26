@@ -30,17 +30,8 @@ enum InnerDrawerAnimation
 }
 
 
-// Mobile:
-// Width = Screen width − 56 dp
-// Maximum width: 320dp
-// Maximum width applies only when using a left nav. When using a right nav,
-// the panel can cover the full width of the screen.
-
-// Desktop/Tablet:
-// Maximum width for a left nav is 400dp.
-// The right nav can vary depending on content.
-
-const double _kWidth = 304.0;
+//width before initState
+const double _kWidth = 400;
 const double _kMinFlingVelocity = 365.0;
 const double _kEdgeDragWidth = 20.0;
 const Duration _kBaseSettleDuration = Duration(milliseconds: 246);
@@ -105,12 +96,17 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
 {
     
     ColorTween _color = ColorTween(begin: Colors.transparent, end: Colors.black54);
+
+    double _initWidth = _kWidth;
+    Orientation _orientation = Orientation.portrait;
     
     @override
     void initState()
     {
         super.initState();
-        
+
+        _updateWidth();
+
         _controller = AnimationController(duration: _kBaseSettleDuration, vsync: this)
             ..addListener(_animationChanged)
             ..addStatusListener(_animationStatusChanged);
@@ -133,6 +129,7 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
         setState(() {
             // The animation controller's state is our build state, and it changed already.
         });
+        
         if(widget.colorTransition!=null)
             _color = ColorTween (begin: Colors.transparent, end: widget.colorTransition);
         else
@@ -188,7 +185,7 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
     void _handleDragDown(DragDownDetails details)
     {
         _controller.stop();
-        _ensureHistoryEntry();
+        //_ensureHistoryEntry();
     }
     
     
@@ -209,10 +206,19 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
     
     double get _width
     {
-        final RenderBox box = _drawerKey.currentContext?.findRenderObject();
-        if (box != null && box.size!= null)
-            return box.size.width;
-        return _kWidth; // drawer not being shown currently
+        return _initWidth;
+    }
+
+    /// get width of screen after initState
+    void _updateWidth()
+    {
+        WidgetsBinding.instance.addPostFrameCallback((_){
+            final RenderBox box = _drawerKey.currentContext?.findRenderObject();
+            if (box != null && box.size!= null)
+                setState(() {
+                    _initWidth =  box.size.width;
+                });
+        });
     }
     
     
@@ -238,7 +244,7 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
                 _controller.value += delta;
                 break;
         }
-        //print(_cont?.currentContext?.size);
+        
         final bool opened = _controller.value > 0.5 ? true : false;
         if (opened != _previouslyOpened && widget.innerDrawerCallback != null)
             widget.innerDrawerCallback(opened);
@@ -384,6 +390,11 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
     Widget build(BuildContext context)
     {
         //assert(debugCheckHasMaterialLocalizations(context));
+    
+        // initialize the correct width
+        if(_initWidth == 400 || MediaQuery.of(context).orientation != _orientation)
+            _updateWidth();
+        _orientation = MediaQuery.of(context).orientation;
         
         double offset = widget.offset ?? 0.4;
         double wFactor = _controller.value;
@@ -434,7 +445,7 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
                                 ),
                                 ///Gradient
                                 Container(
-                                    width: _controller.value==0 ? 0: null,
+                                    width: _controller.value==0 || widget.animationType == InnerDrawerAnimation.linear ? 0: null,
                                     color: _color.evaluate(_controller),
                                 ),
                                 Align(
@@ -462,8 +473,6 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
                                                         child: Stack(
                                                             overflow: Overflow.visible,
                                                             children: <Widget>[
-                                                                ///Scaffold
-                                                                widget.scaffold,
                                                                 
                                                                 /// Is displayed only when the Linear Animation is in progress, i have not found other ways
                                                                 /// I adopted this technique because it seemed the only possible one
@@ -475,7 +484,9 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
                                                                         child: (_controller.value==0)? null: widget.child,
                                                                     )
                                                                 ) : null,
-                                                                ///
+                                                                
+                                                                ///Scaffold
+                                                                widget.scaffold,
                                                                 
                                                             ].where((a) => a != null ).toList(),
                                                         )

@@ -1,6 +1,6 @@
 # flutter_inner_drawer
 
-[![pub package](https://img.shields.io/badge/pub-0.2.1-orange.svg)](https://pub.dartlang.org/packages/flutter_inner_drawer)
+[![pub package](https://img.shields.io/badge/pub-0.2.2-orange.svg)](https://pub.dartlang.org/packages/flutter_inner_drawer)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/dnag88)
 
 
@@ -10,7 +10,7 @@ Inner Drawer is an easy way to create an internal side section (left/right) wher
 Add this to your package's pubspec.yaml file:
 ```dart
 dependencies:
-  flutter_inner_drawer: "^0.2.1"
+  flutter_inner_drawer: "^0.2.2"
 ```
 
 ### New Version 0.1.5 -> 0.2.0
@@ -56,7 +56,23 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
                     child: Container(...)
                 )
             ),
-            scaffold: Scaffold(...) or CupertinoPageScaffold(...), //  A Scaffold is generally used but you are free to use other widgets
+            //  A Scaffold is generally used but you are free to use other widgets
+            // Note: use "automaticallyImplyLeading: false" if you do not personalize "leading" of Bar
+            scaffold: Scaffold(
+                appBar: AppBar(
+                    automaticallyImplyLeading: false
+                )
+                .
+                .
+            ) 
+            or 
+            CupertinoPageScaffold(                
+                navigationBar: CupertinoNavigationBar(
+                    automaticallyImplyLeading: false
+                ),
+                .
+                .
+            ), 
         )
     }
     

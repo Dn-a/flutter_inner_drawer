@@ -1,6 +1,10 @@
+## [0.2.2] - 2019-02-26.
+
+* fix some artifacts with linear animation.
+
 ## [0.2.1] - 2019-02-25.
 
-* With CupertinoThemeData an assert was launched, fixed bug.
+* solved the problem of CupertinoThemeData that launched an assert.
 
 ## [0.2.0] - 2019-02-16.
 
