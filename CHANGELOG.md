@@ -1,3 +1,8 @@
+## [0.2.3] - 2019-04-06.
+
+* fix some problem.
+* General improvement of the code.
+
 ## [0.2.2] - 2019-02-26.
 
 * fix some artifacts with linear animation.
@@ -21,7 +26,7 @@
 
 ## [0.1.3] - 2019-02-13.
 
-* problem swipe fixed.
+* fixed swipe.
 
 ## [0.1.2] - 2019-02-13.
 

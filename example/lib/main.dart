@@ -209,6 +209,7 @@ class _MyHomePageState extends State<MyHomePage>
                     automaticallyImplyLeading: false,
                     backgroundColor: Colors.grey[50],
                 ),
+                
                 child: SafeArea(
                     child: Material(
                         child:Container(
