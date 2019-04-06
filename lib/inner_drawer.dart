@@ -409,126 +409,6 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
             );
     }
     
-    
-    //@override
-    Widget builds(BuildContext context)
-    {
-        //assert(debugCheckHasMaterialLocalizations(context));
-    
-        // initialize the correct width
-        if(_initWidth == 400 || MediaQuery.of(context).orientation != _orientation)
-            _updateWidth();
-        _orientation = MediaQuery.of(context).orientation;
-        
-        double offset = widget.offset ?? 0.4;
-        double wFactor = _controller.value;
-        double width = (_width/2) -(_width/2)*offset;
-        
-        
-        /// wFactor depends of offset and is used by the first Align that contains the Scaffold
-        switch (widget.position) {
-            case InnerDrawerPosition.start:
-                wFactor += offset;
-                break;
-            case InnerDrawerPosition.end:
-                wFactor += (1 - offset);
-                break;
-        }
-        
-        
-        return Stack(
-            alignment: _stackAlignment,
-            overflow: Overflow.visible,
-            children: <Widget>[
-                _innerAnimationType(width),
-                GestureDetector(
-                    key: _gestureDetectorKey,
-                    onHorizontalDragDown: widget.swipe? _handleDragDown : null,
-                    onHorizontalDragUpdate: widget.swipe? _move : null,
-                    onHorizontalDragEnd: widget.swipe? _settle : null,
-                    excludeFromSemantics: true,
-                    child: RepaintBoundary(
-                        child: Stack(
-                            children: <Widget>[
-                                BlockSemantics(
-                                    child: GestureDetector(
-                                        // On Android, the back button is used to dismiss a modal.
-                                        excludeFromSemantics: defaultTargetPlatform == TargetPlatform.android,
-                                        onTap: widget.onTapClose || !widget.swipe ? close:null,
-                                        child: Semantics(
-                                            //label: MaterialLocalizations.of(context)?.modalBarrierDismissLabel,
-                                            child: Align(
-                                                alignment: _drawerOuterAlignment,
-                                                child: Container(
-                                                    width: width,
-                                                    color:Colors.transparent,
-                                                ),
-                                            ),
-                                        ),
-                                    ),
-                                ),
-                                ///Gradient
-                                Container(
-                                    width: _controller.value==0 || widget.animationType == InnerDrawerAnimation.linear ? 0: null,
-                                    color: _color.evaluate(_controller),
-                                ),
-                                Align(
-                                    widthFactor:  wFactor,
-                                    child: Align(
-                                        alignment: _drawerOuterAlignment,
-                                        child: Align(
-                                            alignment: _drawerInnerAlignment,
-                                            widthFactor: _controller.value,
-                                            child: RepaintBoundary(
-                                                child: FocusScope(
-                                                    key: _drawerKey,
-                                                    node: _focusScopeNode,
-                                                    child: Container(
-                                                        decoration: widget.animationType == InnerDrawerAnimation.linear ? null :
-                                                        BoxDecoration(
-                                                            boxShadow: widget.boxShadow ?? [
-                                                                BoxShadow(
-                                                                    color: Colors.black.withOpacity(0.5),
-                                                                    blurRadius: 5,
-                                                                    //spreadRadius: 0.1
-                                                                )
-                                                            ]
-                                                        ),
-                                                        child: Stack(
-                                                            overflow: Overflow.visible,
-                                                            children: <Widget>[
-                                                                
-                                                                /// Is displayed only when the Linear Animation is in progress, i have not found other ways
-                                                                /// I adopted this technique because it seemed the only possible one
-                                                                (widget.animationType==InnerDrawerAnimation.linear)?
-                                                                Positioned(
-                                                                    left: widget.position==InnerDrawerPosition.start? -(_width - width) : _width,
-                                                                    right: widget.position==InnerDrawerPosition.end? -(_width - width) : _width,                                                                    child:Container(
-                                                                        height: MediaQuery.of(context).size.height,
-                                                                        child: (_controller.value==0)? null: widget.child,
-                                                                    )
-                                                                ) : null,
-                                                                
-                                                                ///Scaffold
-                                                                widget.scaffold,
-                                                                
-                                                            ].where((a) => a != null ).toList(),
-                                                        )
-                                                    ),
-                                                ),
-                                            )
-                                        ),
-                                    ),
-                                ),
-                                ///Trigger
-                                _trigger()
-                            ].where((a) => a != null ).toList(),
-                        ),
-                    ),
-                ),
-            ],
-        );
-    }
 
     @override
     Widget build(BuildContext context)
@@ -541,22 +421,11 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
         _orientation = MediaQuery.of(context).orientation;
     
         double offset = widget.offset ?? 0.4;
-        double wFactor = _controller.value;
         double width = (_width/2) -(_width/2)*offset;
     
-    
-        /// wFactor depends of offset and is used by the first Align that contains the Scaffold
-        switch (widget.position) {
-            case InnerDrawerPosition.start:
-                wFactor += offset;
-                break;
-            case InnerDrawerPosition.end:
-                wFactor += (1 - offset);
-                break;
-        }
-        
-        offset = 0.5 - offset* 0.5 ;
-        wFactor = (_controller.value* (1 - offset)) + offset;
+        /// wFactor depends of offset and is used by the second Align that contains the Scaffold
+        offset = 0.5 - offset* 0.5;
+        double wFactor = (_controller.value* (1 - offset)) + offset;
         
         return Stack(
             alignment: _stackAlignment,
@@ -581,7 +450,7 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
                                     alignment: _drawerOuterAlignment,
                                     child: Align(
                                         alignment: _stackAlignment,
-                                        widthFactor: wFactor.abs(),
+                                        widthFactor: wFactor,
                                         child: RepaintBoundary(
                                             child: FocusScope(
                                                 key: _drawerKey,
