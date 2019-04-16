@@ -229,6 +229,9 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
     {
         double delta = details.primaryDelta / _width;
         
+        double offset = widget.offset ?? 0.4;
+        offset = 1  -  sqrt(offset);
+        
         switch (widget.position) {
             case InnerDrawerPosition.end:
                 break;
@@ -238,10 +241,10 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
         }
         switch (Directionality.of(context)) {
             case TextDirection.rtl:
-                _controller.value -= delta;
+                _controller.value -= delta - delta*offset;
                 break;
             case TextDirection.ltr:
-                _controller.value += delta;
+                _controller.value += (delta + delta*offset);
                 break;
         }
         
@@ -425,7 +428,7 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
     
         /// wFactor depends of offset and is used by the second Align that contains the Scaffold
         offset = 0.5 - offset* 0.5;
-        double wFactor = (_controller.value* (1 - offset)) + offset;
+        double wFactor = (_controller.value * (1 - offset)) + offset;
         
         return Stack(
             alignment: _stackAlignment,

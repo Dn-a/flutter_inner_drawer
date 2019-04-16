@@ -1,6 +1,6 @@
 # flutter_inner_drawer
 
-[![pub package](https://img.shields.io/badge/pub-0.2.3-orange.svg)](https://pub.dartlang.org/packages/flutter_inner_drawer)
+[![pub package](https://img.shields.io/badge/pub-0.2.4-orange.svg)](https://pub.dartlang.org/packages/flutter_inner_drawer)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/dnag88)
 
 
@@ -10,7 +10,7 @@ Inner Drawer is an easy way to create an internal side section (left/right) wher
 Add this to your package's pubspec.yaml file:
 ```dart
 dependencies:
-  flutter_inner_drawer: "^0.2.3"
+  flutter_inner_drawer: "^0.2.4"
 ```
 
 ### New Version 0.1.5 -> 0.2.0
