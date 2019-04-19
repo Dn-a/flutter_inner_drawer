@@ -100,6 +100,7 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
     double _initWidth = _kWidth;
     Orientation _orientation = Orientation.portrait;
     
+    
     @override
     void initState()
     {
@@ -185,19 +186,7 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
     void _handleDragDown(DragDownDetails details)
     {
         _controller.stop();
-        //_ensureHistoryEntry();
-    }
-    
-    
-    /// currently not used
-    void _handleDragCancel() {
-        if (_controller.isDismissed || _controller.isAnimating )
-            return;
-        if (_controller.value < 0.5) {
-            close();
-        } else {
-            open();
-        }
+        _ensureHistoryEntry();
     }
     
     
@@ -230,7 +219,7 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
         double delta = details.primaryDelta / _width;
         
         double offset = widget.offset ?? 0.4;
-        offset = 1  -  sqrt(offset);
+        offset = 1 -  (num.parse(sqrt(offset).toStringAsFixed(1)));
         
         switch (widget.position) {
             case InnerDrawerPosition.end:
@@ -241,14 +230,14 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
         }
         switch (Directionality.of(context)) {
             case TextDirection.rtl:
-                _controller.value -= delta - delta*offset;
+                _controller.value -= (delta + delta*offset);
                 break;
             case TextDirection.ltr:
                 _controller.value += (delta + delta*offset);
                 break;
         }
         
-        final bool opened = _controller.value > 0.5 ? true : false;
+        final bool opened = _controller.value < 0.5 ? true : false;
         if (opened != _previouslyOpened && widget.innerDrawerCallback != null)
             widget.innerDrawerCallback(opened);
         _previouslyOpened = opened;
@@ -324,45 +313,36 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
             case InnerDrawerPosition.start:
                 return AlignmentDirectional.centerStart;
             case InnerDrawerPosition.end:
-                return AlignmentDirectional.center;
-        }
-        return null;
-    }
-    
-    AlignmentDirectional get _stackAlignment
-    {
-        assert(widget.position != null);
-        switch (widget.position) {
-            case InnerDrawerPosition.start:
-                return AlignmentDirectional.centerStart;
-            case InnerDrawerPosition.end:
                 return AlignmentDirectional.centerEnd;
         }
         return null;
     }
     
+    
     /// return widget with specific animation
     Widget _innerAnimationType(double width)
     {
+        Widget container = Container(
+            width: _width - width,
+            height: MediaQuery.of(context).size.height,
+            child: widget.child,
+        );
+        
         switch (widget.animationType) {
             case InnerDrawerAnimation.linear:
+                return  Align(
+                    alignment: _drawerOuterAlignment,
+                    widthFactor: 1-(_controller.value),
+                    child: container,
+                );
             case InnerDrawerAnimation.quadratic:
                 return  Align(
                     alignment: _drawerOuterAlignment,
                     widthFactor: 1-(_controller.value/2),
-                    child: Container(
-                        width: _width - width,
-                        height: MediaQuery.of(context).size.height,
-                        ///when the animation is linear, the container is displayed when the animation completed
-                        child: (_controller.value > 0 && widget.animationType == InnerDrawerAnimation.linear)? null: widget.child,
-                    ),
+                    child: container,
                 );
-            case InnerDrawerAnimation.static:
-                return Container(
-                    width: _width - width,
-                    height: MediaQuery.of(context).size.height,
-                    child: widget.child,
-                );
+            default:
+                return container;
         }
         
     }
@@ -381,7 +361,7 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
         
         if (_controller.status == AnimationStatus.completed && widget.swipe)
             return Align(
-                alignment: _stackAlignment,
+                alignment: _drawerInnerAlignment,
                 child: Container(color:Colors.transparent, width: dragAreaWidth ),
             );
         else
@@ -419,9 +399,10 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
         //assert(debugCheckHasMaterialLocalizations(context));
     
         // initialize the correct width
-        if(_initWidth == 400 || MediaQuery.of(context).orientation != _orientation)
+        if(_initWidth == 400 || MediaQuery.of(context).orientation != _orientation){
             _updateWidth();
-        _orientation = MediaQuery.of(context).orientation;
+            _orientation = MediaQuery.of(context).orientation;
+        }
     
         double offset = widget.offset ?? 0.4;
         double width = (_width/2) -(_width/2)*offset;
@@ -431,7 +412,7 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
         double wFactor = (_controller.value * (1 - offset)) + offset;
         
         return Stack(
-            alignment: _stackAlignment,
+            alignment: _drawerInnerAlignment,
             overflow: Overflow.visible,
             children: <Widget>[
                 _innerAnimationType(width),
@@ -452,7 +433,7 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
                                 Align(
                                     alignment: _drawerOuterAlignment,
                                     child: Align(
-                                        alignment: _stackAlignment,
+                                        alignment: _drawerInnerAlignment,
                                         widthFactor: wFactor,
                                         child: RepaintBoundary(
                                             child: FocusScope(
@@ -465,31 +446,10 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
                                                             BoxShadow(
                                                                 color: Colors.black.withOpacity(0.5),
                                                                 blurRadius: 5,
-                                                                //spreadRadius: 0.1
                                                             )
                                                         ]
                                                     ),
-                                                    child: Stack(
-                                                        overflow: Overflow.visible,
-                                                        children: <Widget>[
-                                                        
-                                                            /// Is displayed only when the Linear Animation is in progress, i have not found other ways
-                                                            /// I adopted this technique because it seemed the only possible one
-                                                            (widget.animationType==InnerDrawerAnimation.linear)?
-                                                            Positioned(
-                                                                left: widget.position==InnerDrawerPosition.start? -(_width - width) : _width,
-                                                                right: widget.position==InnerDrawerPosition.end? -(_width - width) : _width,
-                                                                child:Container(
-                                                                    height: MediaQuery.of(context).size.height,
-                                                                    child: (_controller.value==0)? null: widget.child,
-                                                                )
-                                                            ) : null,
-                                                        
-                                                            ///Scaffold
-                                                            widget.scaffold,
-                                                    
-                                                        ].where((a) => a != null ).toList(),
-                                                    )
+                                                    child: widget.scaffold
                                                 ),
                                             ),
                                         )
@@ -497,6 +457,7 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
                                 ),
                                 ///Trigger
                                 _trigger(),
+                                ///Overlay
                                 _overlay(width)
                             ].where((a) => a != null ).toList(),
                         ),

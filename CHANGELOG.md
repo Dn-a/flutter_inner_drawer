@@ -1,3 +1,7 @@
+## [0.2.5] - 2019-04-19.
+
+* General improvement of the code.
+
 ## [0.2.4] - 2019-04-16.
 
 * Fix swipe precision.

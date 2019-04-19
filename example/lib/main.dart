@@ -90,12 +90,11 @@ class _MyHomePageState extends State<MyHomePage>
         return InnerDrawer(
             key: _innerDrawerKey,
             position: _position ? InnerDrawerPosition.start : InnerDrawerPosition.end,
+            animationType: _animationType,
             onTapClose: _onTapToClose,
             offset: _offset,
             swipe: _swipe,
             colorTransition: currentColor,
-            animationType: _animationType,
-            //innerDrawerCallback: (a) => print(a),
             child: Material(
                 child:  SafeArea(
                     //top: false,
