@@ -1,3 +1,7 @@
+## [0.2.6] - 2019-05-13.
+
+* Fixed InnerDrawerCallback.
+
 ## [0.2.5] - 2019-04-19.
 
 * General improvement of the code.

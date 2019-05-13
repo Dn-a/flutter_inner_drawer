@@ -95,6 +95,7 @@ class _MyHomePageState extends State<MyHomePage>
             offset: _offset,
             swipe: _swipe,
             colorTransition: currentColor,
+            innerDrawerCallback: (a) => print(a),
             child: Material(
                 child:  SafeArea(
                     //top: false,

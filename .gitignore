@@ -11,3 +11,4 @@ ios/Runner/GeneratedPluginRegistrant.*
 
 lib/generated/
 res/
+.idea/

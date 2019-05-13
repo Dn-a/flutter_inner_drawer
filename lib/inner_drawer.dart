@@ -157,6 +157,8 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
     
     void _animationStatusChanged(AnimationStatus status)
     {
+        final bool opened = _controller.value < 0.5 ? true : false;
+        
         switch (status) {
             case AnimationStatus.reverse:
                 break;
@@ -165,9 +167,17 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
                 _historyEntry = null;
                 break;
             case AnimationStatus.dismissed:
+                if (_previouslyOpened != opened && widget.innerDrawerCallback != null){
+                    _previouslyOpened = opened;
+                    widget.innerDrawerCallback(opened);
+                }
                 _ensureHistoryEntry();
                 break;
             case AnimationStatus.completed:
+                if (_previouslyOpened != opened && widget.innerDrawerCallback != null){
+                    _previouslyOpened = opened;
+                    widget.innerDrawerCallback(opened);
+                }
                 break;
         }
     }
@@ -236,7 +246,7 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
                 _controller.value += (delta + delta*offset);
                 break;
         }
-        
+       
         final bool opened = _controller.value < 0.5 ? true : false;
         if (opened != _previouslyOpened && widget.innerDrawerCallback != null)
             widget.innerDrawerCallback(opened);
@@ -277,16 +287,12 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
     void open()
     {
         _controller.fling(velocity: -1);
-        if (widget.innerDrawerCallback != null)
-            widget.innerDrawerCallback(true);
     }
     
     
     void close()
     {
-        _controller.fling(velocity:1);
-        if (widget.innerDrawerCallback != null)
-            widget.innerDrawerCallback(false);
+        _controller.fling(velocity: 1);
     }
     
     
@@ -351,7 +357,7 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
     Widget _trigger()
     {
         
-        final bool drawerIsStart = widget.position == DrawerAlignment.start;
+        final bool drawerIsStart = widget.position == InnerDrawerPosition.start;
         final EdgeInsets padding = MediaQuery.of(context).padding;
         double dragAreaWidth = drawerIsStart ? padding.left : padding.right;
     
@@ -390,6 +396,7 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
                     ),
                 ),
             );
+        return null;
     }
     
 
