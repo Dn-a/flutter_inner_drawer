@@ -1,6 +1,6 @@
 # flutter_inner_drawer
 [![pub package](https://img.shields.io/badge/pub-0.2.6-orange.svg)](https://pub.dartlang.org/packages/flutter_inner_drawer)
-[![Awesome Flutter](https://img.shields.io/badge/Awesome-Flutter-blue.svg?longCache=true&style=flat-square)](https://github.com/Solido/awesome-flutter)
+[![Awesome Flutter](https://img.shields.io/badge/Awesome-Flutter-blue.svg?longCache=true&style=flat-square)](https://github.com/Solido/awesome-flutter#drawers)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/dnag88)
 
 
