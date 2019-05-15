@@ -12,7 +12,7 @@ Add this to your package's pubspec.yaml file:
 dependencies:
   flutter_inner_drawer: "^0.2.6"
 ```
-
+## Demo
 <div align="center">
 <table>
 <thead>
@@ -23,14 +23,15 @@ dependencies:
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center"><img src="https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/example3.gif?raw=true" height = "500px"/></td>
-<td style="text-align:center"><img src="https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/pic.png?raw=true" height = "500px"/></td>
+<td style="text-align:center"><img src="https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/example3.gif?raw=true" height = "700px"/></td>
+<td style="text-align:center"><img src="https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/pic.png?raw=true" height = "700px"/></td>
 </tr>
 </tbody>
 </table>
 </div>
 
-### Simple usage
+
+## Simple usage
 ```dart
 import 'package:flutter_inner_drawer/inner_drawer.dart';
 .
@@ -89,7 +90,7 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
 
 ```
 
-### All parameters
+## All parameters
 * child - *Inner Widget (required)*
 * scaffold - *A Scaffold is generally used but you are free to use other widgets (required)*
 * position - *This controls the direction in which the user should swipe to open and close the InnerDrawer (required)*
