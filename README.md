@@ -31,7 +31,7 @@ dependencies:
 </div>
 
 
-## Simple usage
+### Simple usage
 ```dart
 import 'package:flutter_inner_drawer/inner_drawer.dart';
 .
@@ -90,7 +90,7 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
 
 ```
 
-## All parameters
+### All parameters
 * child - *Inner Widget (required)*
 * scaffold - *A Scaffold is generally used but you are free to use other widgets (required)*
 * position - *This controls the direction in which the user should swipe to open and close the InnerDrawer (required)*
