@@ -13,13 +13,22 @@ dependencies:
   flutter_inner_drawer: "^0.2.6"
 ```
 
-### DEMO
-![Example](https://github.com/Dn-a/flutter_inner_drawer/tree/master/example)
-
-![Demo 1](https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/example3.gif)
-![Pic 1](https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/pic.png)
-
-
+<div align="center">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><code>Demo 1</code></th>
+<th style="text-align:center"><code>demo 2</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/example3.gif?raw=true" height = "500px"/></td>
+<td style="text-align:center"><img src="https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/pic.png?raw=true" height = "500px"/></td>
+</tr>
+</tbody>
+</table>
+</div>
 
 ### Simple usage
 ```dart
@@ -92,6 +101,9 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
 * animationType - *static / linear / quadratic (default static)*
 * innerDrawerCallback - *Optional callback that is called when a InnerDrawer is opened or closed*
 
+## Donate
+If you found this project helpful or you learned something from the source code and want to thank me: 
+- [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/dnag88)
 
 ## Issues
 If you encounter problems, open an issue. Pull request are also welcome.
