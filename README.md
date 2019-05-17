@@ -17,8 +17,8 @@ dependencies:
 <table>
 <thead>
 <tr>
-<th style="text-align:center"><code>Demo 1</code></th>
-<th style="text-align:center"><code>demo 2</code></th>
+<th style="text-align:center;background-color: #007ec6;color: #fff;"><code>Demo 1</code></th>
+<th style="text-align:center;background-color: #007ec6;color: #fff;"><code>demo 2</code></th>
 </tr>
 </thead>
 <tbody>
