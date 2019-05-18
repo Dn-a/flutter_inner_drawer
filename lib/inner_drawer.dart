@@ -53,6 +53,7 @@ class InnerDrawer extends StatefulWidget
                           this.colorTransition,
                           this.animationType,
                           this.innerDrawerCallback,
+                          this.scale = 1,
                       }) : assert(child != null),assert(animationType != null),
             assert(position != null),assert(scaffold != null),
             super(key: key);
@@ -65,6 +66,9 @@ class InnerDrawer extends StatefulWidget
     
     /// Offset drawer width; default 0.4
     final double offset;
+
+    // Scaffold scale
+    final double scale;
     
     final bool onTapClose;
     
@@ -326,10 +330,10 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
     
     
     /// return widget with specific animation
-    Widget _innerAnimationType(double width)
+    Widget _innerAnimationType(double width, double scale)
     {
         Widget container = Container(
-            width: _width - width,
+            width: scale == 1 ? _width - width : null,
             height: MediaQuery.of(context).size.height,
             child: widget.child,
         );
@@ -422,7 +426,7 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
             alignment: _drawerInnerAlignment,
             overflow: Overflow.visible,
             children: <Widget>[
-                _innerAnimationType(width),
+                _innerAnimationType(width, widget.scale),
                 GestureDetector(
                     key: _gestureDetectorKey,
                     onHorizontalDragDown: widget.swipe? _handleDragDown : null,
@@ -446,17 +450,20 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
                                             child: FocusScope(
                                                 key: _drawerKey,
                                                 node: _focusScopeNode,
-                                                child: Container(
-                                                    decoration: widget.animationType == InnerDrawerAnimation.linear ? null :
-                                                    BoxDecoration(
-                                                        boxShadow: widget.boxShadow ?? [
-                                                            BoxShadow(
-                                                                color: Colors.black.withOpacity(0.5),
-                                                                blurRadius: 5,
-                                                            )
-                                                        ]
-                                                    ),
-                                                    child: widget.scaffold
+                                                child: Transform.scale (
+                                                          scale: ((1 - widget.scale) * _controller.value) + widget.scale,
+                                                          child: Container(
+                                                            decoration: widget.animationType == InnerDrawerAnimation.linear ? null :
+                                                              BoxDecoration(
+                                                                boxShadow: widget.boxShadow ?? [
+                                                              BoxShadow(
+                                                                  color: Colors.black.withOpacity(0.5),
+                                                                  blurRadius: 5,
+                                                              )
+                                                          ]
+                                                        ),
+                                                      child: widget.scaffold
+                                                  ),
                                                 ),
                                             ),
                                         )

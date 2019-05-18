@@ -47,6 +47,7 @@ class _MyHomePageState extends State<MyHomePage>
     bool _swipe = true;
     InnerDrawerAnimation _animationType = InnerDrawerAnimation.static;
     double _offset = 0.4;
+    double _scale = 1;
     
 
     @override
@@ -96,6 +97,7 @@ class _MyHomePageState extends State<MyHomePage>
             swipe: _swipe,
             colorTransition: currentColor,
             innerDrawerCallback: (a) => print(a),
+            scale: _scale,
             child: Material(
                 child:  SafeArea(
                     //top: false,
@@ -425,6 +427,44 @@ class _MyHomePageState extends State<MyHomePage>
                                                         ),
                                                     ),
                                                     Text(_offset.toString()),
+                                                    //Text(_fontSize.toString()),
+                                                ],
+                                            ),
+                                        ],
+                                    ),
+                                    Padding(
+                                        padding: EdgeInsets.all(10),
+                                    ),
+                                    Column(
+                                        children: <Widget>[
+                                            Text('Scale'),
+                                            Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: <Widget>[
+                                                    SliderTheme(
+                                                        data: Theme.of(context).sliderTheme.copyWith(
+                                                            valueIndicatorTextStyle: Theme.of(context).accentTextTheme.body2.copyWith(color: Colors.white),
+                                                        ),
+                                                        child: Slider(
+                                                            activeColor: Colors.black,
+                                                            //inactiveColor: Colors.white,
+                                                            value: _scale,
+                                                            min: 0.5,
+                                                            max: 1,
+                                                            divisions: 5,
+                                                            semanticFormatterCallback: (double value) => value.round().toString(),
+                                                            label: '$_scale',
+                                                            onChanged: (a){
+                                                                setState(() {
+                                                                    _scale = a;
+                                                                });
+                                                            },
+                                                            onChangeEnd: (a){
+                                                               _getwidthContainer();
+                                                            },
+                                                        ),
+                                                    ),
+                                                    Text(_scale.toString()),
                                                     //Text(_fontSize.toString()),
                                                 ],
                                             ),
