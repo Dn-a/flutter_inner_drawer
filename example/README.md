@@ -5,7 +5,6 @@ An example of how you could implement it.
 ## Getting Started - Inner Drawer
 
 ```
-
 import 'package:example/env.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -60,9 +59,8 @@ class _MyHomePageState extends State<MyHomePage>
     @override
     void initState()
     {
-        
-        super.initState();
         _getwidthContainer();
+        super.initState();
     }
 
 
@@ -93,17 +91,16 @@ class _MyHomePageState extends State<MyHomePage>
     @override
     Widget build(BuildContext context)
     {
-        _getwidthContainer();
         
         return InnerDrawer(
             key: _innerDrawerKey,
             position: _position ? InnerDrawerPosition.start : InnerDrawerPosition.end,
+            animationType: _animationType,
             onTapClose: _onTapToClose,
             offset: _offset,
             swipe: _swipe,
             colorTransition: currentColor,
-            animationType: _animationType,
-            //innerDrawerCallback: (a) => print(a),
+            innerDrawerCallback: (a) => print(a),
             child: Material(
                 child:  SafeArea(
                     //top: false,
@@ -217,6 +214,7 @@ class _MyHomePageState extends State<MyHomePage>
                     automaticallyImplyLeading: false,
                     backgroundColor: Colors.grey[50],
                 ),
+                
                 child: SafeArea(
                     child: Material(
                         child:Container(
@@ -427,7 +425,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 });
                                                             },
                                                             onChangeEnd: (a){
-                                                               _getwidthContainer();
+                                                               //_getwidthContainer();
                                                             },
                                                         ),
                                                     ),

@@ -52,9 +52,8 @@ class _MyHomePageState extends State<MyHomePage>
     @override
     void initState()
     {
-        
-        super.initState();
         _getwidthContainer();
+        super.initState();
     }
 
 
@@ -85,7 +84,6 @@ class _MyHomePageState extends State<MyHomePage>
     @override
     Widget build(BuildContext context)
     {
-        _getwidthContainer();
         
         return InnerDrawer(
             key: _innerDrawerKey,
@@ -420,7 +418,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 });
                                                             },
                                                             onChangeEnd: (a){
-                                                               _getwidthContainer();
+                                                               //_getwidthContainer();
                                                             },
                                                         ),
                                                     ),

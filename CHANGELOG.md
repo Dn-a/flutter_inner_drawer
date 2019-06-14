@@ -1,3 +1,8 @@
+## [0.2.7] - 2019-06-14.
+
+* Cleaning code.
+* Update Readme.
+
 ## [0.2.6] - 2019-05-13.
 
 * Fixed InnerDrawerCallback.

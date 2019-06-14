@@ -104,15 +104,13 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
     @override
     void initState()
     {
-        super.initState();
-
         _updateWidth();
 
         _controller = AnimationController(duration: _kBaseSettleDuration, vsync: this)
             ..addListener(_animationChanged)
             ..addStatusListener(_animationStatusChanged);
-        
         _controller.value = 1;
+        super.initState();
     }
     
     
@@ -132,7 +130,7 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
         });
         
         if(widget.colorTransition!=null)
-            _color = ColorTween (begin: Colors.transparent, end: widget.colorTransition);
+            _color = ColorTween (begin: widget.colorTransition.withOpacity(0.0), end: widget.colorTransition);
         else
             _color = ColorTween(begin: Colors.transparent, end: Colors.black54);
     }
@@ -404,7 +402,7 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
     Widget build(BuildContext context)
     {
         //assert(debugCheckHasMaterialLocalizations(context));
-    
+        
         // initialize the correct width
         if(_initWidth == 400 || MediaQuery.of(context).orientation != _orientation){
             _updateWidth();
@@ -420,7 +418,6 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
         
         return Stack(
             alignment: _drawerInnerAlignment,
-            overflow: Overflow.visible,
             children: <Widget>[
                 _innerAnimationType(width),
                 GestureDetector(

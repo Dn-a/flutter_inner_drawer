@@ -1,6 +1,6 @@
 # flutter_inner_drawer
-
-[![pub package](https://img.shields.io/badge/pub-0.2.6-orange.svg)](https://pub.dartlang.org/packages/flutter_inner_drawer)
+[![pub package](https://img.shields.io/badge/pub-0.2.7-orange.svg)](https://pub.dartlang.org/packages/flutter_inner_drawer)
+[![Awesome Flutter](https://img.shields.io/badge/Awesome-Flutter-blue.svg?longCache=true&style=flat-square)](https://github.com/Solido/awesome-flutter#drawers)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/dnag88)
 
 
@@ -10,15 +10,19 @@ Inner Drawer is an easy way to create an internal side section (left/right) wher
 Add this to your package's pubspec.yaml file:
 ```dart
 dependencies:
-  flutter_inner_drawer: "^0.2.6"
+  flutter_inner_drawer: "^0.2.7"
 ```
-
-### DEMO
-![Example](https://github.com/Dn-a/flutter_inner_drawer/tree/master/example)
-
-![Demo 1](https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/example3.gif)
-![Pic 1](https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/pic.png)
-
+## Demo
+<div align="center">
+  <table><tr>
+<td style="text-align:center">
+  <img width="250px"  src="https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/example3.gif?raw=true" />
+ </td>
+<td style="text-align:center">
+  <img width="250px"  src="https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/pic.png?raw=true"/>
+ </td>
+ </tr></table>
+</div>
 
 
 ### Simple usage
@@ -92,7 +96,9 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
 * animationType - *static / linear / quadratic (default static)*
 * innerDrawerCallback - *Optional callback that is called when a InnerDrawer is opened or closed*
 
+## Donate
+If you found this project helpful or you learned something from the source code and want to thank me: 
+- [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/dnag88)
 
 ## Issues
 If you encounter problems, open an issue. Pull request are also welcome.
-
