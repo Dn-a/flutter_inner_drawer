@@ -161,8 +161,6 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
             case AnimationStatus.reverse:
                 break;
             case AnimationStatus.forward:
-                _historyEntry?.remove();
-                _historyEntry = null;
                 break;
             case AnimationStatus.dismissed:
                 if (_previouslyOpened != opened && widget.innerDrawerCallback != null){
@@ -176,7 +174,8 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
                     _previouslyOpened = opened;
                     widget.innerDrawerCallback(opened);
                 }
-                break;
+                _historyEntry?.remove();
+                _historyEntry = null;
         }
     }
     
@@ -194,7 +193,7 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
     void _handleDragDown(DragDownDetails details)
     {
         _controller.stop();
-        _ensureHistoryEntry();
+        //_ensureHistoryEntry();
     }
     
     
@@ -402,7 +401,7 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
     Widget build(BuildContext context)
     {
         //assert(debugCheckHasMaterialLocalizations(context));
-        
+       
         // initialize the correct width
         if(_initWidth == 400 || MediaQuery.of(context).orientation != _orientation){
             _updateWidth();
