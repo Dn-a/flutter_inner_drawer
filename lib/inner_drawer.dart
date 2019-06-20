@@ -291,7 +291,15 @@ class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderState
     {
         _controller.fling(velocity: 1);
     }
-    
+
+    /// Open or Close InnerDrawer
+    void toggle()
+    {
+        if(_previouslyOpened)
+            _controller.fling(velocity: 1);
+        else
+            _controller.fling(velocity: -1);
+    }
     
     final GlobalKey _gestureDetectorKey = GlobalKey();
     

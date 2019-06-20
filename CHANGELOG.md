@@ -1,3 +1,8 @@
+## [0.2.9] - 2019-06-20.
+
+* Updated dependencies.
+* Added toggle method.
+
 ## [0.2.8] - 2019-06-14.
 
 * fix history.

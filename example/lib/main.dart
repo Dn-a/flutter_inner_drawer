@@ -137,7 +137,7 @@ class _MyHomePageState extends State<MyHomePage>
                                                                 size: 18,),
                                                             onTap: ()
                                                             {
-                                                                _innerDrawerKey.currentState.close();
+                                                                _innerDrawerKey.currentState.toggle();
                                                             },
                                                         ),
                                                     ),
@@ -465,7 +465,7 @@ class _MyHomePageState extends State<MyHomePage>
                                     RaisedButton(
                                         child:Text("open"),
                                         onPressed: (){
-                                            _innerDrawerKey.currentState.open();
+                                            _innerDrawerKey.currentState.toggle();
                                         },
                                     ),
                                 ],
