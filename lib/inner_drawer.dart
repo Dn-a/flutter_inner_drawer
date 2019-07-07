@@ -198,16 +198,17 @@ class InnerDrawerState extends State<InnerDrawer>
     double delta = details.primaryDelta / _width;
 
     double offset = widget.offset ?? 0.4;
-    
+
     double ee = 1;
-    if(offset <=0.2)
+    if (offset <= 0.2)
       ee = 1.7;
     else if (offset <= 0.4)
       ee = 1.2;
-    else if (offset <= 0.6)
-      ee = 1.05;
-    
-    offset = 1 - pow(offset/ee,1/2);//(num.parse(pow(offset/2,1/3).toStringAsFixed(1)));
+    else if (offset <= 0.6) ee = 1.05;
+
+    offset = 1 -
+        pow(offset / ee,
+            1 / 2); //(num.parse(pow(offset/2,1/3).toStringAsFixed(1)));
 
     switch (widget.position) {
       case InnerDrawerPosition.end:
