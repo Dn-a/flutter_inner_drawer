@@ -1,3 +1,7 @@
+## [0.3.0] - 2019-07-07.
+
+* General improvement of the code.
+
 ## [0.2.9] - 2019-06-20.
 
 * Updated dependencies.
@@ -7,7 +11,7 @@
 
 * fix history.
 
-## [0.2.8] - 2019-06-14.
+## [0.2.7] - 2019-06-14.
 
 * Cleaning code.
 * Update Readme.
