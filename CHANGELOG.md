@@ -1,3 +1,12 @@
+## [0.4.0] - 2019-08-07.
+
+* **new Features and Documentation Updates**
+*
+* Parameter `position` removed. Now it is possible to define `leftChild` and `rightChild` simultaneously.
+* Parameter `offset` replaced with `leftOffset` and `rightOffset`.
+* Parameter `animationType` replaced with `leftAnimationType` and `rightAnimationType`.
+* Possibility to tap the scaffold even when open with `tapScaffoldEnabled`. 
+
 ## [0.3.0] - 2019-07-07.
 
 * General improvement of the code.

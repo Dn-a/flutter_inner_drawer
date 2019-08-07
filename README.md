@@ -1,5 +1,5 @@
 # flutter_inner_drawer
-[![pub package](https://img.shields.io/badge/pub-0.3.0-orange.svg)](https://pub.dartlang.org/packages/flutter_inner_drawer)
+[![pub package](https://img.shields.io/badge/pub-0.4.0-orange.svg)](https://pub.dartlang.org/packages/flutter_inner_drawer)
 [![Awesome Flutter](https://img.shields.io/badge/Awesome-Flutter-blue.svg?longCache=true&style=flat-square)](https://github.com/Solido/awesome-flutter#drawers)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/dnag88)
 
@@ -10,16 +10,13 @@ Inner Drawer is an easy way to create an internal side section (left/right) wher
 Add this to your package's pubspec.yaml file:
 ```dart
 dependencies:
-  flutter_inner_drawer: "^0.3.0"
+  flutter_inner_drawer: "^0.4.0"
 ```
 ## Demo
 <div align="center">
   <table><tr>
-<td style="text-align:center">
-  <img width="250px"  src="https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/example3.gif?raw=true" />
- </td>
-<td style="text-align:center">
-  <img width="250px"  src="https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/pic.png?raw=true"/>
+ <td style="text-align:center">
+  <img width="250px"  src="https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/example4.gif?raw=true" />
  </td>
  </tr></table>
 </div>
@@ -40,61 +37,64 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
     {
         return InnerDrawer(
             key: _innerDrawerKey,
-            position: InnerDrawerPosition.start, // required
             onTapClose: true, // default false
-            swipe: true, // default true
-            offset: 0.6, // default 0.4
+            swipe: true, // default true            
             colorTransition: Color.red, // default Color.black54
-            animationType: InnerDrawerAnimation.linear, // default static
-            innerDrawerCallback: (a) => print(a), // return bool
-            child: Material(
-                child: SafeArea(
-                    child: Container(...)
-                )
-            ),
+            innerDrawerCallback: (a) => print(a ),// return bool
+            leftOffset: 0.6, // default 0.4
+            rightOffset: 0.6, // default 0.4
+            leftAnimationType: InnerDrawerAnimation.static, // default static
+            rightAnimationType: InnerDrawerAnimation.quadratic, // default static
+            // at least one child is required
+            leftChild: Container(),
+            rightChild: Container(),
             //  A Scaffold is generally used but you are free to use other widgets
             // Note: use "automaticallyImplyLeading: false" if you do not personalize "leading" of Bar
             scaffold: Scaffold(
                 appBar: AppBar(
                     automaticallyImplyLeading: false
-                )
-                .
-                .
+                ),
             ) 
-            or 
+            OR
             CupertinoPageScaffold(                
                 navigationBar: CupertinoNavigationBar(
                     automaticallyImplyLeading: false
                 ),
-                .
-                .
             ), 
         )
     }
     
-    void _open()
+    void _toggle()
     {
-       _innerDrawerKey.currentState.open();
+       _innerDrawerKey.currentState.toggle(
+       // direction is optional 
+       // if not set, the last direction will be used                             
+        direction: InnerDrawerDirection.end 
+       );
     }
     
-    void _close()
-    {
-       _innerDrawerKey.currentState.close();
-    }
+    
 
 ```
 
 ### All parameters
-* child - *Inner Widget (required)*
-* scaffold - *A Scaffold is generally used but you are free to use other widgets (required)*
-* position - *This controls the direction in which the user should swipe to open and close the InnerDrawer (required)*
-* offset - *Offset drawer width (default 0.4)*
-* onTapClose - *bool (default false)*
-* swipe - *bool (default true)*
-* boxShadow - *BoxShadow of scaffold opened*
-* colorTransition - *default Colors.black54*
-* animationType - *static / linear / quadratic (default static)*
-* innerDrawerCallback - *Optional callback that is called when a InnerDrawer is opened or closed*
+* `leftChild` - *Inner Widget*
+* `rightChild` - *Inner Widget*
+* `scaffold` - *A Scaffold is generally used but you are free to use other widgets (required)*
+* `leftOffset` - *Offset drawer width (default 0.4)*
+* `rightOffset` - *Offset drawer width (default 0.4)*
+* `onTapClose` - *bool (default false)*
+* `swipe` - *bool (default true)*
+* `tapScaffoldEnabled` - *possibility to tap the scaffold even when open (default false)*
+* `boxShadow` - *BoxShadow of scaffold opened*
+* `colorTransition` - *default Colors.black54*
+* `leftAnimationType` - *static / linear / quadratic (default static)*
+* `rightAnimationType` - *static / linear / quadratic (default static)*
+* `innerDrawerCallback` - *Optional callback that is called when a InnerDrawer is opened or closed*
+* `innerDrawerKey.currentState.open` - *Open InnerDrawer*
+* `innerDrawerKey.currentState.close` - *Close InnerDrawer*
+* `innerDrawerKey.currentState.toggle` - *Open or Close InnerDrawer*
+
 
 ## Donate
 If you found this project helpful or you learned something from the source code and want to thank me: 

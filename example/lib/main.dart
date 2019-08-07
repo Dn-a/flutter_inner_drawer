@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Inner Drawer',
       theme: ThemeData(
-        primarySwatch: Colors.grey,
+        primarySwatch: Colors.blueGrey,
       ),
       home: MyHomePage(title: 'Flutter Inner Drawer'),
     );
@@ -39,6 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _position = true;
   bool _onTapToClose = false;
   bool _swipe = true;
+  bool _tapScaffold = true;
   InnerDrawerAnimation _animationType = InnerDrawerAnimation.static;
   double _offset = 0.4;
 
@@ -73,14 +74,15 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return InnerDrawer(
       key: _innerDrawerKey,
-      position: _position ? InnerDrawerPosition.start : InnerDrawerPosition.end,
-      animationType: _animationType,
       onTapClose: _onTapToClose,
-      offset: _offset,
+      tapScaffoldEnabled: _tapScaffold,
+      leftOffset: _offset,
+      rightOffset: _offset,
       swipe: _swipe,
       colorTransition: currentColor,
-      innerDrawerCallback: (a) => print(a),
-      child: Material(
+      leftAnimationType: _animationType,
+      rightAnimationType: InnerDrawerAnimation.quadratic,
+      leftChild: Material(
           child: SafeArea(
               //top: false,
               child: Container(
@@ -196,11 +198,18 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ))),
+      rightChild: Material(
+        child: Center(
+          child: Container(
+            child: Text("Right Child",style: TextStyle(fontSize: 18),),
+          ),
+        )
+      ),
       scaffold: CupertinoPageScaffold(
           navigationBar: CupertinoNavigationBar(
             middle: Text(widget.title),
             automaticallyImplyLeading: false,
-            backgroundColor: Colors.grey[50],
+            backgroundColor: Colors.green[300],
           ),
           child: SafeArea(
               child: Material(
@@ -210,60 +219,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      GestureDetector(
-                        child: Row(
-                          children: <Widget>[
-                            Icon(
-                              Icons.arrow_back,
-                              size: 15,
-                            ),
-                            Text('Start'),
-                            Checkbox(
-                                activeColor: Colors.black,
-                                value: _position,
-                                onChanged: (a) {
-                                  setState(() {
-                                    _position = true;
-                                  });
-                                }),
-                          ],
-                        ),
-                        onTap: () {
-                          setState(() {
-                            _position = true;
-                          });
-                        },
-                      ),
-                      GestureDetector(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Checkbox(
-                                activeColor: Colors.black,
-                                value: !_position,
-                                onChanged: (a) {
-                                  setState(() {
-                                    _position = false;
-                                  });
-                                }),
-                            Text('End'),
-                            Icon(
-                              Icons.arrow_forward,
-                              size: 15,
-                            ),
-                          ],
-                        ),
-                        onTap: () {
-                          setState(() {
-                            _position = false;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
                   Padding(
                     padding: EdgeInsets.all(10),
                   ),
@@ -347,26 +302,52 @@ class _MyHomePageState extends State<MyHomePage> {
                   Padding(
                     padding: EdgeInsets.all(10),
                   ),
-                  GestureDetector(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Checkbox(
-                            activeColor: Colors.black,
-                            value: _swipe,
-                            onChanged: (a) {
-                              setState(() {
-                                _swipe = !_swipe;
-                              });
-                            }),
-                        Text('Swipe'),
-                      ],
-                    ),
-                    onTap: () {
-                      setState(() {
-                        _swipe = !_swipe;
-                      });
-                    },
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      GestureDetector(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Checkbox(
+                                activeColor: Colors.black,
+                                value: _swipe,
+                                onChanged: (a) {
+                                  setState(() {
+                                    _swipe = !_swipe;
+                                  });
+                                }),
+                            Text('Swipe'),
+                          ],
+                        ),
+                        onTap: () {
+                          setState(() {
+                            _swipe = !_swipe;
+                          });
+                        },
+                      ),
+                      GestureDetector(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Checkbox(
+                                activeColor: Colors.black,
+                                value: _tapScaffold,
+                                onChanged: (a) {
+                                  setState(() {
+                                    _tapScaffold = !_tapScaffold;
+                                  });
+                                }),
+                            Text('TapScaffoldEnabled'),
+                          ],
+                        ),
+                        onTap: () {
+                          setState(() {
+                            _tapScaffold = !_tapScaffold;
+                          });
+                        },
+                      ),
+                    ],
                   ),
                   Padding(
                     padding: EdgeInsets.all(10),
@@ -470,6 +451,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   RaisedButton(
                     child: Text("open"),
                     onPressed: () {
+                      // direction is optional
+                      // if not set, the last direction will be used
                       _innerDrawerKey.currentState.toggle();
                     },
                   ),
@@ -477,6 +460,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
           ))),
+      innerDrawerCallback: (a) => print(a),
     );
   }
 }
