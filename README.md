@@ -31,7 +31,7 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
 .
 .
 .
-
+    //  Current State of InnerDrawerState
     final GlobalKey<InnerDrawerState> _innerDrawerKey = GlobalKey<InnerDrawerState>();
 
 
@@ -46,25 +46,24 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
             innerDrawerCallback: (a) => print(a ),// return bool
             leftOffset: 0.6, // default 0.4
             rightOffset: 0.6,// default 0.4
-            leftScale: _scale,// default 1
-            rightScale: _scale,// default 1
-            borderRadius: _borderRadius, // default 0
+            leftScale: 0.9,// default 1
+            rightScale: 0.9,// default 1
+            borderRadius: 50, // default 0
             leftAnimationType: InnerDrawerAnimation.static, // default static
             rightAnimationType: InnerDrawerAnimation.quadratic,
             
-            //when a pointer that is in contact with the screen and moves to the right or left
-            // 
-             onDragUpdate: (double val, InnerDrawerDirection direction) {
+            //when a pointer that is in contact with the screen and moves to the right or left            
+            onDragUpdate: (double val, InnerDrawerDirection direction) {
                 // return values between 1 and 0
                 print(val);
                 // check if the swipe is to the right or to the left
                 print(direction==InnerDraweDirection.start);
-             },
+            },
             
             innerDrawerCallback: (a) => print(a), // return  true (open) or false (close)
-            // at least one child is required
-            leftChild: Container(),
-            rightChild: Container(),
+            leftChild: Container(), // required if rightChild is not set
+            rightChild: Container(), // required if leftChild is not set
+            
             //  A Scaffold is generally used but you are free to use other widgets
             // Note: use "automaticallyImplyLeading: false" if you do not personalize "leading" of Bar
             scaffold: Scaffold(
@@ -85,7 +84,8 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
     {
        _innerDrawerKey.currentState.toggle(
        // direction is optional 
-       // if not set, the last direction will be used                             
+       // if not set, the last direction will be used
+       //InnerDrawerDirection.start OR InnerDrawerDirection.end                        
         direction: InnerDrawerDirection.end 
        );
     }
@@ -94,24 +94,29 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
 
 ```
 
-### All parameters
-* `leftChild` - *Inner Widget*
-* `rightChild` - *Inner Widget*
-* `scaffold` - *A Scaffold is generally used but you are free to use other widgets (required)*
-* `leftOffset` - *Offset drawer width (default 0.4)*
-* `rightOffset` - *Offset drawer width (default 0.4)*
-* `onTapClose` - *bool (default false)*
-* `swipe` - *bool (default true)*
-* `tapScaffoldEnabled` - *possibility to tap the scaffold even when open (default false)*
-* `boxShadow` - *BoxShadow of scaffold opened*
-* `colorTransition` - *default Colors.black54*
-* `leftAnimationType` - *static / linear / quadratic (default static)*
-* `rightAnimationType` - *static / linear / quadratic (default static)*
-* `innerDrawerCallback` - *Optional callback that is called when a InnerDrawer is opened or closed*
-* `innerDrawerKey.currentState.open` - *Open InnerDrawer*
-* `innerDrawerKey.currentState.close` - *Close InnerDrawer*
-* `innerDrawerKey.currentState.toggle` - *Open or Close InnerDrawer*
-
+### InnerDrawer Parameters
+|PropName|Description|default value|
+|:-------|:----------|:------------|
+|`scaffold`|*A Scaffold is generally used but you are free to use other widgets (required)*|required|
+|`leftChild`|*Inner Widget*|null|
+|`rightChild`*Inner Widget*|Colors.black|
+|`leftOffset`|*Offset drawer width*|0.4|
+|`rightOffset`|*Offset drawer width*|0.4|
+|`leftScale`|*Left scaffold scaling*|1|
+|`rightScale`|*Right scaffold scaling*|1|
+|`borderRadius`|*for scaffold border*|0|
+|`onTapClose`|*Tap on Scaffold closes it*|false|
+|`swipe`*activate or deactivate the swipe*|true|
+|`tapScaffoldEnabled`|*Possibility to tap the scaffold even when open*|false|
+|`boxShadow`|*BoxShadow of scaffold opened*|[BoxShadow(color: Colors.black.withOpacity(0.5),blurRadius: 5)]|
+|`colorTransition`|*Change background color while swiping*|Colors.black54|
+|`leftAnimationType`|*static / linear / quadratic*|static|
+|`rightAnimationType`|*static / linear / quadratic*|static|
+|`innerDrawerCallback`|*Optional callback that is called when a InnerDrawer is opened or closed*||
+|`onDragUpdate`|*When a pointer that is in contact with the screen and moves to the right or left*||
+|`_innerDrawerKey.currentState.open`|*Current State of GlobalKey<InnerDrawerState>(check example) - OPEN*||
+|`_innerDrawerKey.currentState.close`|*Current State of GlobalKey<InnerDrawerState>(check example) - CLOSE*||
+|`_innerDrawerKey.currentState.toggle`|*Current State of GlobalKey<InnerDrawerState>(check example) - OPEN or CLOSE*||
 
 ## Donate
 If you found this project helpful or you learned something from the source code and want to thank me: 
