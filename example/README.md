@@ -4,470 +4,539 @@ An example of how you could implement it.
 
 ## Getting Started - Inner Drawer
 
-```
-import 'package:example/env.dart';
-import 'package:flutter/cupertino.dart';
+```dart
+// InnerDrawer is based on Drawer.
+// The source code of the Drawer has been re-adapted for Inner Drawer.
+
+// more details:
+// https://github.com/flutter/flutter/blob/master/packages/flutter/lib/src/material/drawer.dart
+
+import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter_inner_drawer/inner_drawer.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+/// Signature for the callback that's called when a [InnerDrawer] is
+/// opened or closed.
+typedef InnerDrawerCallback = void Function(bool isOpened);
 
-void main() => runApp(MyApp());
+/// Signature for when a pointer that is in contact with the screen and moves to the right or left
+/// values between 1 and 0
+typedef InnerDragUpdateCallback =  void Function(double value);
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Inner Drawer',
-      theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
-      ),
-      home: MyHomePage(title: 'Flutter Inner Drawer'),
-    );
-  }
+/// The possible position of a [InnerDrawer].
+enum InnerDrawerDirection {
+  start,
+  end,
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
+/// Animation type of a [InnerDrawer].
+enum InnerDrawerAnimation {
+  static,
+  linear,
+  quadratic,
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  final GlobalKey<InnerDrawerState> _innerDrawerKey =
-      GlobalKey<InnerDrawerState>();
+//width before initState
+const double _kWidth = 400;
+const double _kMinFlingVelocity = 365.0;
+const double _kEdgeDragWidth = 20.0;
+const Duration _kBaseSettleDuration = Duration(milliseconds: 246);
 
-  GlobalKey _keyRed = GlobalKey();
-  double _width = 10;
+class InnerDrawer extends StatefulWidget {
+  const InnerDrawer({
+    GlobalKey key,
+    this.leftChild,
+    this.rightChild,
+    @required this.scaffold,
+    this.leftOffset = 0.4,
+    this.rightOffset = 0.4,
+    this.leftScale = 1,
+    this.rightScale = 1,
+    this.borderRadius = 0,
+    this.onTapClose = false,
+    this.tapScaffoldEnabled = false,
+    this.swipe = true,
+    this.boxShadow,
+    this.colorTransition,
+    this.leftAnimationType = InnerDrawerAnimation.static,
+    this.rightAnimationType = InnerDrawerAnimation.static,
+    this.innerDrawerCallback,
+    this.onDragUpdate
+  })  : assert(leftChild != null || rightChild != null), assert(scaffold != null),
+        super(key: key);
 
-  bool _position = true;
-  bool _onTapToClose = false;
-  bool _swipe = true;
-  bool _tapScaffold = true;
-  InnerDrawerAnimation _animationType = InnerDrawerAnimation.static;
-  double _offset = 0.4;
+  
+  /// Left child
+  final Widget leftChild;
+
+  /// Right child
+  final Widget rightChild;
+  
+  /// A Scaffold is generally used but you are free to use other widgets
+  final Widget scaffold;
+
+  /// Left offset drawer width; default 0.4
+  final double leftOffset;
+  
+  /// Right offset drawer width; default 0.4
+  final double rightOffset;
+
+  /// Left Transform Scale; (default 0)
+  /// values between 1 and 0
+  final double leftScale;
+
+  /// Right Transform Scale; (default 0)
+  /// values between 1 and 0
+  final double rightScale;
+
+  /// edge radius when opening the scaffold - (defalut 0)
+  final double borderRadius;
+
+  /// Closes the open scaffold
+  final bool tapScaffoldEnabled;
+
+  /// Closes the open scaffold
+  final bool onTapClose;
+
+  /// activate or deactivate the swipe. NOTE: when deactivate, onTap Close is implicitly activated
+  final bool swipe;
+
+  /// BoxShadow of scaffold opened
+  final List<BoxShadow> boxShadow;
+
+  ///Color of gradient
+  final Color colorTransition;
+
+  /// Static or Linear or Quadratic
+  final InnerDrawerAnimation leftAnimationType;
+
+  /// Static or Linear or Quadratic
+  final InnerDrawerAnimation rightAnimationType;
+
+  /// Optional callback that is called when a [InnerDrawer] is opened or closed.
+  final InnerDrawerCallback innerDrawerCallback;
+
+  /// when a pointer that is in contact with the screen and moves to the right or left
+  final InnerDragUpdateCallback onDragUpdate;
+
+  @override
+  InnerDrawerState createState() => InnerDrawerState();
+}
+
+class InnerDrawerState extends State<InnerDrawer>
+    with SingleTickerProviderStateMixin {
+  ColorTween _color =
+      ColorTween(begin: Colors.transparent, end: Colors.black54);
+
+  double _initWidth = _kWidth;
+  Orientation _orientation = Orientation.portrait;
+  InnerDrawerDirection _position;
 
   @override
   void initState() {
-    _getwidthContainer();
+    _updateWidth();
+    
+    _position = widget.leftChild != null ? InnerDrawerDirection.start : InnerDrawerDirection.end;
+    
+    _controller =
+        AnimationController(duration: _kBaseSettleDuration, vsync: this)
+          ..addListener(_animationChanged)
+          ..addStatusListener(_animationStatusChanged);
+    _controller.value = 1;
     super.initState();
   }
-
-  Color pickerColor = Color(0xff443a49);
-  Color currentColor = Colors.black54;
-  ValueChanged<Color> onColorChanged;
-
-  changeColor(Color color) {
-    setState(() => pickerColor = color);
+  
+  @override
+  void dispose() {
+    _historyEntry?.remove();
+    _controller.dispose();
+    super.dispose();
   }
 
-  void _getwidthContainer() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final keyContext = _keyRed.currentContext;
-      if (keyContext != null) {
-        final RenderBox box = keyContext.findRenderObject();
-        final size = box.size;
-        setState(() {
-          _width = size.width;
-        });
-      }
+  void _animationChanged() {
+    setState(() {
+      // The animation controller's state is our build state, and it changed already.
     });
+
+    if (widget.colorTransition != null)
+      _color = ColorTween(
+          begin: widget.colorTransition.withOpacity(0.0),
+          end: widget.colorTransition);
+    else
+      _color = ColorTween(begin: Colors.transparent, end: Colors.black54);
+
+    if(widget.onDragUpdate != null && _controller.value<1){
+        widget.onDragUpdate((1-_controller.value));
+    }
+  }
+
+  LocalHistoryEntry _historyEntry;
+  final FocusScopeNode _focusScopeNode = FocusScopeNode();
+
+  void _ensureHistoryEntry() {
+    if (_historyEntry == null) {
+      final ModalRoute<dynamic> route = ModalRoute.of(context);
+      if (route != null) {
+        _historyEntry = LocalHistoryEntry(onRemove: _handleHistoryEntryRemoved);
+        route.addLocalHistoryEntry(_historyEntry);
+        FocusScope.of(context).setFirstFocus(_focusScopeNode);
+      }
+    }
+  }
+
+  void _animationStatusChanged(AnimationStatus status) {
+    final bool opened = _controller.value < 0.5 ? true : false;
+
+    switch (status) {
+      case AnimationStatus.reverse:
+        break;
+      case AnimationStatus.forward:
+        break;
+      case AnimationStatus.dismissed:
+        if (_previouslyOpened != opened ) {
+          _previouslyOpened = opened;
+          if( widget.innerDrawerCallback != null)
+            widget.innerDrawerCallback(opened);
+        }
+        _ensureHistoryEntry();
+        break;
+      case AnimationStatus.completed:
+        if (_previouslyOpened != opened ) {
+          _previouslyOpened = opened;
+          if( widget.innerDrawerCallback != null)
+            widget.innerDrawerCallback(opened);
+        }
+        _historyEntry?.remove();
+        _historyEntry = null;
+    }
+  }
+
+  void _handleHistoryEntryRemoved() {
+    _historyEntry = null;
+    close();
+  }
+
+  AnimationController _controller;
+
+  void _handleDragDown(DragDownDetails details) {
+    _controller.stop();
+    //_ensureHistoryEntry();
+  }
+
+  final GlobalKey _drawerKey = GlobalKey();
+
+  double get _width {
+    return _initWidth;
+  }
+
+  /// get width of screen after initState
+  void _updateWidth() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final RenderBox box = _drawerKey.currentContext?.findRenderObject();
+      if (box != null && box.size != null)
+        setState(() {
+          _initWidth = box.size.width;
+        });
+    });
+  }
+
+  bool _previouslyOpened = false;
+
+  void _move(DragUpdateDetails details) {
+    double delta = details.primaryDelta / _width;
+
+    if(delta >0 && _controller.value ==1 && widget.leftChild != null)
+      _position = InnerDrawerDirection.start;
+    else if(delta <0 && _controller.value == 1 && widget.rightChild != null)
+      _position = InnerDrawerDirection.end;
+
+    double offset = _position == InnerDrawerDirection.start ? widget.leftOffset : widget.rightOffset;
+
+    double ee = 1;
+    if (offset <= 0.2)
+      ee = 1.7;
+    else if (offset <= 0.4)
+      ee = 1.2;
+    else if (offset <= 0.6) ee = 1.05;
+
+    offset = 1 -
+        pow(offset / ee,
+            1 / 2); //(num.parse(pow(offset/2,1/3).toStringAsFixed(1)));
+
+    switch (_position) {
+      case InnerDrawerDirection.end:
+        break;
+      case InnerDrawerDirection.start:
+        delta = -delta;
+        break;
+    }
+    switch (Directionality.of(context)) {
+      case TextDirection.rtl:
+        _controller.value -= delta + (delta * offset);
+        break;
+      case TextDirection.ltr:
+        _controller.value += delta + (delta * offset);
+        break;
+    }
+
+    final bool opened = _controller.value < 0.5 ? true : false;
+    if (opened != _previouslyOpened && widget.innerDrawerCallback != null)
+      widget.innerDrawerCallback(opened);
+    _previouslyOpened = opened;
+  }
+
+  void _settle(DragEndDetails details) {
+    if (_controller.isDismissed) return;
+    if (details.velocity.pixelsPerSecond.dx.abs() >= _kMinFlingVelocity) {
+      double visualVelocity = details.velocity.pixelsPerSecond.dx / _width;
+      
+      switch (_position) {
+        case InnerDrawerDirection.end:
+          break;
+        case InnerDrawerDirection.start:
+          visualVelocity = -visualVelocity;
+          break;
+      }
+      switch (Directionality.of(context)) {
+        case TextDirection.rtl:
+          _controller.fling(velocity: -visualVelocity);
+          break;
+        case TextDirection.ltr:
+          _controller.fling(velocity: visualVelocity);
+          break;
+      }
+    } else if (_controller.value < 0.5) {
+      open();
+    } else {
+      close();
+    }
+  }
+
+  void open({InnerDrawerDirection direction}) {
+    if(direction!=null) _position = direction;
+    _controller.fling(velocity: -1);
+  }
+
+  void close({InnerDrawerDirection direction}) {
+    if(direction!=null) _position = direction;
+    _controller.fling(velocity: 1);
+  }
+
+  /// Open or Close InnerDrawer
+  void toggle({InnerDrawerDirection direction}) {
+    if(direction!=null) _position = direction;
+    if (_previouslyOpened)
+      _controller.fling(velocity: 1);
+    else
+      _controller.fling(velocity: -1);
+  }
+
+  final GlobalKey _gestureDetectorKey = GlobalKey();
+
+  AlignmentDirectional get _drawerOuterAlignment {
+    switch (_position) {
+      case InnerDrawerDirection.start:
+        return AlignmentDirectional.centerEnd;
+      case InnerDrawerDirection.end:
+        return AlignmentDirectional.centerStart;
+    }
+    return null;
+  }
+
+  AlignmentDirectional get _drawerInnerAlignment {
+    switch (_position) {
+      case InnerDrawerDirection.start:
+        return AlignmentDirectional.centerStart;
+      case InnerDrawerDirection.end:
+        return AlignmentDirectional.centerEnd;
+    }
+    return null;
+  }
+
+  /// return widget with specific animation
+  Widget _innerAnimationType(double width, InnerDrawerAnimation animationType) {
+    
+    final Widget container =  Container(
+        width: _width - width,
+        height: MediaQuery.of(context).size.height,
+        child: _position == InnerDrawerDirection.start ? widget.leftChild : widget.rightChild,
+    );
+
+    switch (animationType) {
+      case InnerDrawerAnimation.linear:
+        return Align(
+          alignment: _drawerOuterAlignment,
+          widthFactor: 1 - (_controller.value),
+          child: container,
+        );
+      case InnerDrawerAnimation.quadratic:
+        return Align(
+          alignment: _drawerOuterAlignment,
+          widthFactor: 1 - (_controller.value / 2),
+          child: container,
+        );
+      default:
+        return container;
+    }
+  }
+
+  /// Side swipe air
+  Widget _trigger( AlignmentDirectional alignment , Widget child) {
+    assert(alignment != null);
+    final bool drawerIsStart = _position == InnerDrawerDirection.start;
+    final EdgeInsets padding = MediaQuery.of(context).padding;
+    double dragAreaWidth = drawerIsStart ? padding.left : padding.right;
+
+    if (Directionality.of(context) == TextDirection.rtl)
+      dragAreaWidth = drawerIsStart ? padding.right : padding.left;
+    dragAreaWidth = max(dragAreaWidth, _kEdgeDragWidth);
+
+    if (_controller.status == AnimationStatus.completed && widget.swipe && child != null )
+      return Align(
+        alignment: alignment,
+        child: Container(color: Colors.transparent, width: dragAreaWidth),
+      );
+    else
+      return null;
+  }
+
+  ///Overly
+  Widget _overlay(double width) {
+    if (_controller.status == AnimationStatus.dismissed && !widget.tapScaffoldEnabled)
+      return BlockSemantics(
+        child: GestureDetector(
+          // On Android, the back button is used to dismiss a modal.
+          excludeFromSemantics: defaultTargetPlatform == TargetPlatform.android,
+          onTap: widget.onTapClose || !widget.swipe ? close : null,
+          child: Semantics(
+            //label: MaterialLocalizations.of(context)?.modalBarrierDismissLabel,
+            child: Align(
+              alignment: _drawerOuterAlignment,
+              child: Container(
+                width: width,
+                color: Colors.transparent,
+              ),
+            ),
+          ),
+        ),
+      );
+    return null;
+  }
+  
+  
+  /// Scaffold
+  Widget _scaffold({InnerDrawerAnimation animationType}){
+      
+      assert(widget.borderRadius >= 0);
+      
+      Widget container = Container(
+          key: _drawerKey,
+          decoration: animationType ==
+              InnerDrawerAnimation.linear
+              ? null
+              : BoxDecoration(
+              boxShadow: widget.boxShadow ??
+                  [
+                      BoxShadow(
+                          color:
+                          Colors.black.withOpacity(0.5),
+                          blurRadius: 5,
+                      )
+                  ]),
+          child: widget.scaffold
+      );
+      
+      if(widget.borderRadius!=0)
+          container = ClipRRect(
+              borderRadius: BorderRadius.circular((1-_controller.value)*widget.borderRadius),
+              child: container,
+          );
+
+      double scaleFactor = _position == InnerDrawerDirection.start ? widget.leftScale : widget.rightScale;
+      
+      if(scaleFactor<1)
+        container = Transform.scale(
+            scale: ((1 - scaleFactor) * _controller.value) + scaleFactor,
+            child: container,
+        );
+      
+      return container;
   }
 
   @override
   Widget build(BuildContext context) {
-    return InnerDrawer(
-      key: _innerDrawerKey,
-      onTapClose: _onTapToClose,
-      tapScaffoldEnabled: _tapScaffold,
-      leftOffset: _offset,
-      rightOffset: _offset,
-      swipe: _swipe,
-      colorTransition: currentColor,
-      leftAnimationType: _animationType,
-      rightAnimationType: InnerDrawerAnimation.quadratic,
-      leftChild: Material(
-          child: SafeArea(
-              //top: false,
-              child: Container(
-        decoration: BoxDecoration(
-          border: Border(
-              left: BorderSide(width: 1, color: Colors.grey[200]),
-              right: BorderSide(width: 1, color: Colors.grey[200])),
-        ),
+    //assert(debugCheckHasMaterialLocalizations(context));
+    
+    // initialize the correct width
+    if (_initWidth == 400 ||
+        MediaQuery.of(context).orientation != _orientation) {
+      _updateWidth();
+      _orientation = MediaQuery.of(context).orientation;
+    }
+    
+    
+    double offset = _position == InnerDrawerDirection.start ? widget.leftOffset : widget.rightOffset;
+
+    final double width = (_width / 2) - (_width / 2) * offset;
+
+    final animationType = _position == InnerDrawerDirection.start ? widget.leftAnimationType : widget.rightAnimationType;
+
+    /// wFactor depends of offset and is used by the second Align that contains the Scaffold
+    offset = 0.5 - offset * 0.5;
+    final double wFactor = (_controller.value * (1 - offset)) + offset;
+
+    return Container(
+        color: Theme.of(context).backgroundColor,
         child: Stack(
-          key: _keyRed,
-          children: <Widget>[
-            ListView(
-              children: <Widget>[
-                Padding(
-                    padding: EdgeInsets.only(top: 12, bottom: 4, left: 15),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            SizedBox(
-                              width: 15,
-                              height: 15,
-                              child: CircleAvatar(
-                                child: Icon(Icons.person,
-                                    color: Colors.white, size: 12),
-                                backgroundColor: Colors.grey,
-                              ),
-                            ),
-                            Text(
-                              "   Guest",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600, height: 1.2),
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 2, right: 25),
-                          child: GestureDetector(
-                            child: Icon(
-                              _position
-                                  ? Icons.arrow_back
-                                  : Icons.arrow_forward,
-                              size: 18,
-                            ),
-                            onTap: () {
-                              _innerDrawerKey.currentState.toggle();
-                            },
-                          ),
-                        ),
-                      ],
-                    )),
-                Divider(),
-                ListTile(
-                  title: Text("Statistics"),
-                  leading: Icon(Icons.show_chart),
-                ),
-                ListTile(
-                  title: Text("Activity"),
-                  leading: Icon(Icons.access_time),
-                ),
-                ListTile(
-                  title: Text("Nametag"),
-                  leading: Icon(Icons.rounded_corner),
-                ),
-                ListTile(
-                  title: Text("Favorite"),
-                  leading: Icon(Icons.bookmark_border),
-                ),
-                ListTile(
-                  title: Text("Close Friends"),
-                  leading: Icon(Icons.list),
-                ),
-                ListTile(
-                  title: Text("Suggested People"),
-                  leading: Icon(Icons.person_add),
-                ),
-                ListTile(
-                  title: Text("Open Facebook"),
-                  leading: Icon(
-                    Env.facebook_icon,
-                    size: 18,
-                  ),
-                ),
-              ],
-            ),
-            Positioned(
-                bottom: 0,
-                child: Container(
-                  alignment: Alignment.bottomCenter,
-                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
-                  width: _width,
-                  decoration: BoxDecoration(
-                      //color: Colors.grey,
-                      border: Border(
-                          top: BorderSide(
-                    color: Colors.grey[200],
-                  ))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Icon(
-                        Icons.settings,
-                        size: 18,
-                      ),
-                      Text(
-                        "  Settings",
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ],
-                  ),
-                ))
-          ],
-        ),
-      ))),
-      rightChild: Material(
-        child: Center(
-          child: Container(
-            child: Text("Right Child",style: TextStyle(fontSize: 18),),
+        alignment: _drawerInnerAlignment,
+        children: <Widget>[
+          RepaintBoundary(
+            child: _innerAnimationType( width, animationType ),
           ),
-        )
-      ),
-      scaffold: CupertinoPageScaffold(
-          navigationBar: CupertinoNavigationBar(
-            middle: Text(widget.title),
-            automaticallyImplyLeading: false,
-            backgroundColor: Colors.green[300],
-          ),
-          child: SafeArea(
-              child: Material(
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(10),
+          GestureDetector(
+            key: _gestureDetectorKey,
+            onTap: () {},
+            onHorizontalDragDown: widget.swipe ? _handleDragDown : null,
+            onHorizontalDragUpdate: widget.swipe ? _move : null,
+            onHorizontalDragEnd: widget.swipe ? _settle : null,
+            excludeFromSemantics: true,
+            child: RepaintBoundary(
+              child: Stack(
+                  children: <Widget>[
+                  ///Gradient
+                  Container(
+                    width: _controller.value == 0 ||
+                            animationType == InnerDrawerAnimation.linear
+                        ? 0
+                        : null,
+                    color: _color.evaluate(_controller),
                   ),
-                  Text(
-                    "Animation Type",
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      GestureDetector(
-                        child: Row(
-                          children: <Widget>[
-                            Text('Static'),
-                            Checkbox(
-                                activeColor: Colors.black,
-                                value: _animationType ==
-                                    InnerDrawerAnimation.static,
-                                onChanged: (a) {
-                                  setState(() {
-                                    _animationType =
-                                        InnerDrawerAnimation.static;
-                                  });
-                                }),
-                          ],
-                        ),
-                        onTap: () {
-                          setState(() {
-                            _animationType = InnerDrawerAnimation.static;
-                          });
-                        },
-                      ),
-                      GestureDetector(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Checkbox(
-                                activeColor: Colors.black,
-                                value: _animationType ==
-                                    InnerDrawerAnimation.linear,
-                                onChanged: (a) {
-                                  setState(() {
-                                    _animationType =
-                                        InnerDrawerAnimation.linear;
-                                  });
-                                }),
-                            Text('Linear'),
-                          ],
-                        ),
-                        onTap: () {
-                          setState(() {
-                            _animationType = InnerDrawerAnimation.linear;
-                          });
-                        },
-                      ),
-                      GestureDetector(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Checkbox(
-                                activeColor: Colors.black,
-                                value: _animationType ==
-                                    InnerDrawerAnimation.quadratic,
-                                onChanged: (a) {
-                                  setState(() {
-                                    _animationType =
-                                        InnerDrawerAnimation.quadratic;
-                                  });
-                                }),
-                            Text('Quadratic'),
-                          ],
-                        ),
-                        onTap: () {
-                          setState(() {
-                            _animationType = InnerDrawerAnimation.quadratic;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      GestureDetector(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Checkbox(
-                                activeColor: Colors.black,
-                                value: _swipe,
-                                onChanged: (a) {
-                                  setState(() {
-                                    _swipe = !_swipe;
-                                  });
-                                }),
-                            Text('Swipe'),
-                          ],
-                        ),
-                        onTap: () {
-                          setState(() {
-                            _swipe = !_swipe;
-                          });
-                        },
-                      ),
-                      GestureDetector(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Checkbox(
-                                activeColor: Colors.black,
-                                value: _tapScaffold,
-                                onChanged: (a) {
-                                  setState(() {
-                                    _tapScaffold = !_tapScaffold;
-                                  });
-                                }),
-                            Text('TapScaffoldEnabled'),
-                          ],
-                        ),
-                        onTap: () {
-                          setState(() {
-                            _tapScaffold = !_tapScaffold;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                  ),
-                  GestureDetector(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Checkbox(
-                            activeColor: Colors.black,
-                            value: _onTapToClose,
-                            onChanged: (a) {
-                              setState(() {
-                                _onTapToClose = !_onTapToClose;
-                              });
-                            }),
-                        Text('OnTap To Close'),
-                      ],
-                    ),
-                    onTap: () {
-                      setState(() {
-                        _onTapToClose = !_onTapToClose;
-                      });
-                    },
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                  ),
-                  Column(
-                    children: <Widget>[
-                      Text('Offset'),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          SliderTheme(
-                            data: Theme.of(context).sliderTheme.copyWith(
-                                  valueIndicatorTextStyle: Theme.of(context)
-                                      .accentTextTheme
-                                      .body2
-                                      .copyWith(color: Colors.white),
-                                ),
-                            child: Slider(
-                              activeColor: Colors.black,
-                              //inactiveColor: Colors.white,
-                              value: _offset,
-                              min: 0.0,
-                              max: 1,
-                              divisions: 5,
-                              semanticFormatterCallback: (double value) =>
-                                  value.round().toString(),
-                              label: '$_offset',
-                              onChanged: (a) {
-                                setState(() {
-                                  _offset = a;
-                                });
-                              },
-                              onChangeEnd: (a) {
-                                //_getwidthContainer();
-                              },
-                            ),
+                  Align(
+                    alignment: _drawerOuterAlignment,
+                    child: Align(
+                        alignment: _drawerInnerAlignment,
+                        widthFactor: wFactor,
+                        child: RepaintBoundary(
+                          child: FocusScope(
+                            node: _focusScopeNode,
+                            child: _scaffold(animationType: animationType)
                           ),
-                          Text(_offset.toString()),
-                          //Text(_fontSize.toString()),
-                        ],
-                      ),
-                    ],
+                        )),
                   ),
-                  Padding(padding: EdgeInsets.all(10)),
-                  FlatButton(
-                    child: Text(
-                      "Set Color Transition",
-                      style: TextStyle(
-                          color: currentColor, fontWeight: FontWeight.w500),
-                    ),
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          child: AlertDialog(
-                            title: const Text('Pick a color!'),
-                            content: SingleChildScrollView(
-                              child: ColorPicker(
-                                pickerColor: pickerColor,
-                                onColorChanged: changeColor,
-                                enableLabel: true,
-                                pickerAreaHeightPercent: 0.8,
-                              ),
-                            ),
-                            actions: <Widget>[
-                              FlatButton(
-                                child: Text('Set'),
-                                onPressed: () {
-                                  setState(() => currentColor = pickerColor);
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                          ));
-                    },
-                  ),
-                  Padding(padding: EdgeInsets.all(25)),
-                  RaisedButton(
-                    child: Text("open"),
-                    onPressed: () {
-                      // direction is optional
-                      // if not set, the last direction will be used
-                      _innerDrawerKey.currentState.toggle();
-                    },
-                  ),
-                ],
+
+                  ///Trigger
+                  _trigger(AlignmentDirectional.centerStart, widget.leftChild),
+                  _trigger(AlignmentDirectional.centerEnd, widget.rightChild),
+                  
+                  ///Overlay
+                  _overlay(width)
+                ].where((a) => a != null).toList(),
               ),
             ),
-          ))),
-      innerDrawerCallback: (a) => print(a),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -475,7 +544,8 @@ class _MyHomePageState extends State<MyHomePage> {
 ```
 
 ## DEMO
-![Demo 1](https://github.com/Dn-a/flutter_inner_drawer/blob/master/example/example4.gif)
+![Demo 1](https://github.com/Dn-a/flutter_inner_drawer/blob/master/repo-files/img/example5.1.gif)
+![Demo 2](https://github.com/Dn-a/flutter_inner_drawer/blob/master/repo-files/img/example5.2.gif)
 
 ## Other
 This project is a starting point for a Flutter application.

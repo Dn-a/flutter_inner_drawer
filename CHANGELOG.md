@@ -1,3 +1,10 @@
+## [0.5.0] - 2019-10-16.
+
+* **new Features and Documentation Updates**
+* Added `borderRadius` field for scaffold border - (double value).
+* Added `leftScale` and  `RightScale` fields for scaffold scaling - (double value).
+* Added `onDragUpdate(double value, InnerDraweDirection direction)` callback function.
+
 ## [0.4.0] - 2019-08-07.
 
 * **new Features and Documentation Updates**
