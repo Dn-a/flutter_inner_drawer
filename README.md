@@ -97,7 +97,7 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
 ### InnerDrawer Parameters
 |PropName|Description|default value|
 |:-------|:----------|:------------|
-|`scaffold`|*A Scaffold is generally used but you are free to use other widgets (required)*|required|
+|`scaffold`|*A Scaffold is generally used but you are free to use other widgets*|required|
 |`leftChild`|*Inner Widget*|required if rightChild is not set|
 |`rightChild`|*Inner Widget*|required if leftChild is not set|
 |`leftOffset`|*Offset drawer width*|0.4|
