@@ -106,7 +106,7 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
 |`rightScale`|*Right scaffold scaling*|1|
 |`borderRadius`|*for scaffold border*|0|
 |`onTapClose`|*Tap on Scaffold closes it*|false|
-|`swipe`*activate or deactivate the swipe*|true|
+|`swipe`|*activate or deactivate the swipe*|true|
 |`tapScaffoldEnabled`|*Possibility to tap the scaffold even when open*|false|
 |`boxShadow`|*BoxShadow of scaffold opened*|[BoxShadow(color: Colors.black.withOpacity(0.5),blurRadius: 5)]|
 |`colorTransition`|*Change background color while swiping*|Colors.black54|
