@@ -99,7 +99,7 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
 |:-------|:----------|:------------|
 |`scaffold`|*A Scaffold is generally used but you are free to use other widgets (required)*|required|
 |`leftChild`|*Inner Widget*|required if rightChild is not set|
-|`rightChild`|*Inner Widget*|required if rightChild is not set|
+|`rightChild`|*Inner Widget*|required if leftChild is not set|
 |`leftOffset`|*Offset drawer width*|0.4|
 |`rightOffset`|*Offset drawer width*|0.4|
 |`leftScale`|*Left scaffold scaling*|1|
