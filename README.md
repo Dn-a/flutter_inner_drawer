@@ -104,8 +104,8 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
 |`rightOffset`|*Offset drawer width*|0.4|
 |`leftScale`|*Left scaffold scaling*|1|
 |`rightScale`|*Right scaffold scaling*|1|
-|`borderRadius`|*for scaffold border*|0|
-|`onTapClose`|*Tap on Scaffold closes it*|false|
+|`borderRadius`|*For scaffold border*|0|
+|`onTapClose`|*Tap on the Scaffold closes it*|false|
 |`swipe`|*activate or deactivate the swipe*|true|
 |`tapScaffoldEnabled`|*Possibility to tap the scaffold even when open*|false|
 |`boxShadow`|*BoxShadow of scaffold opened*|[BoxShadow(color: Colors.black.withOpacity(0.5),blurRadius: 5)]|
