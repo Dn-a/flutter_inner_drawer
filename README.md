@@ -42,8 +42,7 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
             key: _innerDrawerKey,
             onTapClose: true, // default false
             swipe: true, // default true            
-            colorTransition: Color.red, // default Color.black54
-            innerDrawerCallback: (a) => print(a ),// return bool
+            colorTransition: Color.red, // default Color.black54            
             leftOffset: 0.6, // default 0.4
             rightOffset: 0.6,// default 0.4
             leftScale: 0.9,// default 1
