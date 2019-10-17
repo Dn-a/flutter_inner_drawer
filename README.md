@@ -60,6 +60,7 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
             },
             
             innerDrawerCallback: (a) => print(a), // return  true (open) or false (close)
+            
             leftChild: Container(), // required if rightChild is not set
             rightChild: Container(), // required if leftChild is not set
             
