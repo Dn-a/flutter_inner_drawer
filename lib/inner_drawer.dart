@@ -45,6 +45,8 @@ class InnerDrawer extends StatefulWidget {
       @required this.scaffold,
       this.leftOffset = 0.4,
       this.rightOffset = 0.4,
+      this.verticalOffset = 0.0,
+      this.overlay = false,
       this.leftScale = 1,
       this.rightScale = 1,
       this.borderRadius = 0,
@@ -75,6 +77,12 @@ class InnerDrawer extends StatefulWidget {
 
   /// Right offset drawer width; default 0.4
   final double rightOffset;
+
+  /// Vertical offset drawer height; default 0.0
+  final double verticalOffset;
+
+  /// Overlay drawer; default false
+  final bool overlay;
 
   /// Left Transform Scale; (default 0)
   /// values between 1 and 0
@@ -355,7 +363,7 @@ class InnerDrawerState extends State<InnerDrawer>
   /// return widget with specific animation
   Widget _innerAnimationType(double width, InnerDrawerAnimation animationType) {
     final Widget container = Container(
-      width: _width - width,
+      width: widget.overlay ? MediaQuery.of(context).size.width : _width - width,
       height: MediaQuery.of(context).size.height,
       child: _position == InnerDrawerDirection.start
           ? widget.leftChild
@@ -432,34 +440,36 @@ class InnerDrawerState extends State<InnerDrawer>
 
     Widget container = Container(
         key: _drawerKey,
-        decoration: animationType == InnerDrawerAnimation.linear
-            ? null
-            : BoxDecoration(
-                boxShadow: widget.boxShadow ??
-                    [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.5),
-                        blurRadius: 5,
-                      )
-                    ]),
-        child: widget.scaffold);
-
-    if (widget.borderRadius != 0)
-      container = ClipRRect(
-        borderRadius: BorderRadius.circular(
-            (1 - _controller.value) * widget.borderRadius),
-        child: container,
-      );
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(widget.borderRadius * (1-_controller.value)),
+            boxShadow: widget.boxShadow ??
+                [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.5),
+                    blurRadius: 5,
+                  )
+                ]),
+        child: Material(
+          animationDuration: Duration(milliseconds: 0),
+          borderRadius: BorderRadius.circular(widget.borderRadius * (1-_controller.value)),
+          clipBehavior: Clip.antiAlias,
+          child: widget.scaffold,
+        ));
 
     double scaleFactor = _position == InnerDrawerDirection.start
         ? widget.leftScale
         : widget.rightScale;
 
-    if (scaleFactor < 1)
-      container = Transform.scale(
-        scale: ((1 - scaleFactor) * _controller.value) + scaleFactor,
-        child: container,
-      );
+    container = Transform.scale(
+      scale: ((1 - scaleFactor) * _controller.value) + scaleFactor,
+      child: container,
+    );
+
+    double translateY = MediaQuery.of(context).size.height * widget.verticalOffset;
+    container = Transform.translate(
+      offset: Offset(0, translateY * (1 - _controller.value)),
+      child: container,
+    );
 
     return container;
   }
@@ -528,8 +538,8 @@ class InnerDrawerState extends State<InnerDrawer>
                   ),
 
                   ///Trigger
-                  _trigger(AlignmentDirectional.centerStart, widget.leftChild),
-                  _trigger(AlignmentDirectional.centerEnd, widget.rightChild),
+                  _trigger(AlignmentDirectional.topStart, widget.leftChild),
+                  _trigger(AlignmentDirectional.topEnd, widget.rightChild),
 
                   ///Overlay
                   _overlay(width)

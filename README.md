@@ -47,6 +47,8 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
             rightOffset: 0.6,// default 0.4
             leftScale: 0.9,// default 1
             rightScale: 0.9,// default 1
+            verticalOffset: 0.0, // default 0
+            overlay: false, // default false
             borderRadius: 50, // default 0
             leftAnimationType: InnerDrawerAnimation.static, // default static
             rightAnimationType: InnerDrawerAnimation.quadratic,
@@ -102,6 +104,8 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
 |`rightChild`|*Inner Widget*|required if leftChild is not set|
 |`leftOffset`|*Offset drawer width*|0.4|
 |`rightOffset`|*Offset drawer width*|0.4|
+|`verticalOffset`|*Offset main widget vertically according to height factor*|0.0|
+|`overlay`|*If set to true, drawer will appear behind main widget*|false|
 |`leftScale`|*Left scaffold scaling*|1|
 |`rightScale`|*Right scaffold scaling*|1|
 |`borderRadius`|*For scaffold border*|0|
