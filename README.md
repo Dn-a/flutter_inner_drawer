@@ -1,5 +1,5 @@
 # flutter_inner_drawer
-[![pub package](https://img.shields.io/badge/pub-0.5.0-orange.svg)](https://pub.dartlang.org/packages/flutter_inner_drawer)
+[![pub package](https://img.shields.io/badge/pub-0.5.1-orange.svg)](https://pub.dartlang.org/packages/flutter_inner_drawer)
 [![Awesome Flutter](https://img.shields.io/badge/Awesome-Flutter-blue.svg?longCache=true&style=flat-square)](https://github.com/Solido/awesome-flutter#drawers)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/dnag88)
 
@@ -10,7 +10,7 @@ Inner Drawer is an easy way to create an internal side section (left/right) wher
 Add this to your package's pubspec.yaml file:
 ```dart
 dependencies:
-  flutter_inner_drawer: "^0.5.0"
+  flutter_inner_drawer: "^0.5.1"
 ```
 ## Demo
 <div align="center">
@@ -45,9 +45,10 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
             colorTransition: Color.red, // default Color.black54
             innerDrawerCallback: (a) => print(a ),// return bool
             leftOffset: 0.6, // default 0.4
-            rightOffset: 0.6,// default 0.4
+            rightOffset: 0.6,// default 0.4            
             leftScale: 0.9,// default 1
             rightScale: 0.9,// default 1
+            proportionalChildArea : true, // default true
             borderRadius: 50, // default 0
             leftAnimationType: InnerDrawerAnimation.static, // default static
             rightAnimationType: InnerDrawerAnimation.quadratic,
@@ -104,6 +105,7 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
 |`rightOffset`|*Offset drawer width*|0.4|
 |`leftScale`|*Left scaffold scaling*|1|
 |`rightScale`|*Right scaffold scaling*|1|
+|`proportionalChildArea`|*If true, dynamically sets the width based on the selected offset, otherwise it leaves the width at 100% of the screen.*|true|
 |`borderRadius`|*For scaffold border*|0|
 |`onTapClose`|*Tap on the Scaffold closes it*|false|
 |`swipe`|*activate or deactivate the swipe*|true|

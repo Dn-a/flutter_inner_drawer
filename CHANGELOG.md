@@ -1,4 +1,14 @@
-## [0.5.0] - 2019-10-16.
+## [0.5.1]  2019-11-09.
+
+* **General improvement of the code**
+*
+* Added `proportionalChildArea`. if == true dynamically sets the width based on the selected offset, otherwise it leaves the width at 100% of the screen.
+* Possibility to set `boxShadow` also for linear animation.
+* When `borderSide` > 0, `boxShadow` did not work, fixed.
+* Cleaning code.
+* Update Readme.
+
+## [0.5.0]  2019-10-16.
 
 * **new Features and Documentation Updates**
 *
@@ -6,7 +16,7 @@
 * Added `leftScale` and  `RightScale` fields for scaffold scaling - (double value).
 * Added `onDragUpdate(double value, InnerDraweDirection direction)` callback function.
 
-## [0.4.0] - 2019-08-07.
+## [0.4.0]  2019-08-07.
 
 * **new Features and Documentation Updates**
 *
@@ -15,78 +25,78 @@
 * Parameter `animationType` replaced with `leftAnimationType` and `rightAnimationType`.
 * Possibility to tap the scaffold even when open with `tapScaffoldEnabled`. 
 
-## [0.3.0] - 2019-07-07.
+## [0.3.0]  2019-07-07.
 
 * General improvement of the code.
 
-## [0.2.9] - 2019-06-20.
+## [0.2.9]  2019-06-20.
 
 * Updated dependencies.
 * Added toggle method.
 
-## [0.2.8] - 2019-06-14.
+## [0.2.8]  2019-06-14.
 
 * fix history.
 
-## [0.2.7] - 2019-06-14.
+## [0.2.7]  2019-06-14.
 
 * Cleaning code.
 * Update Readme.
 
-## [0.2.6] - 2019-05-13.
+## [0.2.6]  2019-05-13.
 
 * Fixed InnerDrawerCallback.
 
-## [0.2.5] - 2019-04-19.
+## [0.2.5]  2019-04-19.
 
 * General improvement of the code.
 
-## [0.2.4] - 2019-04-16.
+## [0.2.4]  2019-04-16.
 
 * Fix swipe precision.
 
-## [0.2.3] - 2019-04-06.
+## [0.2.3]  2019-04-06.
 
 * fix some problem.
 * General improvement of the code.
 
-## [0.2.2] - 2019-02-26.
+## [0.2.2]  2019-02-26.
 
 * fix some artifacts with linear animation.
 
-## [0.2.1] - 2019-02-25.
+## [0.2.1]  2019-02-25.
 
 * solved the problem of CupertinoThemeData that launched an assert.
 
-## [0.2.0] - 2019-02-16.
+## [0.2.0]  2019-02-16.
 
 * 3 types of animation (static - linear - quadratic) 
 * Improved documentation.
 
-## [0.1.5] - 2019-02-13.
+## [0.1.5]  2019-02-13.
 
 * Improved documentation.
 
-## [0.1.4] - 2019-02-13.
+## [0.1.4]  2019-02-13.
 
 * Improved documentation.
 
-## [0.1.3] - 2019-02-13.
+## [0.1.3]  2019-02-13.
 
 * fixed swipe.
 
-## [0.1.2] - 2019-02-13.
+## [0.1.2]  2019-02-13.
 
 * Added side trigger - Possibility to activate/deactivate the swipe.
 
-## [0.1.1] - 2019-02-12.
+## [0.1.1]  2019-02-12.
 
 * Improved documentation.
 
-## [0.1.0] - 2019-02-12.
+## [0.1.0]  2019-02-12.
 
 * Improved documentation - General improvement of the code.
 
-## [0.0.1] - 2019-02-12.
+## [0.0.1]  2019-02-12.
 
 * Created Inner Drawer.

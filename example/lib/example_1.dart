@@ -31,6 +31,8 @@ class _ExampleOneState extends State<ExampleOne>
 
   double _dragUpdate = 0;
 
+  InnerDrawerDirection _direction = InnerDrawerDirection.start;
+
   String _title = "One";
 
   @override
@@ -60,6 +62,10 @@ class _ExampleOneState extends State<ExampleOne>
       leftOffset: _offset,
       rightOffset: _offset,
       swipe: _swipe,
+      boxShadow: _direction == InnerDrawerDirection.start &&
+              _animationType == InnerDrawerAnimation.linear
+          ? []
+          : null,
       colorTransition: currentColor,
       leftAnimationType: _animationType,
       rightAnimationType: InnerDrawerAnimation.linear,
@@ -612,8 +618,10 @@ class _ExampleOneState extends State<ExampleOne>
             ),
           ))),
 
-      onDragUpdate: (double val, InnerDrawerDirection direction) =>
-          setState(() => _dragUpdate = val),
+      onDragUpdate: (double val, InnerDrawerDirection direction) {
+        _direction = direction;
+        setState(() => _dragUpdate = val);
+      },
       //innerDrawerCallback: (a) => print(a),
     );
   }

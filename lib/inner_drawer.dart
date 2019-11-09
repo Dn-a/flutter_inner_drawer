@@ -47,6 +47,7 @@ class InnerDrawer extends StatefulWidget {
       this.rightOffset = 0.4,
       this.leftScale = 1,
       this.rightScale = 1,
+      this.proportionalChildArea = true,
       this.borderRadius = 0,
       this.onTapClose = false,
       this.tapScaffoldEnabled = false,
@@ -83,6 +84,10 @@ class InnerDrawer extends StatefulWidget {
   /// Right Transform Scale; (default 0)
   /// values between 1 and 0
   final double rightScale;
+
+  /// The proportionalChild Area = true dynamically sets the width based on the selected offset.
+  /// On false it leaves the width at 100% of the screen
+  final bool proportionalChildArea;
 
   /// edge radius when opening the scaffold - (defalut 0)
   final double borderRadius;
@@ -355,7 +360,8 @@ class InnerDrawerState extends State<InnerDrawer>
   /// return widget with specific animation
   Widget _innerAnimationType(double width, InnerDrawerAnimation animationType) {
     final Widget container = Container(
-      width: _width - width,
+      //width: _width - width,
+      width: widget.proportionalChildArea ? _width - width : _width,
       height: MediaQuery.of(context).size.height,
       child: _position == InnerDrawerDirection.start
           ? widget.leftChild
@@ -432,24 +438,23 @@ class InnerDrawerState extends State<InnerDrawer>
 
     Widget container = Container(
         key: _drawerKey,
-        decoration: animationType == InnerDrawerAnimation.linear
-            ? null
-            : BoxDecoration(
-                boxShadow: widget.boxShadow ??
-                    [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.5),
-                        blurRadius: 5,
-                      )
-                    ]),
-        child: widget.scaffold);
-
-    if (widget.borderRadius != 0)
-      container = ClipRRect(
-        borderRadius: BorderRadius.circular(
-            (1 - _controller.value) * widget.borderRadius),
-        child: container,
-      );
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(
+                widget.borderRadius * (1 - _controller.value)),
+            boxShadow: widget.boxShadow ??
+                [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.5),
+                    blurRadius: 5,
+                  )
+                ]),
+        child: widget.borderRadius != 0
+            ? ClipRRect(
+                borderRadius: BorderRadius.circular(
+                    (1 - _controller.value) * widget.borderRadius),
+                child: widget.scaffold,
+              )
+            : widget.scaffold);
 
     double scaleFactor = _position == InnerDrawerDirection.start
         ? widget.leftScale

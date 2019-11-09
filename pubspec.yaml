@@ -1,6 +1,6 @@
 name: flutter_inner_drawer
 description: Inner Drawer is an easy way to create an internal side section (left/right) where you can insert a list menu or other.
-version: 0.5.0
+version: 0.5.1
 author: Antonino Di Natale <gyorgio88@gmail.com>
 homepage: https://github.com/Dn-a/flutter_inner_drawer
 
