@@ -365,27 +365,23 @@ class InnerDrawerState extends State<InnerDrawer>
 
   /// returns the left or right animation type based on InnerDrawerDirection
   InnerDrawerAnimation get _animationType {
-    final animationType = _position == InnerDrawerDirection.start
+    return _position == InnerDrawerDirection.start
         ? widget.leftAnimationType
         : widget.rightAnimationType;
-
-    return animationType;
   }
 
   /// returns the left or right scale based on InnerDrawerDirection
   double get _scaleFactor {
-    double scaleFactor = _position == InnerDrawerDirection.start
+    return _position == InnerDrawerDirection.start
         ? widget.leftScale
         : widget.rightScale;
-    return scaleFactor;
   }
 
   /// returns the left or right offset based on InnerDrawerDirection
   double get _offset {
-    double offset = _position == InnerDrawerDirection.start
+    return _position == InnerDrawerDirection.start
         ? widget.leftOffset
         : widget.rightOffset;
-    return offset;
   }
 
   /// return width with specific offset
@@ -446,7 +442,7 @@ class InnerDrawerState extends State<InnerDrawer>
 
   ///Overly
   Widget _overlay() {
-    Container container = Container(
+    final Container container = Container(
       color: Colors.transparent,
     );
 
@@ -507,7 +503,7 @@ class InnerDrawerState extends State<InnerDrawer>
     return Stack(
       children: <Widget>[
         container,
-        
+
         ///Overlay
         _overlay()
       ].where((a) => a != null).toList(),
@@ -526,7 +522,7 @@ class InnerDrawerState extends State<InnerDrawer>
     }
 
     /// wFactor depends of offset and is used by the second Align that contains the Scaffold
-    double offset = 0.5 - _offset * 0.5;
+    final double offset = 0.5 - _offset * 0.5;
     final double wFactor = (_controller.value * (1 - offset)) + offset;
 
     return Container(
