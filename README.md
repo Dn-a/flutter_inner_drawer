@@ -31,10 +31,7 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
 .
 .
 .
-    //  Current State of InnerDrawerState
-    final GlobalKey<InnerDrawerState> _innerDrawerKey = GlobalKey<InnerDrawerState>();
-
-
+   
     @override
     Widget build(BuildContext context)
     {
@@ -82,6 +79,9 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
         )
     }
     
+    //  Current State of InnerDrawerState
+    final GlobalKey<InnerDrawerState> _innerDrawerKey = GlobalKey<InnerDrawerState>();    
+
     void _toggle()
     {
        _innerDrawerKey.currentState.toggle(
