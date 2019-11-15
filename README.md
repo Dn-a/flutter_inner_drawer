@@ -1,5 +1,5 @@
 # flutter_inner_drawer
-[![pub package](https://img.shields.io/badge/pub-0.5.1-orange.svg)](https://pub.dartlang.org/packages/flutter_inner_drawer)
+[![pub package](https://img.shields.io/badge/pub-0.5.2-orange.svg)](https://pub.dartlang.org/packages/flutter_inner_drawer)
 [![Awesome Flutter](https://img.shields.io/badge/Awesome-Flutter-blue.svg?longCache=true&style=flat-square)](https://github.com/Solido/awesome-flutter#drawers)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/dnag88)
 
@@ -10,7 +10,7 @@ Inner Drawer is an easy way to create an internal side section (left/right) wher
 Add this to your package's pubspec.yaml file:
 ```dart
 dependencies:
-  flutter_inner_drawer: "^0.5.1"
+  flutter_inner_drawer: "^0.5.2"
 ```
 ## Demo
 <div align="center">
@@ -52,6 +52,7 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
             borderRadius: 50, // default 0
             leftAnimationType: InnerDrawerAnimation.static, // default static
             rightAnimationType: InnerDrawerAnimation.quadratic,
+            backgroundColor: Colors.red, // default  Theme.of(context).backgroundColor
             
             //when a pointer that is in contact with the screen and moves to the right or left            
             onDragUpdate: (double val, InnerDrawerDirection direction) {
@@ -114,6 +115,7 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
 |`colorTransition`|*Change background color while swiping*|Colors.black54|
 |`leftAnimationType`|*static / linear / quadratic*|static|
 |`rightAnimationType`|*static / linear / quadratic*|static|
+|`backgroundColor`|*color of the main background*|Theme.of(context).backgroundColor|
 |`innerDrawerCallback`|*Optional callback that is called when a InnerDrawer is opened or closed*||
 |`onDragUpdate`|*When a pointer that is in contact with the screen and moves to the right or left*||
 |`_innerDrawerKey.currentState.open`|*Current State of GlobalKey<InnerDrawerState>(check example) - OPEN*||

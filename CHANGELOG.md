@@ -2,6 +2,15 @@
 
 * **General improvement of the code**
 *
+* Added `backgroundColor` field.
+* Fixed some problems related to swipe and scaleFactor.
+* Cleaning code.
+* Update Readme.
+
+## [0.5.1] - 2019-11-09.
+
+* **General improvement of the code**
+*
 * Added `proportionalChildArea`. if == true dynamically sets the width based on the selected offset, otherwise it leaves the width at 100% of the screen.
 * Possibility to set `boxShadow` also for linear animation.
 * When `borderSide` > 0, `boxShadow` did not work, fixed.
@@ -36,7 +45,7 @@
 
 ## [0.2.8] - 2019-06-14.
 
-* fix history.
+* fixed history.
 
 ## [0.2.7] - 2019-06-14.
 
@@ -53,16 +62,16 @@
 
 ## [0.2.4] - 2019-04-16.
 
-* Fix swipe precision.
+* Fixed swipe precision.
 
 ## [0.2.3] - 2019-04-06.
 
-* fix some problem.
+* fixed some problem.
 * General improvement of the code.
 
 ## [0.2.2] - 2019-02-26.
 
-* fix some artifacts with linear animation.
+* fixed some artifacts with linear animation.
 
 ## [0.2.1] - 2019-02-25.
 

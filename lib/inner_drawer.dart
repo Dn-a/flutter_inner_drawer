@@ -56,6 +56,7 @@ class InnerDrawer extends StatefulWidget {
       this.colorTransition,
       this.leftAnimationType = InnerDrawerAnimation.static,
       this.rightAnimationType = InnerDrawerAnimation.static,
+      this.backgroundColor,
       this.innerDrawerCallback,
       this.onDragUpdate})
       : assert(leftChild != null || rightChild != null),
@@ -112,6 +113,9 @@ class InnerDrawer extends StatefulWidget {
 
   /// Static or Linear or Quadratic
   final InnerDrawerAnimation rightAnimationType;
+
+  /// Color of the main background
+  final Color backgroundColor;
 
   /// Optional callback that is called when a [InnerDrawer] is opened or closed.
   final InnerDrawerCallback innerDrawerCallback;
@@ -337,6 +341,7 @@ class InnerDrawerState extends State<InnerDrawer>
 
   final GlobalKey _gestureDetectorKey = GlobalKey();
 
+  /// Outer Alignment
   AlignmentDirectional get _drawerOuterAlignment {
     switch (_position) {
       case InnerDrawerDirection.start:
@@ -347,6 +352,7 @@ class InnerDrawerState extends State<InnerDrawer>
     return null;
   }
 
+  /// Inner Alignment
   AlignmentDirectional get _drawerInnerAlignment {
     switch (_position) {
       case InnerDrawerDirection.start:
@@ -357,18 +363,48 @@ class InnerDrawerState extends State<InnerDrawer>
     return null;
   }
 
+  /// returns the left or right animation type based on InnerDrawerDirection
+  InnerDrawerAnimation get _animationType {
+    final animationType = _position == InnerDrawerDirection.start
+        ? widget.leftAnimationType
+        : widget.rightAnimationType;
+
+    return animationType;
+  }
+
+  /// returns the left or right scale based on InnerDrawerDirection
+  double get _scaleFactor {
+    double scaleFactor = _position == InnerDrawerDirection.start
+        ? widget.leftScale
+        : widget.rightScale;
+    return scaleFactor;
+  }
+
+  /// returns the left or right offset based on InnerDrawerDirection
+  double get _offset {
+    double offset = _position == InnerDrawerDirection.start
+        ? widget.leftOffset
+        : widget.rightOffset;
+    return offset;
+  }
+
+  /// return width with specific offset
+  double get _widthWithOffset {
+    return (_width / 2) - (_width / 2) * _offset;
+  }
+
   /// return widget with specific animation
-  Widget _innerAnimationType(double width, InnerDrawerAnimation animationType) {
+  Widget _animatedChild() {
     final Widget container = Container(
       //width: _width - width,
-      width: widget.proportionalChildArea ? _width - width : _width,
+      width: widget.proportionalChildArea ? _width - _widthWithOffset : _width,
       height: MediaQuery.of(context).size.height,
       child: _position == InnerDrawerDirection.start
           ? widget.leftChild
           : widget.rightChild,
     );
 
-    switch (animationType) {
+    switch (_animationType) {
       case InnerDrawerAnimation.linear:
         return Align(
           alignment: _drawerOuterAlignment,
@@ -386,7 +422,7 @@ class InnerDrawerState extends State<InnerDrawer>
     }
   }
 
-  /// Side swipe air
+  /// drag Area
   Widget _trigger(AlignmentDirectional alignment, Widget child) {
     assert(alignment != null);
     final bool drawerIsStart = _position == InnerDrawerDirection.start;
@@ -409,7 +445,11 @@ class InnerDrawerState extends State<InnerDrawer>
   }
 
   ///Overly
-  Widget _overlay(double width) {
+  Widget _overlay() {
+    Container container = Container(
+      color: Colors.transparent,
+    );
+
     if (_controller.status == AnimationStatus.dismissed &&
         !widget.tapScaffoldEnabled)
       return BlockSemantics(
@@ -418,14 +458,15 @@ class InnerDrawerState extends State<InnerDrawer>
           excludeFromSemantics: defaultTargetPlatform == TargetPlatform.android,
           onTap: widget.onTapClose || !widget.swipe ? close : null,
           child: Semantics(
-            //label: MaterialLocalizations.of(context)?.modalBarrierDismissLabel,
-            child: Align(
-              alignment: _drawerOuterAlignment,
-              child: Container(
-                width: width,
-                color: Colors.transparent,
-              ),
-            ),
+            label: MaterialLocalizations.of(context)?.modalBarrierDismissLabel,
+            child: _scaleFactor < 1
+                ? Transform.scale(
+                    alignment: _drawerInnerAlignment,
+                    scale:
+                        ((1 - _scaleFactor) * _controller.value) + _scaleFactor,
+                    child: container,
+                  )
+                : container,
           ),
         ),
       );
@@ -433,7 +474,7 @@ class InnerDrawerState extends State<InnerDrawer>
   }
 
   /// Scaffold
-  Widget _scaffold({InnerDrawerAnimation animationType}) {
+  Widget _scaffold() {
     assert(widget.borderRadius >= 0);
 
     Widget container = Container(
@@ -456,51 +497,45 @@ class InnerDrawerState extends State<InnerDrawer>
               )
             : widget.scaffold);
 
-    double scaleFactor = _position == InnerDrawerDirection.start
-        ? widget.leftScale
-        : widget.rightScale;
-
-    if (scaleFactor < 1)
+    if (_scaleFactor < 1)
       container = Transform.scale(
-        scale: ((1 - scaleFactor) * _controller.value) + scaleFactor,
+        alignment: _drawerInnerAlignment,
+        scale: ((1 - _scaleFactor) * _controller.value) + _scaleFactor,
         child: container,
       );
 
-    return container;
+    return Stack(
+      children: <Widget>[
+        container,
+        
+        ///Overlay
+        _overlay()
+      ].where((a) => a != null).toList(),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     //assert(debugCheckHasMaterialLocalizations(context));
 
-    // initialize the correct width
+    /// initialize the correct width
     if (_initWidth == 400 ||
         MediaQuery.of(context).orientation != _orientation) {
       _updateWidth();
       _orientation = MediaQuery.of(context).orientation;
     }
 
-    double offset = _position == InnerDrawerDirection.start
-        ? widget.leftOffset
-        : widget.rightOffset;
-
-    final double width = (_width / 2) - (_width / 2) * offset;
-
-    final animationType = _position == InnerDrawerDirection.start
-        ? widget.leftAnimationType
-        : widget.rightAnimationType;
-
     /// wFactor depends of offset and is used by the second Align that contains the Scaffold
-    offset = 0.5 - offset * 0.5;
+    double offset = 0.5 - _offset * 0.5;
     final double wFactor = (_controller.value * (1 - offset)) + offset;
 
     return Container(
-      color: Theme.of(context).backgroundColor,
+      color: widget.backgroundColor ?? Theme.of(context).backgroundColor,
       child: Stack(
         alignment: _drawerInnerAlignment,
         children: <Widget>[
           RepaintBoundary(
-            child: _innerAnimationType(width, animationType),
+            child: _animatedChild(),
           ),
           GestureDetector(
             key: _gestureDetectorKey,
@@ -515,7 +550,7 @@ class InnerDrawerState extends State<InnerDrawer>
                   ///Gradient
                   Container(
                     width: _controller.value == 0 ||
-                            animationType == InnerDrawerAnimation.linear
+                            _animationType == InnerDrawerAnimation.linear
                         ? 0
                         : null,
                     color: _color.evaluate(_controller),
@@ -527,17 +562,13 @@ class InnerDrawerState extends State<InnerDrawer>
                         widthFactor: wFactor,
                         child: RepaintBoundary(
                           child: FocusScope(
-                              node: _focusScopeNode,
-                              child: _scaffold(animationType: animationType)),
+                              node: _focusScopeNode, child: _scaffold()),
                         )),
                   ),
 
                   ///Trigger
                   _trigger(AlignmentDirectional.centerStart, widget.leftChild),
                   _trigger(AlignmentDirectional.centerEnd, widget.rightChild),
-
-                  ///Overlay
-                  _overlay(width)
                 ].where((a) => a != null).toList(),
               ),
             ),

@@ -24,6 +24,7 @@ class _ExampleTwoState extends State<ExampleTwo> {
   bool _swipe = true;
   bool _tapScaffold = true;
   InnerDrawerAnimation _animationType = InnerDrawerAnimation.static;
+  bool _proportionalChildArea = true;
   double _offset = 0.4;
   double _scale = 0.9;
   double _borderRadius = 50;
@@ -70,6 +71,8 @@ class _ExampleTwoState extends State<ExampleTwo> {
       rightScale: _scale,
       borderRadius: _borderRadius,
       swipe: _swipe,
+      proportionalChildArea: _proportionalChildArea,
+      //backgroundColor: Colors.red,
       colorTransition: currentColor,
       leftAnimationType: _animationType,
       rightAnimationType: _animationType,
@@ -183,6 +186,30 @@ class _ExampleTwoState extends State<ExampleTwo> {
                       },
                     ),
                   ],
+                ),
+                Padding(
+                  padding: EdgeInsets.all(10),
+                ),
+                GestureDetector(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Checkbox(
+                          activeColor: Colors.black,
+                          value: _proportionalChildArea == true,
+                          onChanged: (a) {
+                            setState(() {
+                              _proportionalChildArea = !_proportionalChildArea;
+                            });
+                          }),
+                      Text('ProportionalChildArea'),
+                    ],
+                  ),
+                  onTap: () {
+                    setState(() {
+                      _proportionalChildArea = !_proportionalChildArea;
+                    });
+                  },
                 ),
                 Padding(
                   padding: EdgeInsets.all(10),
