@@ -16,10 +16,10 @@ dependencies:
 <div align="center">
   <table><tr>
  <td style="text-align:center">
-  <img width="250px"  src="https://github.com/Dn-a/flutter_inner_drawer/raw/master/repo-files/img/example5.1.gif?" />
+  <img width="250px"  src="https://github.com/Dn-a/flutter_inner_drawer/raw/master/assets/img/example5.1.gif?" />
  </td>
  <td style="text-align:center">
-   <img width="250px"  src="https://github.com/Dn-a/flutter_inner_drawer/raw/master/repo-files/img/example5.2.gif?" />
+   <img width="250px"  src="https://github.com/Dn-a/flutter_inner_drawer/raw/master/assets/img/example5.2.gif?" />
  </td>
  </tr></table>
 </div>
