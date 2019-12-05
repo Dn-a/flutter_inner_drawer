@@ -55,7 +55,7 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
                 // return values between 1 and 0
                 print(val);
                 // check if the swipe is to the right or to the left
-                print(direction==InnerDraweDirection.start);
+                print(direction==InnerDrawerDirection.start);
             },
             
             innerDrawerCallback: (a) => print(a), // return  true (open) or false (close)
