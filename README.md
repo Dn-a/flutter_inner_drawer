@@ -43,10 +43,10 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
             //When setting the vertical offset, be sure to use only top or bottom
             offset: IDOffset.only( top: 0.5 OR bottom: 0.5, right: 0.5, left: 0.5 ), 
             scale: IDOffset.horizontal( 0.8 ), // set the offset in both directions
-            leftOffset: 0.6, // default 0.4 DEPRECATED
-            rightOffset: 0.6,// default 0.4   DEPRECATED         
-            leftScale: 0.9,// default 1 DEPRECATED
-            rightScale: 0.9,// default 1 DEPRECATED
+            leftOffset: 0.6, // default 0.4 DEPRECATED, use offset
+            rightOffset: 0.6,// default 0.4   DEPRECATED, use offset         
+            leftScale: 0.9,// default 1 DEPRECATED, use scale
+            rightScale: 0.9,// default 1 DEPRECATED, use scale
             proportionalChildArea : true, // default true
             borderRadius: 50, // default 0
             leftAnimationType: InnerDrawerAnimation.static, // default static
