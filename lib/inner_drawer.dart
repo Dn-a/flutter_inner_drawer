@@ -42,16 +42,24 @@ class InnerDrawer extends StatefulWidget {
       {GlobalKey key,
       this.leftChild,
       this.rightChild,
-      @required this.scaffold,
-      this.leftOffset = 0.4,
-      this.rightOffset = 0.4,
-      this.leftScale = 1,
-      this.rightScale = 1,
+      @required
+          this.scaffold,
+      @Deprecated('Use `offset` field. Will be removed in 0.6.0')
+          this.leftOffset = 0.4,
+      @Deprecated('Use `offset` field. Will be removed in 0.6.0')
+          this.rightOffset = 0.4,
+      @Deprecated('Use `scale` field. Will be removed in 0.6.0')
+          this.leftScale = 1,
+      @Deprecated('Use `scale` field. Will be removed in 0.6.0')
+          this.rightScale = 1,
+      this.offset,
+      this.scale,
       this.proportionalChildArea = true,
       this.borderRadius = 0,
       this.onTapClose = false,
       this.tapScaffoldEnabled = false,
       this.swipe = true,
+      this.duration,
       this.boxShadow,
       this.colorTransition,
       this.leftAnimationType = InnerDrawerAnimation.static,
@@ -72,19 +80,30 @@ class InnerDrawer extends StatefulWidget {
   /// A Scaffold is generally used but you are free to use other widgets
   final Widget scaffold;
 
-  /// Left offset drawer width; default 0.4
+  /// Left offset of [InnerDrawer] width; default 0.4
+  ///
   final double leftOffset;
 
-  /// Right offset drawer width; default 0.4
+  /// Right offset of [InnerDrawer] width; default 0.4
+  ///
   final double rightOffset;
 
-  /// Left Transform Scale; (default 0)
-  /// values between 1 and 0
+  /// When the [InnerDrawer] is open, it's possible to set the offset of each of the four cardinal directions
+  final IDOffset offset;
+
+  /// When the left [InnerDrawer] is open
+  /// Values between 1 and 0. (default 1)
+  ///
   final double leftScale;
 
-  /// Right Transform Scale; (default 0)
-  /// values between 1 and 0
+  /// When the right [InnerDrawer] is open
+  /// Values between 1 and 0. (default 1)
+  ///
   final double rightScale;
+
+  /// When the [InnerDrawer] is open to the left or to the right
+  /// values between 1 and 0. (default 1)
+  final IDOffset scale;
 
   /// The proportionalChild Area = true dynamically sets the width based on the selected offset.
   /// On false it leaves the width at 100% of the screen
@@ -102,7 +121,10 @@ class InnerDrawer extends StatefulWidget {
   /// activate or deactivate the swipe. NOTE: when deactivate, onTap Close is implicitly activated
   final bool swipe;
 
-  /// BoxShadow of scaffold opened
+  /// duration animation controller
+  final Duration duration;
+
+  /// BoxShadow of scaffold open
   final List<BoxShadow> boxShadow;
 
   ///Color of gradient
@@ -117,7 +139,7 @@ class InnerDrawer extends StatefulWidget {
   /// Color of the main background
   final Color backgroundColor;
 
-  /// Optional callback that is called when a [InnerDrawer] is opened or closed.
+  /// Optional callback that is called when a [InnerDrawer] is open or closed.
   final InnerDrawerCallback innerDrawerCallback;
 
   /// when a pointer that is in contact with the screen and moves to the right or left
@@ -144,11 +166,12 @@ class InnerDrawerState extends State<InnerDrawer>
         ? InnerDrawerDirection.start
         : InnerDrawerDirection.end;
 
-    _controller =
-        AnimationController(duration: _kBaseSettleDuration, vsync: this)
-          ..addListener(_animationChanged)
-          ..addStatusListener(_animationStatusChanged);
-    _controller.value = 1;
+    _controller = AnimationController(
+        value: 1,
+        duration: widget.duration ?? _kBaseSettleDuration,
+        vsync: this)
+      ..addListener(_animationChanged)
+      ..addStatusListener(_animationStatusChanged);
     super.initState();
   }
 
@@ -256,9 +279,13 @@ class InnerDrawerState extends State<InnerDrawer>
     else if (delta < 0 && _controller.value == 1 && widget.rightChild != null)
       _position = InnerDrawerDirection.end;
 
-    double offset = _position == InnerDrawerDirection.start
-        ? widget.leftOffset
-        : widget.rightOffset;
+    //TEMP
+    final double left =
+        widget.offset != null ? widget.offset.left : widget.leftOffset;
+    final double right =
+        widget.offset != null ? widget.offset.right : widget.rightOffset;
+
+    double offset = _position == InnerDrawerDirection.start ? left : right;
 
     double ee = 1;
     if (offset <= 0.2)
@@ -372,16 +399,24 @@ class InnerDrawerState extends State<InnerDrawer>
 
   /// returns the left or right scale based on InnerDrawerDirection
   double get _scaleFactor {
-    return _position == InnerDrawerDirection.start
-        ? widget.leftScale
-        : widget.rightScale;
+    //TEMP
+    final double left =
+        widget.scale != null ? widget.scale.left : widget.leftScale;
+    final double right =
+        widget.scale != null ? widget.scale.right : widget.rightScale;
+
+    return _position == InnerDrawerDirection.start ? left : right;
   }
 
   /// returns the left or right offset based on InnerDrawerDirection
   double get _offset {
-    return _position == InnerDrawerDirection.start
-        ? widget.leftOffset
-        : widget.rightOffset;
+    //TEMP
+    final double left =
+        widget.offset != null ? widget.offset.left : widget.leftOffset;
+    final double right =
+        widget.offset != null ? widget.offset.right : widget.rightOffset;
+
+    return _position == InnerDrawerDirection.start ? left : right;
   }
 
   /// return width with specific offset
@@ -418,7 +453,7 @@ class InnerDrawerState extends State<InnerDrawer>
     }
   }
 
-  /// drag Area
+  /// Trigger Area
   Widget _trigger(AlignmentDirectional alignment, Widget child) {
     assert(alignment != null);
     final bool drawerIsStart = _position == InnerDrawerDirection.start;
@@ -440,12 +475,11 @@ class InnerDrawerState extends State<InnerDrawer>
       return null;
   }
 
-  ///Overly
-  Widget _overlay() {
+  ///Disable the scaffolding tap when the drawer is open
+  Widget _invisibleCover() {
     final Container container = Container(
       color: Colors.transparent,
     );
-
     if (_controller.status == AnimationStatus.dismissed &&
         !widget.tapScaffoldEnabled)
       return BlockSemantics(
@@ -455,14 +489,7 @@ class InnerDrawerState extends State<InnerDrawer>
           onTap: widget.onTapClose || !widget.swipe ? close : null,
           child: Semantics(
             label: MaterialLocalizations.of(context)?.modalBarrierDismissLabel,
-            child: _scaleFactor < 1
-                ? Transform.scale(
-                    alignment: _drawerInnerAlignment,
-                    scale:
-                        ((1 - _scaleFactor) * _controller.value) + _scaleFactor,
-                    child: container,
-                  )
-                : container,
+            child: container,
           ),
         ),
       );
@@ -493,6 +520,12 @@ class InnerDrawerState extends State<InnerDrawer>
               )
             : widget.scaffold);
 
+    final Widget invC = _invisibleCover();
+    if (invC != null)
+      container = Stack(
+        children: <Widget>[container, invC],
+      );
+
     if (_scaleFactor < 1)
       container = Transform.scale(
         alignment: _drawerInnerAlignment,
@@ -500,14 +533,18 @@ class InnerDrawerState extends State<InnerDrawer>
         child: container,
       );
 
-    return Stack(
-      children: <Widget>[
-        container,
+    // Vertical translate
+    if (widget.offset != null &&
+        (widget.offset.top > 0 || widget.offset.bottom > 0)) {
+      final double translateY = MediaQuery.of(context).size.height *
+          (widget.offset.top > 0 ? -widget.offset.top : widget.offset.bottom);
+      container = Transform.translate(
+        offset: Offset(0, translateY * (1 - _controller.value)),
+        child: container,
+      );
+    }
 
-        ///Overlay
-        _overlay()
-      ].where((a) => a != null).toList(),
-    );
+    return container;
   }
 
   @override
@@ -573,4 +610,41 @@ class InnerDrawerState extends State<InnerDrawer>
       ),
     );
   }
+}
+
+///An immutable set of offset in each of the four cardinal directions.
+class IDOffset {
+  const IDOffset.horizontal(
+    double horizontal,
+  )   : left = horizontal,
+        top = 0.0,
+        right = horizontal,
+        bottom = 0.0;
+
+  const IDOffset.only({
+    this.left = 0.0,
+    this.top = 0.0,
+    this.right = 0.0,
+    this.bottom = 0.0,
+  })  : assert(top >= 0.0 &&
+            top <= 1.0 &&
+            left >= 0.0 &&
+            left <= 1.0 &&
+            right >= 0.0 &&
+            right <= 1.0 &&
+            bottom >= 0.0 &&
+            bottom <= 1.0),
+        assert(top >= 0.0 && bottom == 0.0 || top == 0.0 && bottom >= 0.0);
+
+  /// The offset from the left.
+  final double left;
+
+  /// The offset from the top.
+  final double top;
+
+  /// The offset from the right.
+  final double right;
+
+  /// The offset from the bottom.
+  final double bottom;
 }

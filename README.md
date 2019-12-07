@@ -1,5 +1,5 @@
 # flutter_inner_drawer
-[![pub package](https://img.shields.io/badge/pub-0.5.2-orange.svg)](https://pub.dartlang.org/packages/flutter_inner_drawer)
+[![pub package](https://img.shields.io/badge/pub-0.5.3-orange.svg)](https://pub.dartlang.org/packages/flutter_inner_drawer)
 [![Awesome Flutter](https://img.shields.io/badge/Awesome-Flutter-blue.svg?longCache=true&style=flat-square)](https://github.com/Solido/awesome-flutter#drawers)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/dnag88)
 
@@ -10,7 +10,7 @@ Inner Drawer is an easy way to create an internal side section (left/right) wher
 Add this to your package's pubspec.yaml file:
 ```dart
 dependencies:
-  flutter_inner_drawer: "^0.5.2"
+  flutter_inner_drawer: "^0.5.3"
 ```
 ## Demo
 <div align="center">
@@ -19,7 +19,7 @@ dependencies:
   <img width="250px"  src="https://github.com/Dn-a/flutter_inner_drawer/raw/master/assets/img/example5.1.gif?" />
  </td>
  <td style="text-align:center">
-   <img width="250px"  src="https://github.com/Dn-a/flutter_inner_drawer/raw/master/assets/img/example5.2.gif?" />
+   <img width="250px"  src="https://github.com/Dn-a/flutter_inner_drawer/raw/master/assets/img/example5.3.gif?" />
  </td>
  </tr></table>
 </div>
@@ -40,10 +40,13 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
             onTapClose: true, // default false
             swipe: true, // default true            
             colorTransition: Color.red, // default Color.black54
-            leftOffset: 0.6, // default 0.4
-            rightOffset: 0.6,// default 0.4            
-            leftScale: 0.9,// default 1
-            rightScale: 0.9,// default 1
+            //When setting the vertical offset, be sure to use only top or bottom
+            offset: IDOffset.only( top: 0.5 OR bottom: 0.5, right: 0.5, left: 0.5 ), 
+            scale: IDOffset.horizontal( 0.8 ), // set the offset in both directions
+            leftOffset: 0.6, // default 0.4 DEPRECATED
+            rightOffset: 0.6,// default 0.4   DEPRECATED         
+            leftScale: 0.9,// default 1 DEPRECATED
+            rightScale: 0.9,// default 1 DEPRECATED
             proportionalChildArea : true, // default true
             borderRadius: 50, // default 0
             leftAnimationType: InnerDrawerAnimation.static, // default static
@@ -101,14 +104,17 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
 |`scaffold`|*A Scaffold is generally used but you are free to use other widgets*|required|
 |`leftChild`|*Inner Widget*|required if rightChild is not set|
 |`rightChild`|*Inner Widget*|required if leftChild is not set|
-|`leftOffset`|*Offset drawer width*|0.4|
-|`rightOffset`|*Offset drawer width*|0.4|
-|`leftScale`|*Left scaffold scaling*|1|
-|`rightScale`|*Right scaffold scaling*|1|
+|`leftOffset(deprecated)`|*Offset drawer width*|0.4|
+|`rightOffset(deprecated)`|*Offset drawer width*|0.4|
+|`leftScale(deprecated)`|*Left scaffold scaling*|1|
+|`rightScale(deprecated)`|*Right scaffold scaling*|1|
+|`offset`|*Offset InnerDrawer width*|IDOffset.horizontal(0.4)|
+|`scale`|*Scaffold scaling*|IDOffset.horizontal(1)|
 |`proportionalChildArea`|*If true, dynamically sets the width based on the selected offset, otherwise it leaves the width at 100% of the screen.*|true|
 |`borderRadius`|*For scaffold border*|0|
 |`onTapClose`|*Tap on the Scaffold closes it*|false|
 |`swipe`|*activate or deactivate the swipe*|true|
+|`duration`|*Animation Controller duration*|Duration(milliseconds: 246)|
 |`tapScaffoldEnabled`|*Possibility to tap the scaffold even when open*|false|
 |`boxShadow`|*BoxShadow of scaffold opened*|[BoxShadow(color: Colors.black.withOpacity(0.5),blurRadius: 5)]|
 |`colorTransition`|*Change background color while swiping*|Colors.black54|

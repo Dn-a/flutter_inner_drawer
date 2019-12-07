@@ -25,7 +25,9 @@ class _ExampleTwoState extends State<ExampleTwo> {
   bool _tapScaffold = true;
   InnerDrawerAnimation _animationType = InnerDrawerAnimation.static;
   bool _proportionalChildArea = true;
-  double _offset = 0.4;
+  double _horizontalOffset = 0.4;
+  double _verticalOffset = 0.4;
+  bool _topBottom = false;
   double _scale = 0.9;
   double _borderRadius = 50;
 
@@ -65,11 +67,14 @@ class _ExampleTwoState extends State<ExampleTwo> {
     return InnerDrawer(
       key: _innerDrawerKey,
       onTapClose: true,
-      leftOffset: _offset,
-      rightOffset: _offset,
-      leftScale: _scale,
-      rightScale: _scale,
+      offset: IDOffset.only(
+          top: _topBottom ? _verticalOffset : 0.0,
+          bottom: !_topBottom ? _verticalOffset : 0.0,
+          right: _horizontalOffset,
+          left: _horizontalOffset),
+      scale: IDOffset.horizontal(_scale),
       borderRadius: _borderRadius,
+      duration: Duration(milliseconds: 11200),
       swipe: _swipe,
       proportionalChildArea: _proportionalChildArea,
       //backgroundColor: Colors.red,
@@ -216,7 +221,7 @@ class _ExampleTwoState extends State<ExampleTwo> {
                 ),
                 Column(
                   children: <Widget>[
-                    Text('Offset'),
+                    Text('Horizontal Offset'),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -230,16 +235,16 @@ class _ExampleTwoState extends State<ExampleTwo> {
                           child: Slider(
                             activeColor: Colors.black,
                             //inactiveColor: Colors.white,
-                            value: _offset,
+                            value: _horizontalOffset,
                             min: 0.0,
                             max: 1,
                             divisions: 5,
                             semanticFormatterCallback: (double value) =>
                                 value.round().toString(),
-                            label: '$_offset',
+                            label: '$_horizontalOffset',
                             onChanged: (a) {
                               setState(() {
-                                _offset = a;
+                                _horizontalOffset = a;
                               });
                             },
                             onChangeEnd: (a) {
@@ -247,7 +252,96 @@ class _ExampleTwoState extends State<ExampleTwo> {
                             },
                           ),
                         ),
-                        Text(_offset.toString()),
+                        Text(_horizontalOffset.toString()),
+                        //Text(_fontSize.toString()),
+                      ],
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: EdgeInsets.all(10),
+                ),
+                Column(
+                  children: <Widget>[
+                    Text('Vertical Offset'),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        GestureDetector(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Checkbox(
+                                  activeColor: Colors.black,
+                                  value: _topBottom == true,
+                                  onChanged: (a) {
+                                    setState(() {
+                                      _topBottom = true;
+                                    });
+                                  }),
+                              Text('Top'),
+                            ],
+                          ),
+                          onTap: () {
+                            setState(() {
+                              _topBottom = true;
+                            });
+                          },
+                        ),
+                        GestureDetector(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Checkbox(
+                                  activeColor: Colors.black,
+                                  value: _topBottom == false,
+                                  onChanged: (a) {
+                                    setState(() {
+                                      _topBottom = false;
+                                    });
+                                  }),
+                              Text('Bottom'),
+                            ],
+                          ),
+                          onTap: () {
+                            setState(() {
+                              _topBottom = false;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        SliderTheme(
+                          data: Theme.of(context).sliderTheme.copyWith(
+                                valueIndicatorTextStyle: Theme.of(context)
+                                    .accentTextTheme
+                                    .body2
+                                    .copyWith(color: Colors.white),
+                              ),
+                          child: Slider(
+                            activeColor: Colors.black,
+                            //inactiveColor: Colors.white,
+                            value: _verticalOffset,
+                            min: 0.0,
+                            max: 1,
+                            divisions: 5,
+                            semanticFormatterCallback: (double value) =>
+                                value.round().toString(),
+                            label: '$_verticalOffset',
+                            onChanged: (a) {
+                              setState(() {
+                                _verticalOffset = a;
+                              });
+                            },
+                            onChangeEnd: (a) {
+                              //_getwidthContainer();
+                            },
+                          ),
+                        ),
+                        Text(_verticalOffset.toString()),
                         //Text(_fontSize.toString()),
                       ],
                     ),

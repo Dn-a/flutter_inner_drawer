@@ -1,3 +1,14 @@
+## [0.5.3] - 2019-12-07.
+
+* **new Features and Documentation Updates**
+*
+* Added `IDOffset` class. An immutable set of offset in each of the four cardinal directions. 
+* Added `offset` field. `leftOffset` and `rightOffset` Deprecated.
+* Added `scale` field. `leftScale` and `rightScale` Deprecated.
+* Added `duration` field. Duration of AnimationController.
+* Cleaning code.
+* Update Readme.
+
 ## [0.5.2] - 2019-11-15.
 
 * **General improvement of the code**
