@@ -40,13 +40,20 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
             onTapClose: true, // default false
             swipe: true, // default true            
             colorTransition: Color.red, // default Color.black54
+            
+            // DEPRECATED: use offset
+            leftOffset: 0.6, // Will be removed in 0.6.0 version
+            rightOffset: 0.6,// Will be removed in 0.6.0 version
+            
             //When setting the vertical offset, be sure to use only top or bottom
-            offset: IDOffset.only( top: 0.5 OR bottom: 0.5, right: 0.5, left: 0.5 ), 
+            offset: IDOffset.only( top: 0.5 OR bottom: 0.5, right: 0.5, left: 0.5 ),
+            
+            // DEPRECATED:  use scale
+            leftScale: 0.9,// Will be removed in 0.6.0 version
+            rightScale: 0.9,// Will be removed in 0.6.0 version
+            
             scale: IDOffset.horizontal( 0.8 ), // set the offset in both directions
-            leftOffset: 0.6, // default 0.4 DEPRECATED, use offset
-            rightOffset: 0.6,// default 0.4   DEPRECATED, use offset         
-            leftScale: 0.9,// default 1 DEPRECATED, use scale
-            rightScale: 0.9,// default 1 DEPRECATED, use scale
+            
             proportionalChildArea : true, // default true
             borderRadius: 50, // default 0
             leftAnimationType: InnerDrawerAnimation.static, // default static

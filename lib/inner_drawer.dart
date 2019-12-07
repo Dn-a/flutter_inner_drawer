@@ -42,16 +42,11 @@ class InnerDrawer extends StatefulWidget {
       {GlobalKey key,
       this.leftChild,
       this.rightChild,
-      @required
-          this.scaffold,
-      @Deprecated('Use `offset` field. Will be removed in 0.6.0')
-          this.leftOffset = 0.4,
-      @Deprecated('Use `offset` field. Will be removed in 0.6.0')
-          this.rightOffset = 0.4,
-      @Deprecated('Use `scale` field. Will be removed in 0.6.0')
-          this.leftScale = 1,
-      @Deprecated('Use `scale` field. Will be removed in 0.6.0')
-          this.rightScale = 1,
+      @required this.scaffold,
+      this.leftOffset = 0.4,
+      this.rightOffset = 0.4,
+      this.leftScale = 1,
+      this.rightScale = 1,
       this.offset,
       this.scale,
       this.proportionalChildArea = true,
@@ -80,25 +75,33 @@ class InnerDrawer extends StatefulWidget {
   /// A Scaffold is generally used but you are free to use other widgets
   final Widget scaffold;
 
-  /// Left offset of [InnerDrawer] width; default 0.4
+  /// DEPRECATED:
+  /// Use `offset` field. Will be removed in 0.6.0
   ///
+  /// Left offset of [InnerDrawer] width; (default 0.4)
   final double leftOffset;
 
-  /// Right offset of [InnerDrawer] width; default 0.4
+  /// DEPRECATED:
+  /// Use `offset` field. Will be removed in 0.6.0
   ///
+  /// Right offset of [InnerDrawer] width; default 0.4
   final double rightOffset;
 
   /// When the [InnerDrawer] is open, it's possible to set the offset of each of the four cardinal directions
   final IDOffset offset;
 
+  /// DEPRECATED:
+  /// Use `scale` field. Will be removed in 0.6.0
+  ///
   /// When the left [InnerDrawer] is open
   /// Values between 1 and 0. (default 1)
-  ///
   final double leftScale;
 
+  /// DEPRECATED:
+  /// Use `scale` field. Will be removed in 0.6.0
+  ///
   /// When the right [InnerDrawer] is open
   /// Values between 1 and 0. (default 1)
-  ///
   final double rightScale;
 
   /// When the [InnerDrawer] is open to the left or to the right
