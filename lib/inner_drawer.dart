@@ -368,6 +368,10 @@ class InnerDrawerState extends State<InnerDrawer>
     else
       _controller.fling(velocity: -1);
   }
+  
+  /// Check status of InnerDrawer
+  bool get opened => _previouslyOpened;
+
 
   final GlobalKey _gestureDetectorKey = GlobalKey();
 
