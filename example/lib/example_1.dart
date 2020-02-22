@@ -59,8 +59,8 @@ class _ExampleOneState extends State<ExampleOne>
       key: _innerDrawerKey,
       onTapClose: _onTapToClose,
       tapScaffoldEnabled: _tapScaffold,
-      leftOffset: _offset,
-      rightOffset: _offset,
+      //leftOffset: _offset,rightOffset: _offset,
+      offset: IDOffset.horizontal(_offset),
       swipe: _swipe,
       boxShadow: _direction == InnerDrawerDirection.start &&
               _animationType == InnerDrawerAnimation.linear

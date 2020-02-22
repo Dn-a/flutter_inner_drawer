@@ -424,7 +424,14 @@ class InnerDrawerState extends State<InnerDrawer>
 
   /// return width with specific offset
   double get _widthWithOffset {
-    return (_width / 2) - (_width / 2) * _offset;
+    //return (_width / 2) - (_width / 2) * _offset;
+    return _width  - _width * _offset;
+  }
+
+  /// return swipe
+  bool get _swipe {
+    if( _offset == 0 ) return false;
+    return widget.swipe;
   }
 
   /// return widget with specific animation
@@ -468,7 +475,7 @@ class InnerDrawerState extends State<InnerDrawer>
     dragAreaWidth = max(dragAreaWidth, _kEdgeDragWidth);
 
     if (_controller.status == AnimationStatus.completed &&
-        widget.swipe &&
+        _swipe &&
         child != null)
       return Align(
         alignment: alignment,
@@ -489,7 +496,7 @@ class InnerDrawerState extends State<InnerDrawer>
         child: GestureDetector(
           // On Android, the back button is used to dismiss a modal.
           excludeFromSemantics: defaultTargetPlatform == TargetPlatform.android,
-          onTap: widget.onTapClose || !widget.swipe ? close : null,
+          onTap: widget.onTapClose || !_swipe ? close : null,
           child: Semantics(
             label: MaterialLocalizations.of(context)?.modalBarrierDismissLabel,
             child: container,
@@ -562,7 +569,8 @@ class InnerDrawerState extends State<InnerDrawer>
     }
 
     /// wFactor depends of offset and is used by the second Align that contains the Scaffold
-    final double offset = 0.5 - _offset * 0.5;
+    //final double offset = 0.5 - _offset * 0.5;
+    final double offset = 1 - _offset * 1;
     final double wFactor = (_controller.value * (1 - offset)) + offset;
 
     return Container(
@@ -576,9 +584,9 @@ class InnerDrawerState extends State<InnerDrawer>
           GestureDetector(
             key: _gestureDetectorKey,
             onTap: () {},
-            onHorizontalDragDown: widget.swipe ? _handleDragDown : null,
-            onHorizontalDragUpdate: widget.swipe ? _move : null,
-            onHorizontalDragEnd: widget.swipe ? _settle : null,
+            onHorizontalDragDown: _swipe ? _handleDragDown : null,
+            onHorizontalDragUpdate: _swipe ? _move : null,
+            onHorizontalDragEnd: _swipe ? _settle : null,
             excludeFromSemantics: true,
             child: RepaintBoundary(
               child: Stack(
