@@ -587,7 +587,7 @@ class _ExampleOneState extends State<ExampleOne>
                                 child: ColorPicker(
                                   pickerColor: pickerColor,
                                   onColorChanged: changeColor,
-                                  enableLabel: true,
+                                  //enableLabel: true,
                                   pickerAreaHeightPercent: 0.8,
                                 ),
                               ),
