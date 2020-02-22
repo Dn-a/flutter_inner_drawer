@@ -424,13 +424,13 @@ class InnerDrawerState extends State<InnerDrawer>
 
   /// return width with specific offset
   double get _widthWithOffset {
-    //return (_width / 2) - (_width / 2) * _offset;
-    return _width  - _width * _offset;
+    return (_width / 2) - (_width / 2) * _offset;
+    //return _width  - _width * _offset;
   }
 
   /// return swipe
   bool get _swipe {
-    if( _offset == 0 ) return false;
+    //if( _offset == 0 ) return false;
     return widget.swipe;
   }
 
@@ -569,8 +569,8 @@ class InnerDrawerState extends State<InnerDrawer>
     }
 
     /// wFactor depends of offset and is used by the second Align that contains the Scaffold
-    //final double offset = 0.5 - _offset * 0.5;
-    final double offset = 1 - _offset * 1;
+    final double offset = 0.5 - _offset * 0.5;
+    //final double offset = 1 - _offset * 1;
     final double wFactor = (_controller.value * (1 - offset)) + offset;
 
     return Container(
