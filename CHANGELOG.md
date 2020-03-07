@@ -1,3 +1,7 @@
+## [0.5.5] - 2020-03-07.
+
+* Update Documentation.
+
 ## [0.5.4] - 2019-12-07.
 
 * Update Readme.

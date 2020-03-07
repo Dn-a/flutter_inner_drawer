@@ -1,5 +1,5 @@
 # flutter_inner_drawer
-[![pub package](https://img.shields.io/badge/pub-0.5.4-orange.svg)](https://pub.dartlang.org/packages/flutter_inner_drawer)
+[![pub package](https://img.shields.io/badge/pub-0.5.5-orange.svg)](https://pub.dartlang.org/packages/flutter_inner_drawer)
 [![Awesome Flutter](https://img.shields.io/badge/Awesome-Flutter-blue.svg?longCache=true&style=flat-square)](https://github.com/Solido/awesome-flutter#drawers)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/dnag88)
 
@@ -10,7 +10,7 @@ Inner Drawer is an easy way to create an internal side section (left/right) wher
 Add this to your package's pubspec.yaml file:
 ```dart
 dependencies:
-  flutter_inner_drawer: "^0.5.4"
+  flutter_inner_drawer: "^0.5.5"
 ```
 ## Demo
 <div align="center">
@@ -46,7 +46,12 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
             rightOffset: 0.6,// Will be removed in 0.6.0 version
             
             //When setting the vertical offset, be sure to use only top or bottom
-            offset: IDOffset.only( top: 0.5 OR bottom: 0.5, right: 0.5, left: 0.5 ),
+            offset: IDOffset.only( 
+              top: 0.5, 
+              //OR 
+              bottom: 0.5, 
+              right: 0.5, left: 0.5 
+            ),
             
             // DEPRECATED:  use scale
             leftScale: 0.9,// Will be removed in 0.6.0 version
@@ -79,7 +84,7 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
                     automaticallyImplyLeading: false
                 ),
             ) 
-            OR
+            //OR
             CupertinoPageScaffold(                
                 navigationBar: CupertinoNavigationBar(
                     automaticallyImplyLeading: false
