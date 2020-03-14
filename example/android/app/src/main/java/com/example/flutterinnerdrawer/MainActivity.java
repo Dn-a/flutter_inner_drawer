@@ -1,4 +1,4 @@
-package com.example.example;
+package com.example.flutterinnerdrawer;
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity;
