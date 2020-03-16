@@ -11,7 +11,7 @@ import 'package:flutter/widgets.dart';
 
 /// Signature for the callback that's called when a [InnerDrawer] is
 /// opened or closed.
-typedef InnerDrawerCallback = void Function(bool isOpened);
+typedef InnerDrawerCallback = void Function(bool isOpened, InnerDrawerDirection direction);
 
 /// Signature for when a pointer that is in contact with the screen and moves to the right or left
 /// values between 1 and 0
@@ -228,7 +228,7 @@ class InnerDrawerState extends State<InnerDrawer>
         if (_previouslyOpened != opened) {
           _previouslyOpened = opened;
           if (widget.innerDrawerCallback != null)
-            widget.innerDrawerCallback(opened);
+            widget.innerDrawerCallback(opened, _position);
         }
         _ensureHistoryEntry();
         break;
@@ -236,7 +236,7 @@ class InnerDrawerState extends State<InnerDrawer>
         if (_previouslyOpened != opened) {
           _previouslyOpened = opened;
           if (widget.innerDrawerCallback != null)
-            widget.innerDrawerCallback(opened);
+            widget.innerDrawerCallback(opened, _position);
         }
         _historyEntry?.remove();
         _historyEntry = null;
@@ -319,7 +319,7 @@ class InnerDrawerState extends State<InnerDrawer>
 
     final bool opened = _controller.value < 0.5 ? true : false;
     if (opened != _previouslyOpened && widget.innerDrawerCallback != null)
-      widget.innerDrawerCallback(opened);
+      widget.innerDrawerCallback(opened, _position);
     _previouslyOpened = opened;
   }
 
