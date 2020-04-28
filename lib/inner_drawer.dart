@@ -163,8 +163,6 @@ class InnerDrawerState extends State<InnerDrawer>
 
   @override
   void initState() {
-    _updateWidth();
-
     _position = widget.leftChild != null
         ? InnerDrawerDirection.start
         : InnerDrawerDirection.end;
@@ -255,16 +253,17 @@ class InnerDrawerState extends State<InnerDrawer>
     //_ensureHistoryEntry();
   }
 
-  final GlobalKey _drawerKey = GlobalKey();
+  //final GlobalKey _drawerKey = GlobalKey();
 
   double get _width {
     return _initWidth;
   }
 
   /// get width of screen after initState
-  void _updateWidth() {
+  void _updateWidth(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final RenderBox box = _drawerKey.currentContext?.findRenderObject();
+      //final RenderBox box = _drawerKey.currentContext.findRenderObject();
+      final RenderBox box = context.findRenderObject();
       if (box != null && box.size != null)
         setState(() {
           _initWidth = box.size.width;
@@ -437,7 +436,6 @@ class InnerDrawerState extends State<InnerDrawer>
   /// return widget with specific animation
   Widget _animatedChild() {
     final Widget container = Container(
-      //width: _width - width,
       width: widget.proportionalChildArea ? _width - _widthWithOffset : _width,
       height: MediaQuery.of(context).size.height,
       child: _position == InnerDrawerDirection.start
@@ -511,7 +509,6 @@ class InnerDrawerState extends State<InnerDrawer>
     assert(widget.borderRadius >= 0);
 
     Widget container = Container(
-        key: _drawerKey,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(
                 widget.borderRadius * (1 - _controller.value)),
@@ -564,7 +561,7 @@ class InnerDrawerState extends State<InnerDrawer>
     /// initialize the correct width
     if (_initWidth == 400 ||
         MediaQuery.of(context).orientation != _orientation) {
-      _updateWidth();
+      _updateWidth(context);
       _orientation = MediaQuery.of(context).orientation;
     }
 
@@ -578,9 +575,7 @@ class InnerDrawerState extends State<InnerDrawer>
       child: Stack(
         alignment: _drawerInnerAlignment,
         children: <Widget>[
-          RepaintBoundary(
-            child: _animatedChild(),
-          ),
+          _animatedChild(),
           GestureDetector(
             key: _gestureDetectorKey,
             onTap: () {},
@@ -604,10 +599,7 @@ class InnerDrawerState extends State<InnerDrawer>
                     child: Align(
                         alignment: _drawerInnerAlignment,
                         widthFactor: wFactor,
-                        child: RepaintBoundary(
-                          child: FocusScope(
-                              node: _focusScopeNode, child: _scaffold()),
-                        )),
+                        child: RepaintBoundary(child: _scaffold())),
                   ),
 
                   ///Trigger

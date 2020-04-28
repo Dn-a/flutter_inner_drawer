@@ -1,3 +1,7 @@
+## [0.5.5+1] - 2020-04-28.
+
+* Fixed issues : #30 and #33.
+
 ## [0.5.5] - 2020-03-07.
 
 * Update Documentation.
@@ -32,7 +36,7 @@
 *
 * Added `proportionalChildArea`. if == true dynamically sets the width based on the selected offset, otherwise it leaves the width at 100% of the screen.
 * Possibility to set `boxShadow` also for linear animation.
-* When `borderSide` > 0, `boxShadow` did not work, fixed.
+* When `borderSide` > 0, `boxShadow` did not work.
 * Cleaning code.
 * Update Readme.
 

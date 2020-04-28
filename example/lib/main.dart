@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 import 'example_1.dart';
 import 'example_2.dart';
+import 'example_3.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,10 +22,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-enum Example {
-  one,
-  two,
-}
+enum Example { one, two, three }
 
 class MainApp extends StatefulWidget {
   MainApp({Key key}) : super(key: key);
@@ -105,7 +103,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
               Transform(
                 transform: Matrix4.translationValues(
                   0.0,
-                  _translateButton.value * 2,
+                  _translateButton.value * 3,
                   0.0,
                 ),
                 child: _item(title: "One", example: Example.one),
@@ -113,10 +111,18 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
               Transform(
                 transform: Matrix4.translationValues(
                   0.0,
-                  _translateButton.value * 1,
+                  _translateButton.value * 2,
                   0.0,
                 ),
                 child: _item(title: "Two", example: Example.two),
+              ),
+              Transform(
+                transform: Matrix4.translationValues(
+                  0.0,
+                  _translateButton.value * 1,
+                  0.0,
+                ),
+                child: _item(title: "Three", example: Example.three),
               ),
               _toggle(),
             ],
@@ -134,12 +140,27 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
       case Example.two:
         return ExampleTwo();
         break;
+      case Example.three:
+        return ExampleThree();
+        break;
     }
   }
 
   Widget _item({String title, Example example}) {
     //print(((_translateButton.value-66)/60).abs());
     double val = ((_translateButton.value - 56) / 60).abs();
+    Color color;
+    switch (example) {
+      case Example.one:
+        color = Colors.green[300];
+        break;
+      case Example.two:
+        color = Colors.orange[300];
+        break;
+      default:
+        color = Colors.blue[300];
+    }
+
     return Opacity(
       opacity: val > 0 ? 1 : 0,
       child: FloatingActionButton(
@@ -150,14 +171,11 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
           _animate();
         },
         tooltip: 'Apri',
-        child: Text(
-          title,
-          style: TextStyle(
+        child: Text(title,
+            style: TextStyle(
               fontSize: 11,
-              color: example == Example.one
-                  ? Colors.green[300]
-                  : Colors.orange[300]),
-        ),
+              color: color,
+            )),
       ),
     );
   }
