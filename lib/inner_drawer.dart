@@ -575,7 +575,7 @@ class InnerDrawerState extends State<InnerDrawer>
       child: Stack(
         alignment: _drawerInnerAlignment,
         children: <Widget>[
-          _animatedChild(),
+          FocusScope(node: _focusScopeNode, child: _animatedChild()),
           GestureDetector(
             key: _gestureDetectorKey,
             onTap: () {},

@@ -120,12 +120,12 @@ class _ExampleThreeState extends State<ExampleThree> {
           ),
         ),
       ),
-      onDragUpdate: (a, b) {
+      innerDrawerCallback: (a) {
         print(a);
-        if (a == 1) {
+        if (a) {
           myFocusNode2.requestFocus();
-        } else if (a < 0.1) {
-          myFocusNode.requestFocus();
+        } else {
+          //myFocusNode.requestFocus();
         }
       },
     );

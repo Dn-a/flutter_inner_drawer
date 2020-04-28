@@ -1,3 +1,7 @@
+## [0.5.5+2] - 2020-04-28.
+
+* general improvements.
+
 ## [0.5.5+1] - 2020-04-28.
 
 * Fixed issues : #30 and #33.
