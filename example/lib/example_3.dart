@@ -125,7 +125,7 @@ class _ExampleThreeState extends State<ExampleThree> {
         if (a) {
           myFocusNode2.requestFocus();
         } else {
-          //myFocusNode.requestFocus();
+          myFocusNode.requestFocus();
         }
       },
     );

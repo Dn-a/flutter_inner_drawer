@@ -1,3 +1,8 @@
+## [0.5.5+3] - 2020-04-29.
+
+* Rollback issue #33.
+* Fixed some problems.
+
 ## [0.5.5+2] - 2020-04-28.
 
 * general improvements.

@@ -180,6 +180,7 @@ class InnerDrawerState extends State<InnerDrawer>
   void dispose() {
     _historyEntry?.remove();
     _controller.dispose();
+    _focusScopeNode.dispose();
     super.dispose();
   }
 
@@ -253,18 +254,18 @@ class InnerDrawerState extends State<InnerDrawer>
     //_ensureHistoryEntry();
   }
 
-  //final GlobalKey _drawerKey = GlobalKey();
+  final GlobalKey _drawerKey = GlobalKey();
 
   double get _width {
     return _initWidth;
   }
 
   /// get width of screen after initState
-  void _updateWidth(BuildContext context) {
+  void _updateWidth() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      //final RenderBox box = _drawerKey.currentContext.findRenderObject();
-      final RenderBox box = context.findRenderObject();
-      if (box != null && box.size != null)
+      final RenderBox box = _drawerKey.currentContext.findRenderObject();
+      //final RenderBox box = context.findRenderObject();
+      if (box != null && box.size != null && box.size.width > 300)
         setState(() {
           _initWidth = box.size.width;
         });
@@ -509,6 +510,7 @@ class InnerDrawerState extends State<InnerDrawer>
     assert(widget.borderRadius >= 0);
 
     Widget container = Container(
+        key: _drawerKey,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(
                 widget.borderRadius * (1 - _controller.value)),
@@ -561,7 +563,7 @@ class InnerDrawerState extends State<InnerDrawer>
     /// initialize the correct width
     if (_initWidth == 400 ||
         MediaQuery.of(context).orientation != _orientation) {
-      _updateWidth(context);
+      _updateWidth();
       _orientation = MediaQuery.of(context).orientation;
     }
 
