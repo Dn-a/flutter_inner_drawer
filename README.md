@@ -107,8 +107,6 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
        );
     }
     
-    
-
 ```
 
 ### InnerDrawer Parameters
