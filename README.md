@@ -1,5 +1,5 @@
 # flutter_inner_drawer
-[![pub package](https://img.shields.io/badge/pub-0.5.5+3-orange.svg)](https://pub.dartlang.org/packages/flutter_inner_drawer)
+[![pub package](https://img.shields.io/badge/pub-0.5.6-orange.svg)](https://pub.dartlang.org/packages/flutter_inner_drawer)
 [![Awesome Flutter](https://img.shields.io/badge/Awesome-Flutter-blue.svg?longCache=true&style=flat-square)](https://github.com/Solido/awesome-flutter#drawers)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/dnag88)
 
@@ -10,7 +10,7 @@ Inner Drawer is an easy way to create an internal side section (left/right) wher
 Add this to your package's pubspec.yaml file:
 ```dart
 dependencies:
-  flutter_inner_drawer: "^0.5.5+3"
+  flutter_inner_drawer: "^0.5.6"
 ```
 ## Demo
 <div align="center">
@@ -39,7 +39,8 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
             key: _innerDrawerKey,
             onTapClose: true, // default false
             swipe: true, // default true            
-            colorTransition: Color.red, // default Color.black54
+            colorTransitionChild: Color.red, // default Color.black54
+            colorTransitionScaffold: Color.black54, // default Color.black54
             
             // DEPRECATED: use offset
             leftOffset: 0.6, // Will be removed in 0.6.0 version
@@ -140,7 +141,7 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
 |`_innerDrawerKey.currentState.toggle`|*Current State of GlobalKey<InnerDrawerState>(check example) - OPEN or CLOSE*||
 
 ## Donate
-If you found this project helpful or you learned something from the source code and want to thank me: 
+It takes time to carry on this project. If you found it useful or learned something from the source code please consider the idea of donating 5, 20, 50 € or whatever you can to support the project. 
 - [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/dnag88)
 
 ## Issues

@@ -78,7 +78,7 @@ class _ExampleTwoState extends State<ExampleTwo> {
       swipe: _swipe,
       proportionalChildArea: _proportionalChildArea,
       //backgroundColor: Colors.red,
-      colorTransition: currentColor,
+      colorTransitionChild: currentColor,
       leftAnimationType: _animationType,
       rightAnimationType: _animationType,
       leftChild: Material(

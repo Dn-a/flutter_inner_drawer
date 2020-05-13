@@ -60,13 +60,15 @@ class _ExampleOneState extends State<ExampleOne>
       onTapClose: _onTapToClose,
       tapScaffoldEnabled: _tapScaffold,
       //leftOffset: _offset,rightOffset: _offset,
+      velocity: 20,
       offset: IDOffset.horizontal(_offset),
       swipe: _swipe,
       boxShadow: _direction == InnerDrawerDirection.start &&
               _animationType == InnerDrawerAnimation.linear
           ? []
           : null,
-      colorTransition: currentColor,
+      colorTransitionChild: currentColor,
+      colorTransitionScaffold: currentColor,
       leftAnimationType: _animationType,
       rightAnimationType: InnerDrawerAnimation.linear,
 

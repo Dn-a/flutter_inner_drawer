@@ -55,8 +55,10 @@ class InnerDrawer extends StatefulWidget {
       this.tapScaffoldEnabled = false,
       this.swipe = true,
       this.duration,
+      this.velocity = 1,
       this.boxShadow,
-      this.colorTransition,
+      this.colorTransitionChild,
+      this.colorTransitionScaffold,
       this.leftAnimationType = InnerDrawerAnimation.static,
       this.rightAnimationType = InnerDrawerAnimation.static,
       this.backgroundColor,
@@ -127,11 +129,17 @@ class InnerDrawer extends StatefulWidget {
   /// duration animation controller
   final Duration duration;
 
+  /// possibility to set the opening and closing velocity
+  final double velocity;
+
   /// BoxShadow of scaffold open
   final List<BoxShadow> boxShadow;
 
-  ///Color of gradient
-  final Color colorTransition;
+  ///Color of gradient background
+  final Color colorTransitionChild;
+
+  ///Color of gradient background
+  final Color colorTransitionScaffold;
 
   /// Static or Linear or Quadratic
   final InnerDrawerAnimation leftAnimationType;
@@ -154,8 +162,10 @@ class InnerDrawer extends StatefulWidget {
 
 class InnerDrawerState extends State<InnerDrawer>
     with SingleTickerProviderStateMixin {
-  ColorTween _color =
+  ColorTween _colorTransitionChild =
       ColorTween(begin: Colors.transparent, end: Colors.black54);
+  ColorTween _colorTransitionScaffold =
+      ColorTween(begin: Colors.black54, end: Colors.transparent);
 
   double _initWidth = _kWidth;
   Orientation _orientation = Orientation.portrait;
@@ -189,12 +199,15 @@ class InnerDrawerState extends State<InnerDrawer>
       // The animation controller's state is our build state, and it changed already.
     });
 
-    if (widget.colorTransition != null)
-      _color = ColorTween(
-          begin: widget.colorTransition.withOpacity(0.0),
-          end: widget.colorTransition);
-    else
-      _color = ColorTween(begin: Colors.transparent, end: Colors.black54);
+    if (widget.colorTransitionChild != null)
+      _colorTransitionChild = ColorTween(
+          begin: widget.colorTransitionChild.withOpacity(0.0),
+          end: widget.colorTransitionChild);
+
+    if (widget.colorTransitionScaffold != null)
+      _colorTransitionScaffold = ColorTween(
+          begin: widget.colorTransitionScaffold,
+          end: widget.colorTransitionScaffold.withOpacity(0.0));
 
     if (widget.onDragUpdate != null && _controller.value < 1) {
       widget.onDragUpdate((1 - _controller.value), _position);
@@ -258,6 +271,10 @@ class InnerDrawerState extends State<InnerDrawer>
 
   double get _width {
     return _initWidth;
+  }
+
+  double get _velocity {
+    return widget.velocity;
   }
 
   /// get width of screen after initState
@@ -326,7 +343,8 @@ class InnerDrawerState extends State<InnerDrawer>
   void _settle(DragEndDetails details) {
     if (_controller.isDismissed) return;
     if (details.velocity.pixelsPerSecond.dx.abs() >= _kMinFlingVelocity) {
-      double visualVelocity = details.velocity.pixelsPerSecond.dx / _width;
+      double visualVelocity =
+          (details.velocity.pixelsPerSecond.dx + _velocity) / _width;
 
       switch (_position) {
         case InnerDrawerDirection.end:
@@ -352,21 +370,20 @@ class InnerDrawerState extends State<InnerDrawer>
 
   void open({InnerDrawerDirection direction}) {
     if (direction != null) _position = direction;
-    _controller.fling(velocity: -1);
+    _controller.fling(velocity: -_velocity);
   }
 
   void close({InnerDrawerDirection direction}) {
     if (direction != null) _position = direction;
-    _controller.fling(velocity: 1);
+    _controller.fling(velocity: _velocity);
   }
 
   /// Open or Close InnerDrawer
   void toggle({InnerDrawerDirection direction}) {
-    if (direction != null) _position = direction;
     if (_previouslyOpened)
-      _controller.fling(velocity: 1);
+      close();
     else
-      _controller.fling(velocity: -1);
+      open();
   }
 
   final GlobalKey _gestureDetectorKey = GlobalKey();
@@ -487,10 +504,9 @@ class InnerDrawerState extends State<InnerDrawer>
   ///Disable the scaffolding tap when the drawer is open
   Widget _invisibleCover() {
     final Container container = Container(
-      color: Colors.transparent,
+      color: _colorTransitionScaffold.evaluate(_controller),
     );
-    if (_controller.status == AnimationStatus.dismissed &&
-        !widget.tapScaffoldEnabled)
+    if (_controller.value != 1.0 && !widget.tapScaffoldEnabled)
       return BlockSemantics(
         child: GestureDetector(
           // On Android, the back button is used to dismiss a modal.
@@ -509,6 +525,14 @@ class InnerDrawerState extends State<InnerDrawer>
   Widget _scaffold() {
     assert(widget.borderRadius >= 0);
 
+    final Widget invC = _invisibleCover();
+    Widget scaffoldChild = widget.scaffold;
+
+    if (invC != null)
+      scaffoldChild = Stack(
+        children: <Widget>[widget.scaffold, invC],
+      );
+
     Widget container = Container(
         key: _drawerKey,
         decoration: BoxDecoration(
@@ -525,15 +549,8 @@ class InnerDrawerState extends State<InnerDrawer>
             ? ClipRRect(
                 borderRadius: BorderRadius.circular(
                     (1 - _controller.value) * widget.borderRadius),
-                child: widget.scaffold,
-              )
-            : widget.scaffold);
-
-    final Widget invC = _invisibleCover();
-    if (invC != null)
-      container = Stack(
-        children: <Widget>[container, invC],
-      );
+                child: scaffoldChild)
+            : scaffoldChild);
 
     if (_scaleFactor < 1)
       container = Transform.scale(
@@ -594,7 +611,7 @@ class InnerDrawerState extends State<InnerDrawer>
                             _animationType == InnerDrawerAnimation.linear
                         ? 0
                         : null,
-                    color: _color.evaluate(_controller),
+                    color: _colorTransitionChild.evaluate(_controller),
                   ),
                   Align(
                     alignment: _drawerOuterAlignment,

@@ -1,3 +1,10 @@
+## [0.5.6] - 2020-05-13.
+
+* Update Documentation.
+* Added `velocity` field. Allows you to set the opening and closing velocity when using the open/close methods.
+* `colorTransition` field renamed to `colorTransitionChild`.
+* Added `colorTransitionScaffold` field.
+
 ## [0.5.5+3] - 2020-04-29.
 
 * Rollback issue #33.
