@@ -109,7 +109,7 @@ class _ExampleOneState extends State<ExampleOne>
                             width: 80,
                             child: ClipRRect(
                               child: Image.network(
-                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrWfWLnxIT5TnuE-JViLzLuro9IID2d7QEc2sRPTRoGWpgJV75",
+                                "https://img.icons8.com/officel/2x/user.png",
                               ),
                               borderRadius: BorderRadius.circular(50),
                             ),

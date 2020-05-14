@@ -1,3 +1,9 @@
+## [0.5.6+1] - 2020-05-14.
+
+* Update Documentation.
+* general improvements.
+* `backgroundColor` field replaced by `backgroundDecoration` (BoxDecoration).
+
 ## [0.5.6] - 2020-05-13.
 
 * Update Documentation.

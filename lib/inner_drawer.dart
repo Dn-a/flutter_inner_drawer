@@ -61,7 +61,7 @@ class InnerDrawer extends StatefulWidget {
       this.colorTransitionScaffold,
       this.leftAnimationType = InnerDrawerAnimation.static,
       this.rightAnimationType = InnerDrawerAnimation.static,
-      this.backgroundColor,
+      this.backgroundDecoration,
       this.innerDrawerCallback,
       this.onDragUpdate})
       : assert(leftChild != null || rightChild != null),
@@ -148,7 +148,7 @@ class InnerDrawer extends StatefulWidget {
   final InnerDrawerAnimation rightAnimationType;
 
   /// Color of the main background
-  final Color backgroundColor;
+  final BoxDecoration backgroundDecoration;
 
   /// Optional callback that is called when a [InnerDrawer] is open or closed.
   final InnerDrawerCallback innerDrawerCallback;
@@ -381,9 +381,9 @@ class InnerDrawerState extends State<InnerDrawer>
   /// Open or Close InnerDrawer
   void toggle({InnerDrawerDirection direction}) {
     if (_previouslyOpened)
-      close();
+      close(direction: direction);
     else
-      open();
+      open(direction: direction);
   }
 
   final GlobalKey _gestureDetectorKey = GlobalKey();
@@ -590,7 +590,9 @@ class InnerDrawerState extends State<InnerDrawer>
     final double wFactor = (_controller.value * (1 - offset)) + offset;
 
     return Container(
-      color: widget.backgroundColor ?? Theme.of(context).backgroundColor,
+      decoration: widget.backgroundDecoration ?? BoxDecoration(
+        color: Theme.of(context).backgroundColor,
+      ),
       child: Stack(
         alignment: _drawerInnerAlignment,
         children: <Widget>[
