@@ -590,9 +590,10 @@ class InnerDrawerState extends State<InnerDrawer>
     final double wFactor = (_controller.value * (1 - offset)) + offset;
 
     return Container(
-      decoration: widget.backgroundDecoration ?? BoxDecoration(
-        color: Theme.of(context).backgroundColor,
-      ),
+      decoration: widget.backgroundDecoration ??
+          BoxDecoration(
+            color: Theme.of(context).backgroundColor,
+          ),
       child: Stack(
         alignment: _drawerInnerAlignment,
         children: <Widget>[
