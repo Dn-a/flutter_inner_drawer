@@ -42,21 +42,8 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
             colorTransitionChild: Color.red, // default Color.black54
             colorTransitionScaffold: Color.black54, // default Color.black54
             
-            // DEPRECATED: use offset
-            leftOffset: 0.6, // Will be removed in 0.6.0 version
-            rightOffset: 0.6,// Will be removed in 0.6.0 version
-            
             //When setting the vertical offset, be sure to use only top or bottom
-            offset: IDOffset.only( 
-              top: 0.5, 
-              //OR 
-              bottom: 0.5, 
-              right: 0.5, left: 0.5 
-            ),
-            
-            // DEPRECATED:  use scale
-            leftScale: 0.9,// Will be removed in 0.6.0 version
-            rightScale: 0.9,// Will be removed in 0.6.0 version
+            offset: IDOffset.only(bottom: 0.05, right: 0.0, left: 0.0),
             
             scale: IDOffset.horizontal( 0.8 ), // set the offset in both directions
             
@@ -85,12 +72,13 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
                     automaticallyImplyLeading: false
                 ),
             ) 
-            //OR
+            /* OR
             CupertinoPageScaffold(                
                 navigationBar: CupertinoNavigationBar(
                     automaticallyImplyLeading: false
                 ),
             ), 
+            */
         )
     }
     
