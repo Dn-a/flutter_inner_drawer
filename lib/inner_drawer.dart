@@ -152,7 +152,7 @@ class InnerDrawer extends StatefulWidget {
   final InnerDrawerAnimation rightAnimationType;
 
   /// Color of the main background
-  final BoxDecoration backgroundDecoration;
+  final Decoration backgroundDecoration;
 
   /// Optional callback that is called when a [InnerDrawer] is open or closed.
   final InnerDrawerCallback innerDrawerCallback;
