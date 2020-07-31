@@ -54,6 +54,7 @@ class InnerDrawer extends StatefulWidget {
       this.onTapClose = false,
       this.tapScaffoldEnabled = false,
       this.swipe = true,
+      this.swipeChild = false,
       this.duration,
       this.velocity = 1,
       this.boxShadow,
@@ -125,6 +126,9 @@ class InnerDrawer extends StatefulWidget {
 
   /// activate or deactivate the swipe. NOTE: when deactivate, onTap Close is implicitly activated
   final bool swipe;
+
+  /// activate or deactivate the swipeChild. NOTE: when deactivate, onTap Close is implicitly activated
+  final bool swipeChild;
 
   /// duration animation controller
   final Duration duration;
@@ -451,14 +455,27 @@ class InnerDrawerState extends State<InnerDrawer>
     return widget.swipe;
   }
 
+  bool get _swipeChild {
+    //if( _offset == 0 ) return false;
+    return widget.swipeChild;
+  }
+
   /// return widget with specific animation
   Widget _animatedChild() {
+    Widget child = _position == InnerDrawerDirection.start
+        ? widget.leftChild
+        : widget.rightChild;
+    if (_swipeChild) {
+      child = GestureDetector(
+        onHorizontalDragUpdate: _move,
+        onHorizontalDragEnd: _settle,
+        child: child,
+      );
+    }
     final Widget container = Container(
       width: widget.proportionalChildArea ? _width - _widthWithOffset : _width,
       height: MediaQuery.of(context).size.height,
-      child: _position == InnerDrawerDirection.start
-          ? widget.leftChild
-          : widget.rightChild,
+      child: child,
     );
 
     switch (_animationType) {
