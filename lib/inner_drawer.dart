@@ -202,7 +202,6 @@ class InnerDrawerState extends State<InnerDrawer>
     setState(() {
       // The animation controller's state is our build state, and it changed already.
     });
-
     if (widget.colorTransitionChild != null)
       _colorTransitionChild = ColorTween(
           begin: widget.colorTransitionChild.withOpacity(0.0),

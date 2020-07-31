@@ -1,3 +1,10 @@
+## [0.5.7] - 2020-07-31.
+
+* [Added] - swipeChild which allows swiping scaffold from left/right child.
+* [Fixed] - issue #45.
+* [Replaced] - `boxDecoration` with `decoration`.
+* [Updated] - Readme.
+
 ## [0.5.6+1] - 2020-05-14.
 
 * Update Documentation.
