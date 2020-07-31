@@ -285,7 +285,10 @@ class InnerDrawerState extends State<InnerDrawer>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final RenderBox box = _drawerKey.currentContext.findRenderObject();
       //final RenderBox box = context.findRenderObject();
-      if (box != null && box.hasSize && box.size != null && box.size.width > 300)
+      if (box != null &&
+          box.hasSize &&
+          box.size != null &&
+          box.size.width > 300)
         setState(() {
           _initWidth = box.size.width;
         });

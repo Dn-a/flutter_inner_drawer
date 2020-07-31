@@ -1,3 +1,7 @@
+## [0.5.7+1] - 2020-07-31.
+
+* [Updated] - Readme.
+
 ## [0.5.7] - 2020-07-31.
 
 * [Added] - swipeChild which allows swiping scaffold from left/right child.
