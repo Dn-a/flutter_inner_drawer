@@ -113,6 +113,7 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
 |`borderRadius`|*For scaffold border*|0|
 |`onTapClose`|*Tap on the Scaffold closes it*|false|
 |`swipe`|*activate or deactivate the swipe*|true|
+|`swipeChild`|*activate or deactivate the swipeChild*|false|
 |`duration`|*Animation Controller duration*|Duration(milliseconds: 246)|
 |`velocity`|*Allows you to set the opening and closing velocity when using the open/close methods*|1|
 |`tapScaffoldEnabled`|*Possibility to tap the scaffold even when open*|false|
