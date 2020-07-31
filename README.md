@@ -122,7 +122,7 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
 `colorTransitionScaffold`|*Change background color while swiping*|Colors.black54|
 |`leftAnimationType`|*static / linear / quadratic*|static|
 |`rightAnimationType`|*static / linear / quadratic*|static|
-|`backgroundDecoration`|*possibility to manage the main background BoxDecoration*|BoxDecoration(color: Theme.of(context).backgroundColor)|
+|`backgroundDecoration`|*possibility to manage the main background Decoration*|BoxDecoration(color: Theme.of(context).backgroundColor)|
 |`innerDrawerCallback`|*Optional callback that is called when a InnerDrawer is opened or closed*||
 |`onDragUpdate`|*When a pointer that is in contact with the screen and moves to the right or left*||
 |`_innerDrawerKey.currentState.open`|*Current State of GlobalKey<InnerDrawerState>(check example) - OPEN*||
