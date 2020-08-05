@@ -43,12 +43,8 @@ class InnerDrawer extends StatefulWidget {
       this.leftChild,
       this.rightChild,
       @required this.scaffold,
-      this.leftOffset = 0.4,
-      this.rightOffset = 0.4,
-      this.leftScale = 1,
-      this.rightScale = 1,
-      this.offset,
-      this.scale,
+      this.offset = const IDOffset.horizontal(0.4),
+      this.scale = const IDOffset.horizontal(1),
       this.proportionalChildArea = true,
       this.borderRadius = 0,
       this.onTapClose = false,
@@ -78,34 +74,8 @@ class InnerDrawer extends StatefulWidget {
   /// A Scaffold is generally used but you are free to use other widgets
   final Widget scaffold;
 
-  /// DEPRECATED:
-  /// Use `offset` field. Will be removed in 0.6.0
-  ///
-  /// Left offset of [InnerDrawer] width; (default 0.4)
-  final double leftOffset;
-
-  /// DEPRECATED:
-  /// Use `offset` field. Will be removed in 0.6.0
-  ///
-  /// Right offset of [InnerDrawer] width; default 0.4
-  final double rightOffset;
-
   /// When the [InnerDrawer] is open, it's possible to set the offset of each of the four cardinal directions
   final IDOffset offset;
-
-  /// DEPRECATED:
-  /// Use `scale` field. Will be removed in 0.6.0
-  ///
-  /// When the left [InnerDrawer] is open
-  /// Values between 1 and 0. (default 1)
-  final double leftScale;
-
-  /// DEPRECATED:
-  /// Use `scale` field. Will be removed in 0.6.0
-  ///
-  /// When the right [InnerDrawer] is open
-  /// Values between 1 and 0. (default 1)
-  final double rightScale;
 
   /// When the [InnerDrawer] is open to the left or to the right
   /// values between 1 and 0. (default 1)
@@ -305,13 +275,9 @@ class InnerDrawerState extends State<InnerDrawer>
     else if (delta < 0 && _controller.value == 1 && widget.rightChild != null)
       _position = InnerDrawerDirection.end;
 
-    //TEMP
-    final double left =
-        widget.offset != null ? widget.offset.left : widget.leftOffset;
-    final double right =
-        widget.offset != null ? widget.offset.right : widget.rightOffset;
-
-    double offset = _position == InnerDrawerDirection.start ? left : right;
+    double offset = _position == InnerDrawerDirection.start
+        ? widget.offset.left
+        : widget.offset.right;
 
     double ee = 1;
     if (offset <= 0.2)
@@ -425,39 +391,34 @@ class InnerDrawerState extends State<InnerDrawer>
 
   /// returns the left or right scale based on InnerDrawerDirection
   double get _scaleFactor {
-    //TEMP
-    final double left =
-        widget.scale != null ? widget.scale.left : widget.leftScale;
-    final double right =
-        widget.scale != null ? widget.scale.right : widget.rightScale;
-
-    return _position == InnerDrawerDirection.start ? left : right;
+    return _position == InnerDrawerDirection.start
+        ? widget.scale.left
+        : widget.scale.right;
   }
 
   /// returns the left or right offset based on InnerDrawerDirection
   double get _offset {
-    //TEMP
-    final double left =
-        widget.offset != null ? widget.offset.left : widget.leftOffset;
-    final double right =
-        widget.offset != null ? widget.offset.right : widget.rightOffset;
-
-    return _position == InnerDrawerDirection.start ? left : right;
+    return _position == InnerDrawerDirection.start
+        ? widget.offset.left
+        : widget.offset.right;
   }
 
   /// return width with specific offset
   double get _widthWithOffset {
     return (_width / 2) - (_width / 2) * _offset;
+    //NEW
     //return _width  - _width * _offset;
   }
 
   /// return swipe
   bool get _swipe {
+    //NEW
     //if( _offset == 0 ) return false;
     return widget.swipe;
   }
 
   bool get _swipeChild {
+    //NEW
     //if( _offset == 0 ) return false;
     return widget.swipeChild;
   }
@@ -545,12 +506,12 @@ class InnerDrawerState extends State<InnerDrawer>
     assert(widget.borderRadius >= 0);
 
     final Widget invC = _invisibleCover();
-    Widget scaffoldChild = widget.scaffold;
 
-    if (invC != null)
-      scaffoldChild = Stack(
-        children: <Widget>[widget.scaffold, invC],
-      );
+    final Widget scaffoldChild = Stack(
+      children: <Widget>[widget.scaffold, invC != null ? invC : null]
+          .where((a) => a != null)
+          .toList(),
+    );
 
     Widget container = Container(
         key: _drawerKey,
@@ -605,6 +566,7 @@ class InnerDrawerState extends State<InnerDrawer>
 
     /// wFactor depends of offset and is used by the second Align that contains the Scaffold
     final double offset = 0.5 - _offset * 0.5;
+    //NEW
     //final double offset = 1 - _offset * 1;
     final double wFactor = (_controller.value * (1 - offset)) + offset;
 

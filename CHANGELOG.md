@@ -1,3 +1,9 @@
+## [0.5.7+2] - 2020-08-05.
+
+* [Clean] - deprecated functions.
+* [Updated] - example 1.
+* [Fixed] - issues #43, #47.
+
 ## [0.5.7+1] - 2020-07-31.
 
 * [Updated] - Readme.

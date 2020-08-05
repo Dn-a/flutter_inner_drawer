@@ -1,12 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 import 'example_1.dart';
 import 'example_2.dart';
 import 'example_3.dart';
+import 'notifier/drawer_notifier.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(ChangeNotifierProvider(
+      create: (context) => DrawerNotifier(),
+      child: MyApp(),
+    ));
 
 class MyApp extends StatelessWidget {
   @override
