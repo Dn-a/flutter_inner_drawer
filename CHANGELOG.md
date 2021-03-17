@@ -1,3 +1,8 @@
+## [0.5.8] - 2021-03-17.
+
+* [Updated] - Flutter 2.0 support.
+* [Updated] - example 1.
+
 ## [0.5.7+2] - 2020-08-05.
 
 * [Clean] - deprecated functions.

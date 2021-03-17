@@ -147,7 +147,7 @@ class InnerDrawerState extends State<InnerDrawer>
 
   @override
   void initState() {
-    _position = widget.leftChild != null
+    _position = _leftChild != null
         ? InnerDrawerDirection.start
         : InnerDrawerDirection.end;
 
@@ -270,9 +270,9 @@ class InnerDrawerState extends State<InnerDrawer>
   void _move(DragUpdateDetails details) {
     double delta = details.primaryDelta / _width;
 
-    if (delta > 0 && _controller.value == 1 && widget.leftChild != null)
+    if (delta > 0 && _controller.value == 1 && _leftChild != null)
       _position = InnerDrawerDirection.start;
-    else if (delta < 0 && _controller.value == 1 && widget.rightChild != null)
+    else if (delta < 0 && _controller.value == 1 && _rightChild != null)
       _position = InnerDrawerDirection.end;
 
     double offset = _position == InnerDrawerDirection.start
@@ -417,88 +417,11 @@ class InnerDrawerState extends State<InnerDrawer>
     return widget.swipe;
   }
 
+  /// return swipeChild
   bool get _swipeChild {
     //NEW
     //if( _offset == 0 ) return false;
     return widget.swipeChild;
-  }
-
-  /// return widget with specific animation
-  Widget _animatedChild() {
-    Widget child = _position == InnerDrawerDirection.start
-        ? widget.leftChild
-        : widget.rightChild;
-    if (_swipeChild) {
-      child = GestureDetector(
-        onHorizontalDragUpdate: _move,
-        onHorizontalDragEnd: _settle,
-        child: child,
-      );
-    }
-    final Widget container = Container(
-      width: widget.proportionalChildArea ? _width - _widthWithOffset : _width,
-      height: MediaQuery.of(context).size.height,
-      child: child,
-    );
-
-    switch (_animationType) {
-      case InnerDrawerAnimation.linear:
-        return Align(
-          alignment: _drawerOuterAlignment,
-          widthFactor: 1 - (_controller.value),
-          child: container,
-        );
-      case InnerDrawerAnimation.quadratic:
-        return Align(
-          alignment: _drawerOuterAlignment,
-          widthFactor: 1 - (_controller.value / 2),
-          child: container,
-        );
-      default:
-        return container;
-    }
-  }
-
-  /// Trigger Area
-  Widget _trigger(AlignmentDirectional alignment, Widget child) {
-    assert(alignment != null);
-    final bool drawerIsStart = _position == InnerDrawerDirection.start;
-    final EdgeInsets padding = MediaQuery.of(context).padding;
-    double dragAreaWidth = drawerIsStart ? padding.left : padding.right;
-
-    if (Directionality.of(context) == TextDirection.rtl)
-      dragAreaWidth = drawerIsStart ? padding.right : padding.left;
-    dragAreaWidth = max(dragAreaWidth, _kEdgeDragWidth);
-
-    if (_controller.status == AnimationStatus.completed &&
-        _swipe &&
-        child != null)
-      return Align(
-        alignment: alignment,
-        child: Container(color: Colors.transparent, width: dragAreaWidth),
-      );
-    else
-      return null;
-  }
-
-  ///Disable the scaffolding tap when the drawer is open
-  Widget _invisibleCover() {
-    final Container container = Container(
-      color: _colorTransitionScaffold.evaluate(_controller),
-    );
-    if (_controller.value != 1.0 && !widget.tapScaffoldEnabled)
-      return BlockSemantics(
-        child: GestureDetector(
-          // On Android, the back button is used to dismiss a modal.
-          excludeFromSemantics: defaultTargetPlatform == TargetPlatform.android,
-          onTap: widget.onTapClose || !_swipe ? close : null,
-          child: Semantics(
-            label: MaterialLocalizations.of(context)?.modalBarrierDismissLabel,
-            child: container,
-          ),
-        ),
-      );
-    return null;
   }
 
   /// Scaffold
@@ -551,6 +474,91 @@ class InnerDrawerState extends State<InnerDrawer>
     }
 
     return container;
+  }
+
+  ///Disable the scaffolding tap when the drawer is open
+  Widget _invisibleCover() {
+    final Container container = Container(
+      color: _colorTransitionScaffold.evaluate(_controller),
+    );
+    if (_controller.value != 1.0 && !widget.tapScaffoldEnabled)
+      return BlockSemantics(
+        child: GestureDetector(
+          // On Android, the back button is used to dismiss a modal.
+          excludeFromSemantics: defaultTargetPlatform == TargetPlatform.android,
+          onTap: widget.onTapClose || !_swipe ? close : null,
+          child: Semantics(
+            label: MaterialLocalizations.of(context)?.modalBarrierDismissLabel,
+            child: container,
+          ),
+        ),
+      );
+    return null;
+  }
+
+  Widget get _leftChild {
+    return widget.leftChild;
+  }
+
+  Widget get _rightChild {
+    return widget.rightChild;
+  }
+
+  /// return widget with specific animation
+  Widget _animatedChild() {
+    Widget child =
+        _position == InnerDrawerDirection.start ? _leftChild : _rightChild;
+    if (_swipeChild) {
+      child = GestureDetector(
+        onHorizontalDragUpdate: _move,
+        onHorizontalDragEnd: _settle,
+        child: child,
+      );
+    }
+    final Widget container = Container(
+      width: widget.proportionalChildArea ? _width - _widthWithOffset : _width,
+      height: MediaQuery.of(context).size.height,
+      child: child,
+    );
+
+    switch (_animationType) {
+      case InnerDrawerAnimation.linear:
+        return Align(
+          alignment: _drawerOuterAlignment,
+          widthFactor: 1 - (_controller.value),
+          child: container,
+        );
+      case InnerDrawerAnimation.quadratic:
+        return Align(
+          alignment: _drawerOuterAlignment,
+          widthFactor: 1 - (_controller.value / 2),
+          child: container,
+        );
+      default:
+        return container;
+    }
+  }
+
+  /// Trigger Area
+  Widget _trigger(AlignmentDirectional alignment, Widget child) {
+    assert(alignment != null);
+    final bool drawerIsStart = _position == InnerDrawerDirection.start;
+    final EdgeInsets padding = MediaQuery.of(context).padding;
+    double dragAreaWidth = drawerIsStart ? padding.left : padding.right;
+
+    if (Directionality.of(context) == TextDirection.rtl)
+      dragAreaWidth = drawerIsStart ? padding.right : padding.left;
+    dragAreaWidth = max(dragAreaWidth, _kEdgeDragWidth);
+
+    if (_controller.status == AnimationStatus.completed &&
+        _swipe &&
+        child != null)
+      return Align(
+        alignment: alignment,
+        child: Container(color: Colors.transparent, width: dragAreaWidth),
+      );
+    else
+      return null;
   }
 
   @override
@@ -606,8 +614,8 @@ class InnerDrawerState extends State<InnerDrawer>
                   ),
 
                   ///Trigger
-                  _trigger(AlignmentDirectional.centerStart, widget.leftChild),
-                  _trigger(AlignmentDirectional.centerEnd, widget.rightChild),
+                  _trigger(AlignmentDirectional.centerStart, _leftChild),
+                  _trigger(AlignmentDirectional.centerEnd, _rightChild),
                 ].where((a) => a != null).toList(),
               ),
             ),

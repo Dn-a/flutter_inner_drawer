@@ -217,7 +217,7 @@ class ScaffoldDrawer extends StatelessWidget {
                     ],
                   ),
                   Padding(padding: EdgeInsets.all(10)),
-                  FlatButton(
+                  TextButton(
                     child: Text(
                       "Set Color Transition",
                       style: TextStyle(
@@ -226,8 +226,9 @@ class ScaffoldDrawer extends StatelessWidget {
                     ),
                     onPressed: () {
                       showDialog(
-                          context: context,
-                          child: AlertDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
                             title: const Text('Pick a color!'),
                             content: SingleChildScrollView(
                               child: ColorPicker(
@@ -239,7 +240,7 @@ class ScaffoldDrawer extends StatelessWidget {
                               ),
                             ),
                             actions: <Widget>[
-                              FlatButton(
+                              TextButton(
                                 child: Text('Set'),
                                 onPressed: () {
                                   drawer.setColorTransition(pickerColor);
@@ -247,11 +248,13 @@ class ScaffoldDrawer extends StatelessWidget {
                                 },
                               ),
                             ],
-                          ));
+                          );
+                        },
+                      );
                     },
                   ),
                   Padding(padding: EdgeInsets.all(25)),
-                  RaisedButton(
+                  ElevatedButton(
                     child: Text("open"),
                     onPressed: () {
                       // direction is optional
