@@ -12,7 +12,6 @@ class LeftChild extends StatelessWidget {
 
     final double swipeOffset =
         context.select((DrawerNotifier value) => value.swipeOffset);
-
     return Material(
         child: Stack(
       children: <Widget>[
