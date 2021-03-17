@@ -1,3 +1,7 @@
+## [1.0.0] - 2021-03-17.
+
+* [Updated] - Migrate to stable null safety.
+
 ## [0.5.8] - 2021-03-17.
 
 * [Updated] - Flutter 2.0 support.
