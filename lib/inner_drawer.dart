@@ -489,7 +489,7 @@ class InnerDrawerState extends State<InnerDrawer>
           excludeFromSemantics: defaultTargetPlatform == TargetPlatform.android,
           onTap: widget.onTapClose || !_swipe ? close : null,
           child: Semantics(
-            label: MaterialLocalizations.of(context)?.modalBarrierDismissLabel,
+            label: MaterialLocalizations.of(context).modalBarrierDismissLabel,
             child: container,
           ),
         ),

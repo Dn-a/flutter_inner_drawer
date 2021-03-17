@@ -1,3 +1,7 @@
+## [1.0.0+1] - 2021-03-17.
+
+* [Fixed] - Improvement null safety support.
+
 ## [1.0.0] - 2021-03-17.
 
 * [Updated] - Migrate to stable null safety.
