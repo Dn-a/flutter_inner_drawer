@@ -358,6 +358,10 @@ class InnerDrawerState extends State<InnerDrawer>
     else
       open(direction: direction);
   }
+  
+  /// Check status of InnerDrawer
+  bool get opened => _previouslyOpened;
+
 
   final GlobalKey _gestureDetectorKey = GlobalKey();
 
