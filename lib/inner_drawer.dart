@@ -5,8 +5,9 @@
 // https://github.com/flutter/flutter/blob/master/packages/flutter/lib/src/material/drawer.dart
 
 import 'dart:math';
-import 'package:flutter/material.dart';
+
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 /// Signature for the callback that's called when a [InnerDrawer] is
@@ -433,8 +434,8 @@ class InnerDrawerState extends State<InnerDrawer>
 
     final Widget scaffoldChild = Stack(
       children: <Widget?>[widget.scaffold, invC != null ? invC : null]
-          .where((a) => a != null)
-          .toList() as List<Widget>,
+          .whereType<Widget>()
+          .toList(),
     );
 
     Widget container = Container(
@@ -617,7 +618,7 @@ class InnerDrawerState extends State<InnerDrawer>
                   ///Trigger
                   _trigger(AlignmentDirectional.centerStart, _leftChild),
                   _trigger(AlignmentDirectional.centerEnd, _rightChild),
-                ].where((a) => a != null).toList() as List<Widget>,
+                ].whereType<Widget>().toList(),
               ),
             ),
           ),
