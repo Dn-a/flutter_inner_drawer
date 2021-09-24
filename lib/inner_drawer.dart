@@ -259,7 +259,7 @@ class InnerDrawerState extends State<InnerDrawer>
       if (box != null &&
           box.hasSize &&
           box.size != null &&
-          box.size.width > 300)
+          box.size.width > 250)
         setState(() {
           _initWidth = box.size.width;
         });
