@@ -280,16 +280,7 @@ class InnerDrawerState extends State<InnerDrawer>
         ? widget.offset.left
         : widget.offset.right;
 
-    double ee = 1;
-    if (offset <= 0.2)
-      ee = 1.7;
-    else if (offset <= 0.4)
-      ee = 1.2;
-    else if (offset <= 0.6) ee = 1.05;
-
-    offset = 1 -
-        (pow(offset / ee, 1 / 2)
-            as double); //(num.parse(pow(offset/2,1/3).toStringAsFixed(1)));
+    offset = exp(-2.05 * offset) as double;
 
     switch (_position) {
       case InnerDrawerDirection.end:
