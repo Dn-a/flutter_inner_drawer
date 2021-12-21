@@ -15,8 +15,7 @@ typedef InnerDrawerCallback = void Function(bool isOpened);
 
 /// Signature for when a pointer that is in contact with the screen and moves to the right or left
 /// values between 1 and 0
-typedef InnerDragUpdateCallback = void Function(
-    double value, InnerDrawerDirection? direction);
+typedef InnerDragUpdateCallback = void Function(double value, InnerDrawerDirection? direction);
 
 /// The possible position of a [InnerDrawer].
 enum InnerDrawerDirection {
@@ -134,12 +133,9 @@ class InnerDrawer extends StatefulWidget {
   InnerDrawerState createState() => InnerDrawerState();
 }
 
-class InnerDrawerState extends State<InnerDrawer>
-    with SingleTickerProviderStateMixin {
-  ColorTween _colorTransitionChild =
-      ColorTween(begin: Colors.transparent, end: Colors.black54);
-  ColorTween _colorTransitionScaffold =
-      ColorTween(begin: Colors.black54, end: Colors.transparent);
+class InnerDrawerState extends State<InnerDrawer> with SingleTickerProviderStateMixin {
+  ColorTween _colorTransitionChild = ColorTween(begin: Colors.transparent, end: Colors.black54);
+  ColorTween _colorTransitionScaffold = ColorTween(begin: Colors.black54, end: Colors.transparent);
 
   double _initWidth = _kWidth;
   Orientation _orientation = Orientation.portrait;
@@ -172,15 +168,13 @@ class InnerDrawerState extends State<InnerDrawer>
     setState(() {
       // The animation controller's state is our build state, and it changed already.
     });
-    if (widget.colorTransitionChild != null)
-      _colorTransitionChild = ColorTween(
-          begin: widget.colorTransitionChild!.withOpacity(0.0),
-          end: widget.colorTransitionChild);
+    if (widget.colorTransitionChild != null) {
+      _colorTransitionChild = ColorTween(begin: widget.colorTransitionChild!.withOpacity(0.0), end: widget.colorTransitionChild);
+    }
 
-    if (widget.colorTransitionScaffold != null)
-      _colorTransitionScaffold = ColorTween(
-          begin: widget.colorTransitionScaffold,
-          end: widget.colorTransitionScaffold!.withOpacity(0.0));
+    if (widget.colorTransitionScaffold != null) {
+      _colorTransitionScaffold = ColorTween(begin: widget.colorTransitionScaffold, end: widget.colorTransitionScaffold!.withOpacity(0.0));
+    }
 
     if (widget.onDragUpdate != null && _controller.value < 1) {
       widget.onDragUpdate!((1 - _controller.value), _position);
@@ -212,16 +206,18 @@ class InnerDrawerState extends State<InnerDrawer>
       case AnimationStatus.dismissed:
         if (_previouslyOpened != opened) {
           _previouslyOpened = opened;
-          if (widget.innerDrawerCallback != null)
+          if (widget.innerDrawerCallback != null) {
             widget.innerDrawerCallback!(opened);
+          }
         }
         _ensureHistoryEntry();
         break;
       case AnimationStatus.completed:
         if (_previouslyOpened != opened) {
           _previouslyOpened = opened;
-          if (widget.innerDrawerCallback != null)
+          if (widget.innerDrawerCallback != null) {
             widget.innerDrawerCallback!(opened);
+          }
         }
         _historyEntry?.remove();
         _historyEntry = null;
@@ -253,8 +249,7 @@ class InnerDrawerState extends State<InnerDrawer>
   /// get width of screen after initState
   void _updateWidth() {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-      final RenderBox? box =
-          _drawerKey.currentContext!.findRenderObject() as RenderBox?;
+      final RenderBox? box = _drawerKey.currentContext!.findRenderObject() as RenderBox?;
       //final RenderBox box = context.findRenderObject();
       if (box != null &&
           box.hasSize &&
@@ -271,10 +266,11 @@ class InnerDrawerState extends State<InnerDrawer>
   void _move(DragUpdateDetails details) {
     double delta = details.primaryDelta! / _width;
 
-    if (delta > 0 && _controller.value == 1 && _leftChild != null)
+    if (delta > 0 && _controller.value == 1 && _leftChild != null) {
       _position = InnerDrawerDirection.start;
-    else if (delta < 0 && _controller.value == 1 && _rightChild != null)
+    } else if (delta < 0 && _controller.value == 1 && _rightChild != null) {
       _position = InnerDrawerDirection.end;
+    }
 
     double offset = _position == InnerDrawerDirection.start
         ? widget.offset.left
@@ -431,11 +427,7 @@ class InnerDrawerState extends State<InnerDrawer>
 
     final Widget? invC = _invisibleCover();
 
-    final Widget scaffoldChild = Stack(
-      children: <Widget?>[widget.scaffold, invC != null ? invC : null]
-          .where((a) => a != null)
-          .toList() as List<Widget>,
-    );
+    final Widget scaffoldChild = Stack(children: [widget.scaffold, invC ?? Container()].where((Widget a) => a.runtimeType.toString().toLowerCase() != 'container').toList());
 
     Widget container = Container(
         key: _drawerKey,
@@ -580,10 +572,7 @@ class InnerDrawerState extends State<InnerDrawer>
     final double wFactor = (_controller.value * (1 - offset)) + offset;
 
     return Container(
-      decoration: widget.backgroundDecoration ??
-          BoxDecoration(
-            color: Theme.of(context).backgroundColor,
-          ),
+      decoration: widget.backgroundDecoration ?? BoxDecoration(color: Theme.of(context).backgroundColor),
       child: Stack(
         alignment: _drawerInnerAlignment!,
         children: <Widget>[
@@ -597,13 +586,10 @@ class InnerDrawerState extends State<InnerDrawer>
             excludeFromSemantics: true,
             child: RepaintBoundary(
               child: Stack(
-                children: <Widget?>[
+                children: [
                   ///Gradient
                   Container(
-                    width: _controller.value == 0 ||
-                            _animationType == InnerDrawerAnimation.linear
-                        ? 0
-                        : null,
+                    width: _controller.value == 0 ||  _animationType == InnerDrawerAnimation.linear ? 0 : null,
                     color: _colorTransitionChild.evaluate(_controller),
                   ),
                   Align(
@@ -613,11 +599,10 @@ class InnerDrawerState extends State<InnerDrawer>
                         widthFactor: wFactor,
                         child: RepaintBoundary(child: _scaffold())),
                   ),
-
                   ///Trigger
-                  _trigger(AlignmentDirectional.centerStart, _leftChild),
-                  _trigger(AlignmentDirectional.centerEnd, _rightChild),
-                ].where((a) => a != null).toList() as List<Widget>,
+                  _trigger(AlignmentDirectional.centerStart, _leftChild) ?? Container(),
+                  _trigger(AlignmentDirectional.centerEnd, _rightChild) ?? Container(),
+                ].where((a) => a.runtimeType.toString().toLowerCase() != 'container').toList(),
               ),
             ),
           ),
